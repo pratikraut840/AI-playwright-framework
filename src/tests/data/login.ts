@@ -2,15 +2,24 @@
  * UI test data for Login module.
  * Credentials should come from env (getEnv) at runtime; these are defaults/labels only.
  */
-export const loginTestData = {
-  /** Expected dashboard page path after successful login */
+export const LOGIN_TEST_DATA = {
   dashboardPath: '/web/index.php/dashboard/index',
-  /** Dashboard page title fragment */
   dashboardTitleFragment: 'Dashboard',
-  /** Login page path */
   loginPath: '/web/index.php/auth/login',
-  /** Labels for assertions */
   labels: {
     dashboardHeader: 'Dashboard',
   },
+  invalidCredentials: {
+    username: 'invalidUser_test',
+    password: 'wrongPassword_test',
+  },
+  errorMessages: {
+    invalidCredentials: 'Invalid credentials',
+    requiredField: 'Required',
+  },
+  /**
+   * MCP-validated: OrangeHRM uses case-insensitive username matching.
+   * Any casing variant of "Admin" resolves to a valid account.
+   */
+  mixedCaseUsername: 'aDmIn',
 } as const;

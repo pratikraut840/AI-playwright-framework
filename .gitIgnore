@@ -5,3 +5,9 @@
 node_modules
 **/*.test.ts
 /.vscode
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

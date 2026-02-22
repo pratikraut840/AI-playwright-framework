@@ -1,5 +1,5 @@
-import type { Page } from '@playwright/test';
-import { dashboardSelectors } from '../constants/selectors/login.selectors';
+import type { Locator, Page } from '@playwright/test';
+import { DASHBOARD_SELECTORS } from '../constants/selectors/login.selectors';
 
 /**
  * Page Object for OrangeHRM Dashboard (post-login).
@@ -8,11 +8,11 @@ import { dashboardSelectors } from '../constants/selectors/login.selectors';
 export class DashboardPage {
   constructor(private readonly page: Page) {}
 
-  async getHeaderLocator() {
-    return this.page.locator(dashboardSelectors.header).first();
+  async getHeaderLocator(): Promise<Locator> {
+    return this.page.locator(DASHBOARD_SELECTORS.header).first();
   }
 
-  async getDashboardHeadingLocator() {
-    return this.page.locator(dashboardSelectors.dashboardHeading).first();
+  async getDashboardHeadingLocator(): Promise<Locator> {
+    return this.page.locator(DASHBOARD_SELECTORS.dashboardHeading).first();
   }
 }

@@ -50,7 +50,7 @@ From the scenario, decide the **module** (e.g. `login`, `pim`, `admin`). Use low
 | What to create | Where it goes | Naming / rules |
 |----------------|---------------|----------------|
 | **Feature (Gherkin)** | `src/tests/features/<module>.feature` | One Feature per module; scenarios use Given/When/Then; tag with `@<module>` or `@smoke` or `@regression`etc. |
-| **Step definitions** | `src/steps/<module>.steps.ts` (or add to existing) | Bind to Gherkin steps; call Page Objects and assertions; use `this` (World) for shared context if needed. |
+| **Step definitions** | `src/stepDefinitions/<module>.steps.ts` (or add to existing) | Bind to Gherkin steps; call Page Objects and assertions; use `this` (World) for shared context if needed. |
 | **Page Object(s)** | `src/pages/` | One or more POM classes; e.g. `LoginPage.ts`, `PimListPage.ts`. Encapsulate selectors and UI actions only. |
 | **UI test data** | `src/tests/data/<module>.ts` | Export constants/objects for inputs, labels, expected text (e.g. credentials, form data). |
 | **API test data** | `src/tests/data/apiData/<module>.ts` | Payloads and endpoint-related data for API tests. |
@@ -79,7 +79,7 @@ From the scenario, decide the **module** (e.g. `login`, `pim`, `admin`). Use low
 - Put **API payload/endpoint data** in `src/tests/data/apiData/<module>.ts`.
 - Use **API helpers** from `src/utils/api/apiMethods.ts` (GET/POST/PUT) in step definitions.
 - Optionally add **types** in `src/types/<module>.types.ts` for request/response.
-- Step definitions can live in the same `src/steps/<module>.steps.ts` or a dedicated `src/steps/api.<module>.steps.ts` as per your convention.
+- Step definitions can live in the same `src/stepDefinitions/<module>.steps.ts` or a dedicated `src/stepDefinitions/api.<module>.steps.ts` as per your convention.
 
 ### Step 5 — If the scenario is UI + API (e.g. login via API then UI check)
 
@@ -100,7 +100,7 @@ Requirements:
 - Module name: [e.g. admin]
 - Create/update: feature file, step definitions, page object(s), test data (UI + API if needed), types, and assertion helpers.
 - Use getEnv() for base URL and environment-specific values.
-- Follow the paths and naming in TEST-GENERATOR-PROMPT.md (features in src/tests/features/, steps in src/steps/, pages in src/pages/, data in src/tests/data/ and src/tests/data/apiData/, types in src/types/, assertions in src/utils/assertions/).
+- Follow the paths and naming in TEST-GENERATOR-PROMPT.md (features in src/tests/features/, steps in src/stepDefinitions/, pages in src/pages/, data in src/tests/data/ and src/tests/data/apiData/, types in src/types/, assertions in src/utils/assertions/).
 - Write Gherkin in business language; keep selectors and implementation inside step defs and POMs.
 ```
 

@@ -17,8 +17,6 @@ OrangeHRM-project/
 │   │   │
 │   │   ├── env/
 │   │   │   ├── .env
-│   │   │   ├── .env.qa
-│   │   │   ├── .env.stage
 │   │   │   ├── env.ts                  # Environment configs (URL, credentials, API endpoints)
 │   │   │   └── getEnv.ts               # getEnv() utility function
 │   │   │
@@ -35,7 +33,7 @@ OrangeHRM-project/
 │   │
 │   ├── pages/                          # All POM pages
 │   │
-│   ├── steps/                          # Step definitions (Gherkin bindings)
+│   ├── stepDefinitions/             # Step definitions (Gherkin bindings)
 │   │
 │   ├── tests/
 │   │   ├── data/
@@ -187,8 +185,6 @@ Azure Integration → Sync automation results to manual test cases
 <!-- Environment Configuration -->
 helpers/env/
    ├── .env
-   ├── .env.qa
-   ├── .env.stage
    ├── env.ts
    └── getEnv.ts
 

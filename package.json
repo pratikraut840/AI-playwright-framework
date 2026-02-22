@@ -1,15 +1,39 @@
 {
   "name": "ai-framework-playwright",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "description": "Playwright + Cucumber BDD automation framework for OrangeHRM (UI + API)",
+  "author": "pratik-raut",
   "license": "ISC",
   "type": "commonjs",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:qa": "cross-env NODE_ENV=qa cucumber-js",
+    "test:stage": "cross-env NODE_ENV=stage cucumber-js",
+    "test:smoke": "cucumber-js --tags @smoke",
+    "test:regression": "cucumber-js --tags @regression",
+    "test:chrome": "cross-env BROWSER=chromium cucumber-js",
+    "test:firefox": "cross-env BROWSER=firefox cucumber-js",
+    "test:webkit": "cross-env BROWSER=webkit cucumber-js",
+    "report": "ts-node src/helpers/reports/report.ts",
+    "convert:junit": "node convert-cucumber-to-junit.mjs",
+    "report:junit": "xunit-viewer -r test-results/junit-report/junit-report.xml -o test-results/junit-report/junit-report.html",
+    "report:junit:serve": "xunit-viewer -r test-results/junit-report/junit-report.xml -t \"OrangeHRM JUnit Report\" -s",
+    "tsc": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.0"
+    "@cucumber/cucumber": "^11.2.0",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "eslint": "^10.0.1",
+    "multiple-cucumber-html-reporter": "^3.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "xunit-viewer": "^10.6.1"
   }
 }

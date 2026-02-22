@@ -10,3 +10,11 @@ export interface LoginPageState {
   url: string;
   title?: string;
 }
+
+export interface LoginErrorState {
+  alertMessage?: string;
+  fieldErrors?: {
+    username?: string;
+    password?: string;
+  };
+}
