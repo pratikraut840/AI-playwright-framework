@@ -156,11 +156,11 @@ OrangeHRM-project/
                       ┌────────────────────────────────────────┐
                       │        Reporting Layer                 │
                       │  Cucumber JSON → HTML → JUnit XML      │
-                      │                               │
+                      │                                        │
                       └────────────────────────────────────────┘
 
 ===========================================================
-# Playwright OrangeHRM Automation Framework
+# Playwright OrangeHRM Architecture Design
 ===========================================================
 
 This framework is built using:
@@ -190,22 +190,20 @@ helpers/env/
 ===========================================================
 # Framework Explanation (Interview-Ready Version)
 ===========================================================
+I designed a scalable, maintainable and enterprise-ready automation framework using Playwright with Cucumber BDD and TypeScript. The goal was to ensure maintainability, scalability, multi-environment support, and seamless Bitbucket Pipeline integration.
 
-I designed a scalable and enterprise-ready automation framework for OrangeHRM using Playwright with Cucumber BDD and TypeScript. The goal was to ensure maintainability, scalability, multi-environment support, and seamless Bitbucket Pipeline integration.
-
-1. The framework follows a layered architecture with clear separation of concerns —
+1. The framework follows a modular and layered architecture with clear separation of concerns —
     Feature layer for business-readable scenarios,
     Step Definition layer for glue logic,
     and a Page Object Model layer for encapsulated UI interactions.
 2. I also implemented a utility layer that includes custom API wrappers, assertions, date handling, random data generation, and centralized logging.
-3. The framework supports multi-environment execution using .env configuration management and integrates with Bitbucket pipelines by converting test results into HTML and JUnit reports.
+3. The framework supports multi-environment execution using .env configuration management and integrates with CICD by converting test results into HTML and JUnit reports.
 4. Additionally, I implemented custom hooks and world constructors for context sharing and improved test lifecycle control.
 5. The result is a highly modular, maintainable, and enterprise-ready automation solution.
 
 ===========================================================
 # How I Designed the Framework
 ===========================================================
-
 I designed a scalable Playwright automation framework using Cucumber with a clear separation of concerns.
 
 1️⃣ Feature Layer (BDD)
@@ -243,22 +241,22 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
     Benefits:
         Dev / QA / UAT switch
         No hardcoded values
-        Bitbucket Pipeline-friendly
+        CI-friendly
 
 6️⃣ Custom Hooks & World (Cucumber Advanced)
     "Implemented custom hooks and world constructor to manage object injection and test context sharing across steps."
 
 7️⃣ Reporting Layer
-    "Cucumber JSON output is converted to HTML and JUnit XML, which integrates with Bitbucket pipelines."
+    "Cucumber JSON output is converted to HTML and JUnit XML, which integrates with CI pipelines."
     Highlights:
     HTML for humans
-    JUnit for Bitbucket pipelines
+    JUnit for CI
 
-8️⃣ Bitbucket Pipeline Integration
+8️⃣ CI Integration
     "Automation results are synchronized with Aqua to update manual test cases. This ensures traceability between automated and manual testing efforts."
 
 9️⃣ Why This Framework Is Strong
-    "The framework is modular, scalable, environment-independent, and supports both UI and API automation. It follows clean architecture principles and supports enterprise-level reporting and Bitbucket Pipeline integration."
+    "The framework is modular, scalable, environment-independent, and supports both UI and API automation. It follows clean architecture principles and supports enterprise-level reporting and CI/CD integration."
 
 ===========================================================
 # Why This Framework Is Strong
@@ -278,4 +276,4 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
     No core changes
     Reusable utilities
     Environment independent
-    Bitbucket pipeline-ready
+    CI-ready

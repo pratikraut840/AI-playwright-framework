@@ -27,7 +27,7 @@ dotenv.config({ path: 'src/helpers/env/.env' });
 let sharedBrowser: Browser | null = null;
 
 /** File path where authenticated cookies/storage are saved after one login */
-const AUTH_STATE_FILE  = path.join('test-results', '.auth', 'admin-auth.json');
+const AUTH_STATE_FILE  = path.join('src', 'helpers', 'setupLogin', 'auth', 'admin-user.json');
 const SCREENSHOT_DIR   = path.join('test-results', 'cucumber-html-report', 'screenshots');
 const VIDEO_DIR        = path.join('test-results', 'cucumber-html-report', 'videos');
 
@@ -84,7 +84,8 @@ Before({ tags: '@login' }, async function (this: OrangeHRMWorld) {
 // step is required inside the scenarios themselves.
 // Video is recorded for every scenario; kept only on failure (see After).
 
-Before({ tags: '@admin' }, async function (this: OrangeHRMWorld) {
+// Admin and Recruitment share auth state — both need logged-in admin session.
+Before({ tags: '@admin or @recruitment' }, async function (this: OrangeHRMWorld) {
   if (!sharedBrowser) {
     throw new Error('BeforeAll did not run: sharedBrowser is null');
   }

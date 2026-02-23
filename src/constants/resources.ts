@@ -40,4 +40,7 @@ export const UI_PATHS = {
   dashboard: '/web/index.php/dashboard/index',
   pimList: '/web/index.php/pim/viewEmployeeList',
   adminUsers: '/web/index.php/admin/viewSystemUsers',
+  recruitmentVacancies: '/web/index.php/recruitment/viewJobVacancy',
+  recruitmentAddVacancy: '/web/index.php/recruitment/addJobVacancy',
+  recruitmentApplyJobs: '/web/index.php/recruitmentApply/jobs.html',
 } as const;
