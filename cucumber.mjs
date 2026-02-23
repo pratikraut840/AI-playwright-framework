@@ -1,3 +1,9 @@
+const timestamp = new Date()
+  .toISOString()
+  .replace(/T/, '_')
+  .replace(/:/g, '-')
+  .replace(/\..+/, '');
+
 const DEFAULT_PROFILE = {
   requireModule: ['ts-node/register'],
   require: [
@@ -7,9 +13,10 @@ const DEFAULT_PROFILE = {
   paths: ['src/tests/features/**/*.feature'],
   format: [
     'progress-bar',
-    'json:test-results/cucumber-json/cucumber-report.json',
-    'html:test-results/cucumber-html-report/index.html',
+    `json:test-results/cucumber-json/cucumber-report.json`,
+    `html:test-results/cucumber-html-report/index.html`,
   ],
+  publishQuiet: true,
   formatOptions: { snippetInterface: 'async-await' },
 };
 

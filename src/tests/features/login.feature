@@ -1,7 +1,8 @@
 @login @smoke
 Feature: OrangeHRM Login Authentication & Access Management
   As a registered user, I want to log in with valid credentials so that I can access the dashboard.
-
+  
+  @smoke
   Scenario: Successful login and dashboard access
     Given user is on login page
     When user enters valid username & password

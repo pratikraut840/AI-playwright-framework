@@ -33,7 +33,7 @@ Feature: Admin Module - User Management
     And admin clicks Save on the user form
     Then the form should show required field validation errors
 
-  @regression
+  @regression  @smoke
   Scenario: Searching by an existing username returns matching results
     When admin searches for users by the known username
     Then the user list should contain at least one result

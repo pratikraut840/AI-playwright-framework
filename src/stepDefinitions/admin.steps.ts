@@ -1,6 +1,5 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import type { OrangeHRMWorld } from '../helpers/hooks/orangeHRMWorld';
-import { LoginPage } from '../pages/LoginPage';
 import { AdminUserManagementPage } from '../pages/AdminUserManagementPage';
 import {
   assertUsernameAlreadyExists,
@@ -17,13 +16,9 @@ import { ADMIN_TEST_DATA } from '../tests/data/admin';
 
 // ─── Background ──────────────────────────────────────────────────────────────
 
+// Context is pre-loaded with authenticated state from BeforeAll (login happened once).
+// Navigate directly to the User Management page — no login step needed here.
 Given('admin is authenticated and on the User Management list page', async function (this: OrangeHRMWorld) {
-  const loginPage = new LoginPage(this.page);
-  await loginPage.goto(ENV.baseUrl);
-  await loginPage.login(ENV.username, ENV.password);
-  // Wait for the post-login redirect to the dashboard before navigating away
-  await this.page.waitForURL(/dashboard/, { timeout: 60_000 });
-
   const adminPage = new AdminUserManagementPage(this.page);
   await adminPage.goto(ENV.baseUrl);
 });
