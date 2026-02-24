@@ -10,6 +10,13 @@ const BROWSER_MAP: Record<SupportedBrowser, typeof chromium> = { chromium, firef
  * Defaults to chromium if not set.
  * Set via: cross-env BROWSER=firefox (see package.json scripts)
  */
+const STABLE_LAUNCH_ARGS = [
+  '--no-sandbox',
+  '--disable-setuid-sandbox',
+  '--disable-dev-shm-usage',
+  '--disable-gpu',
+];
+
 export async function launchBrowser(options?: LaunchOptions): Promise<Browser> {
   const browserName = (process.env.BROWSER ?? 'chromium') as SupportedBrowser;
   if (!(browserName in BROWSER_MAP)) {
@@ -17,5 +24,9 @@ export async function launchBrowser(options?: LaunchOptions): Promise<Browser> {
       `Unsupported browser: "${browserName}". Valid options: chromium, firefox, webkit.`
     );
   }
-  return BROWSER_MAP[browserName].launch(options);
+  const merged: LaunchOptions = {
+    ...options,
+    args: [...STABLE_LAUNCH_ARGS, ...(options?.args ?? [])],
+  };
+  return BROWSER_MAP[browserName].launch(merged);
 }

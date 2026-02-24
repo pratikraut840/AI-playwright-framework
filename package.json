@@ -6,40 +6,44 @@
   "license": "ISC",
   "type": "commonjs",
   "scripts": {
-    "test": "cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:headed": "cross-env HEADLESS=false cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:smoke": "cucumber-js --config src/helpers/config/cucumber.mjs --tags @smoke",
-    "test:regression": "cucumber-js --config src/helpers/config/cucumber.mjs --tags @regression",
-    "test:chrome": "cross-env BROWSER=chromium cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:firefox": "cross-env BROWSER=firefox cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:webkit": "cross-env BROWSER=webkit cucumber-js --config src/helpers/config/cucumber.mjs",
-    
-    "report": "ts-node src/helpers/reports/report.ts",
-    "convert:junit": "node convert-cucumber-to-junit.mjs",
-    "report:junit": "xunit-viewer -r test-results/junit-report/junit-report.xml -o test-results/junit-report/junit-report.html",
-    "report:junit:serve": "xunit-viewer -r test-results/junit-report/junit-report.xml -t \"OrangeHRM JUnit Report\" -s",
-    "tsc": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    
-    "test:bdd": "cucumber-js --config src/helpers/config/cucumber.mjs",
+    "test": "npm run test:bdd",
+    "test:bdd": "cucumber-js --config cucumber.mjs",
+    "test:bdd:headed": "cross-env HEADLESS=false cucumber-js --config cucumber.mjs",
+    "test:bdd:smoke": "cucumber-js --config cucumber.mjs --tags @smoke",
+    "test:bdd:regression": "cucumber-js --config cucumber.mjs --tags @regression",
+    "test:bdd:chrome": "cross-env BROWSER=chromium cucumber-js --config cucumber.mjs",
+    "test:bdd:firefox": "cross-env BROWSER=firefox cucumber-js --config cucumber.mjs",
+    "test:bdd:webkit": "cross-env BROWSER=webkit cucumber-js --config cucumber.mjs",
+    "test:smoke": "npm run test:bdd:smoke",
+    "test:regression": "npm run test:bdd:regression",
+    "test:headed": "npm run test:bdd:headed",
+
     "test:tdd": "playwright test",
-    "test:tdd:log": "playwright test 2>&1 | tee playwright-report/test-output.txt",
     "test:tdd:headed": "cross-env HEADLESS=false playwright test --headed",
     "test:tdd:ui": "playwright test --ui",
     "test:tdd:smoke": "playwright test -g \"successful login|username uniqueness|create vacancy with valid\" --project=chromium --project=chromium-authorized",
     "test:tdd:chromium": "playwright test --project=chromium --project=chromium-authorized",
     "test:tdd:firefox": "playwright test --project=firefox --project=firefox-authorized",
     "test:tdd:webkit": "playwright test --project=webkit --project=webkit-authorized",
-    
-    "test:all": "npm run test:bdd && npm run test:tdd",
-    "report:tdd": "playwright show-report playwright-report",
+    "test:tdd:mobile": "playwright test --project=mobile-chromium --project=mobile-chromium-authorized --project=mobile-webkit --project=mobile-webkit-authorized",
     "test:tdd:junit": "cross-env CI=true playwright test",
-    "report:tdd:junit": "xunit-viewer -r playwright-report/junit.xml -o playwright-report/junit-report.html -s",
+    "test:tdd:log": "playwright test 2>&1 | tee playwright-report/test-output.txt",
+
+    "test:all": "npm run test:bdd && npm run test:tdd",
+
+    "report": "ts-node src/helpers/reports/report.ts",
+    "report:tdd": "playwright show-report playwright-report",
+    "convert:bdd:junit": "node convert-cucumber-to-junit.mjs",
+    "report:bdd:junit": "npm run convert:bdd:junit && xunit-viewer -r test-results/junit-report/junit-report.xml -t \"OrangeHRM BDD JUnit\" -s",
+    "report:tdd:junit": "xunit-viewer -r playwright-report/junit.xml -t \"OrangeHRM TDD JUnit\" -s",
+
     "allure:generate": "ts-node src/helpers/reports/report.ts allure:generate",
     "allure:serve": "ts-node src/helpers/reports/report.ts allure:serve",
     "allure:open": "allure open allure-report",
-    "test:tdd:mobile": "playwright test --project=mobile-chromium --project=mobile-chromium-authorized --project=mobile-webkit --project=mobile-webkit-authorized"
+
+    "tsc": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",

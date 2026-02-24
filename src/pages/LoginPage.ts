@@ -10,7 +10,10 @@ export class LoginPage {
   constructor(private readonly page: Page) {}
 
   async goto(baseUrl: string): Promise<void> {
-    await this.page.goto(`${baseUrl}/web/index.php/auth/login`, { timeout: TIMEOUTS.navigation });
+    await this.page.goto(`${baseUrl}/web/index.php/auth/login`, {
+      timeout: 90_000,
+      waitUntil: 'commit',
+    });
   }
 
   async fillUsername(username: string): Promise<void> {
@@ -22,7 +25,9 @@ export class LoginPage {
   }
 
   async clickLogin(): Promise<void> {
-    await this.page.locator(LOGIN_SELECTORS.loginButton).click();
+    await this.page.locator(LOGIN_SELECTORS.loginButton).click({
+      timeout: 90_000,
+    });
   }
 
   async login(username: string, password: string): Promise<void> {

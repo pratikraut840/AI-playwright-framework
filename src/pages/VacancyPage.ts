@@ -99,9 +99,9 @@ export class VacancyPage {
   }): Promise<void> {
     await this.fillVacancyName(data.vacancyName);
     await this.selectJobTitle(data.jobTitle);
-    if (data.description) await this.fillDescription(data.description);
+    if (data.description) {await this.fillDescription(data.description);}
     await this.fillHiringManager(data.hiringManager);
-    if (data.numberOfPositions != null) {
+    if (data.numberOfPositions !== undefined && data.numberOfPositions !== null) {
       await this.fillNumberOfPositions(data.numberOfPositions);
     }
   }
@@ -117,7 +117,7 @@ export class VacancyPage {
   async getFieldErrors(): Promise<string[]> {
     const locator = this.page.locator(RECRUITMENT_SELECTORS.fieldError);
     const count = await locator.count();
-    if (count === 0) return [];
+    if (count === 0) {return [];}
     return locator.allInnerTexts();
   }
 

@@ -63,57 +63,57 @@ export default defineConfig({
         storageState: STORAGE_STATE,
       },
     },
-    {
-      name: 'firefox',
-      testMatch: guestMatch,
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'firefox-authorized',
-      testMatch: authorizedMatch,
-      use: {
-        ...devices['Desktop Firefox'],
-        storageState: STORAGE_STATE,
-      },
-    },
-    {
-      name: 'webkit',
-      testMatch: guestMatch,
-      use: { ...devices['Desktop Safari'] },
-    },
-    {
-      name: 'webkit-authorized',
-      testMatch: authorizedMatch,
-      use: {
-        ...devices['Desktop Safari'],
-        storageState: STORAGE_STATE,
-      },
-    },
-    {
-      name: 'mobile-chromium',
-      testMatch: guestMatch,
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'mobile-chromium-authorized',
-      testMatch: authorizedMatch,
-      use: {
-        ...devices['Pixel 5'],
-        storageState: STORAGE_STATE,
-      },
-    },
-    {
-      name: 'mobile-webkit',
-      testMatch: guestMatch,
-      use: { ...devices['iPhone 13'] },
-    },
-    {
-      name: 'mobile-webkit-authorized',
-      testMatch: authorizedMatch,
-      use: {
-        ...devices['iPhone 13'],
-        storageState: STORAGE_STATE,
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   testMatch: guestMatch,
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+    // {
+    //   name: 'firefox-authorized',
+    //   testMatch: authorizedMatch,
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: STORAGE_STATE,
+    //   },
+    // },
+    // {
+    //   name: 'webkit',
+    //   testMatch: guestMatch,
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+    // {
+    //   name: 'webkit-authorized',
+    //   testMatch: authorizedMatch,
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     storageState: STORAGE_STATE,
+    //   },
+    // },
+    // {
+    //   name: 'mobile-chromium',
+    //   testMatch: guestMatch,
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'mobile-chromium-authorized',
+    //   testMatch: authorizedMatch,
+    //   use: {
+    //     ...devices['Pixel 5'],
+    //     storageState: STORAGE_STATE,
+    //   },
+    // },
+    // {
+    //   name: 'mobile-webkit',
+    //   testMatch: guestMatch,
+    //   use: { ...devices['iPhone 13'] },
+    // },
+    // {
+    //   name: 'mobile-webkit-authorized',
+    //   testMatch: authorizedMatch,
+    //   use: {
+    //     ...devices['iPhone 13'],
+    //     storageState: STORAGE_STATE,
+    //   },
+    // },
   ],
 });

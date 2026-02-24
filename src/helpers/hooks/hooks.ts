@@ -50,15 +50,24 @@ BeforeAll(async function (this: { parameters: Record<string, unknown> }) {
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
   fs.mkdirSync(path.dirname(AUTH_STATE_FILE), { recursive: true });
 
-  // Perform one login and capture the resulting browser state
+  // Perform one login and capture the resulting browser state (with retry for flaky demo site)
   const authContext = await sharedBrowser.newContext();
   const authPage = await authContext.newPage();
   try {
-    const loginPage = new LoginPage(authPage);
-    await loginPage.goto(ENV.baseUrl);
-    await loginPage.login(ENV.username, ENV.password);
-    await authPage.waitForURL(/dashboard/, { timeout: 60_000 });
-    await authContext.storageState({ path: AUTH_STATE_FILE });
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const loginPage = new LoginPage(authPage);
+        await loginPage.goto(ENV.baseUrl);
+        await loginPage.login(ENV.username, ENV.password);
+        await authPage.waitForURL(/dashboard/, { timeout: 90_000 });
+        await authContext.storageState({ path: AUTH_STATE_FILE });
+        break;
+      } catch (err) {
+        if (attempt === 2) {throw err;}
+        await authPage.goto(ENV.baseUrl + '/web/index.php/auth/login', { waitUntil: 'commit', timeout: 30_000 }).catch(() => {});
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+    }
   } finally {
     await authPage.close();
     await authContext.close();

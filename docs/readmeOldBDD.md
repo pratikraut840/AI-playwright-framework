@@ -4,6 +4,8 @@
 
 OrangeHRM-project/
 │
+├── cucumber.mjs                        # Cucumber BDD configuration
+│
 ├── src/
 │   │
 │   ├── constants/
@@ -15,8 +17,6 @@ OrangeHRM-project/
 │   │   ├── browsers/
 │   │   │   └── browserSetup.ts         # Browser initialization logic
 │   │   │
-│   │   ├── config/
-│   │   │   └── cucumber.mjs             # Cucumber configuration
 │   │   │
 │   │   ├── env/
 │   │   │   ├── .env

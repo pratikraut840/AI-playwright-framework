@@ -21,11 +21,28 @@ const INPUT_PATH = path.join(__dirname, 'test-results', 'cucumber-json', 'cucumb
 const OUTPUT_PATH = path.join(__dirname, 'test-results', 'junit-report', 'junit-report.xml');
 
 if (!fs.existsSync(INPUT_PATH)) {
-  console.error('Error: cucumber-report.json not found at test-results/. Run tests first.');
+  console.error('Error: cucumber-report.json not found at test-results/cucumber-json/. Run BDD tests first.');
   process.exit(1);
 }
 
-const RESULTS = /** @type {CucumberReport} */ (JSON.parse(fs.readFileSync(INPUT_PATH, 'utf-8')));
+const raw = fs.readFileSync(INPUT_PATH, 'utf-8').trim();
+if (!raw) {
+  console.error('Error: cucumber-report.json is empty. Run BDD tests first (npm run test:bdd).');
+  process.exit(1);
+}
+
+let RESULTS;
+try {
+  RESULTS = /** @type {CucumberReport} */ (JSON.parse(raw));
+} catch (e) {
+  console.error('Error: cucumber-report.json is invalid. Run BDD tests first (npm run test:bdd).');
+  process.exit(1);
+}
+
+if (!Array.isArray(RESULTS) || RESULTS.length === 0) {
+  console.error('No BDD test results to convert. Run BDD tests first (npm run test:bdd).');
+  process.exit(1);
+}
 
 /**
  * Escapes a string for safe use in XML text/attributes.

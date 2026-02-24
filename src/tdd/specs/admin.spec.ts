@@ -15,7 +15,7 @@ import { ADMIN_TEST_DATA } from '../../tests/data/admin';
  * Admin User Management TDD Specs – ported from BDD admin.feature.
  * Requires authenticated context (storageState).
  */
-test.describe('Admin - User Management - TDD', () => {
+test.describe('Admin Module - User Management - TDD', () => {
   test.beforeEach(async ({ adminPage }) => {
     await adminPage.goto(ENV.baseUrl);
   });

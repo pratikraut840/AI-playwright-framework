@@ -15,7 +15,7 @@ import { RECRUITMENT_SELECTORS } from '../../constants/selectors/recruitment.sel
  * Recruitment Vacancy TDD Specs – ported from BDD jobPosting.feature.
  * Covers scenarios with implemented BDD steps. Requires authenticated context.
  */
-test.describe('Recruitment - Vacancy - TDD', () => {
+test.describe('Recruitment Module - Vacancy Management - TDD', () => {
   test.beforeEach(async ({ vacancyPage }) => {
     await vacancyPage.gotoVacancies(ENV.baseUrl);
   });

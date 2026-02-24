@@ -4,6 +4,8 @@
 
 OrangeHRM-project/
 │
+├── cucumber.mjs                        # Cucumber BDD configuration
+│
 ├── src/
 │   │
 │   ├── constants/
@@ -15,8 +17,6 @@ OrangeHRM-project/
 │   │   ├── browsers/
 │   │   │   └── browserSetup.ts         # Browser initialization logic
 │   │   │
-│   │   ├── config/
-│   │   │   └── cucumber.mjs             # Cucumber configuration
 │   │   │
 │   │   ├── env/
 │   │   │   ├── .env
@@ -194,7 +194,7 @@ Reporting Layer → Custom report generation
 Bitbucket Pipeline Integration → Sync automation results to manual test cases
 
 <!-- Running Tests -->
-  BDD:  npm run test:bdd    (or npm run test, test:smoke, test:regression)
+  BDD:  npm run test:bdd    (or npm run test, test:smoke, test:regression, test:headed)
   TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
   Both: npm run test:all
 

@@ -13,7 +13,7 @@ import { LOGIN_TEST_DATA } from '../../tests/data/login';
 /**
  * Login TDD Specs – ported from BDD login.feature.
  */
-test.describe('Login - TDD', () => {
+test.describe('Login Module- TDD', () => {
   test('successful login and dashboard access', async ({ loginPage, page }) => {
     await loginPage.goto(ENV.baseUrl);
     await loginPage.fillUsername(ENV.username);
