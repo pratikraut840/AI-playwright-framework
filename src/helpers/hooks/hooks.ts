@@ -9,6 +9,8 @@ import {
   setDefaultTimeout,
 } from '@cucumber/cucumber';
 import * as dotenv from 'dotenv';
+import * as allure from 'allure-js-commons';
+import { ContentType } from 'allure-js-commons';
 import type { Browser, Video } from '@playwright/test';
 import type { ITestCaseHookParameter } from '@cucumber/cucumber';
 import { OrangeHRMWorld } from './orangeHRMWorld';
@@ -118,6 +120,10 @@ After(async function (this: OrangeHRMWorld, scenario: ITestCaseHookParameter) {
     const screenshotPath = path.join(SCREENSHOT_DIR, `${safeName}-${timestamp}.png`);
     const screenshot = await this.page.screenshot({ path: screenshotPath, type: 'png' });
     this.attach(screenshot, 'image/png');
+    // Attach to Allure report on failure so it appears in the Allure UI
+    if (FAILED) {
+      await allure.attachment('Screenshot on failure', screenshot, ContentType.PNG);
+    }
   }
 
   // ── 2. Grab video reference BEFORE closing page/context ────────────────────

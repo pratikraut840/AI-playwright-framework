@@ -8,8 +8,6 @@
   "scripts": {
     "test": "cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:headed": "cross-env HEADLESS=false cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:qa": "cross-env NODE_ENV=qa cucumber-js --config src/helpers/config/cucumber.mjs",
-    "test:stage": "cross-env NODE_ENV=stage cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:smoke": "cucumber-js --config src/helpers/config/cucumber.mjs --tags @smoke",
     "test:regression": "cucumber-js --config src/helpers/config/cucumber.mjs --tags @regression",
     "test:chrome": "cross-env BROWSER=chromium cucumber-js --config src/helpers/config/cucumber.mjs",
@@ -22,21 +20,24 @@
     "tsc": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    
     "test:bdd": "cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:tdd": "playwright test",
     "test:tdd:headed": "cross-env HEADLESS=false playwright test --headed",
     "test:tdd:ui": "playwright test --ui",
-    "test:tdd:chromium": "playwright test --project=chromium",
-    "test:tdd:firefox": "playwright test --project=firefox",
-    "test:tdd:webkit": "playwright test --project=webkit",
+    "test:tdd:smoke": "playwright test -g \"successful login|username uniqueness|create vacancy with valid\" --project=chromium --project=chromium-authorized",
+    "test:tdd:chromium": "playwright test --project=chromium --project=chromium-authorized",
+    "test:tdd:firefox": "playwright test --project=firefox --project=firefox-authorized",
+    "test:tdd:webkit": "playwright test --project=webkit --project=webkit-authorized",
     "test:all": "npm run test:bdd && npm run test:tdd",
+
     "report:tdd": "playwright show-report playwright-report",
     "test:tdd:junit": "cross-env CI=true playwright test",
     "report:tdd:junit": "xunit-viewer -r playwright-report/junit.xml -o playwright-report/junit-report.html -s",
-    "test:tdd:smoke": "playwright test -g \"successful login|username uniqueness|create vacancy with valid\" --project=chromium-login --project=chromium-auth",
-    "allure:generate": "node -e \"require('fs').mkdirSync('allure-results-bdd',{recursive:true}); require('fs').mkdirSync('allure-results-tdd',{recursive:true})\" && allure generate allure-results-bdd allure-results-tdd -o allure-report --clean",
-    "allure:serve": "node -e \"require('fs').mkdirSync('allure-results-bdd',{recursive:true}); require('fs').mkdirSync('allure-results-tdd',{recursive:true})\" && allure serve allure-results-bdd allure-results-tdd",
-    "allure:open": "allure open allure-report"
+    "allure:generate": "ts-node src/helpers/reports/report.ts allure:generate",
+    "allure:serve": "ts-node src/helpers/reports/report.ts allure:serve",
+    "allure:open": "allure open allure-report",
+    "test:tdd:mobile": "playwright test --project=mobile-chromium --project=mobile-chromium-authorized --project=mobile-webkit --project=mobile-webkit-authorized"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",

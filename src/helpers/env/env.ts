@@ -1,6 +1,6 @@
 /**
  * Environment config (URL, credentials, API endpoints).
- * Override via .env, .env.qa, .env.stage or process.env.
+ * Override via .env or process.env.
  */
 import { getEnv } from './getEnv';
 

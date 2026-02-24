@@ -9,6 +9,17 @@ dotenv.config({ path: path.resolve(__dirname, 'src/helpers/env/.env') });
 import { defineConfig, devices } from '@playwright/test';
 import { ENV } from './src/helpers/env/env';
 
+/** Spec names (without .spec.ts) that run without pre-login – add new ones here */
+const GUEST_SPECS = ['login'];
+
+/** Spec names that require authenticated storage state – add new ones here */
+const AUTHORIZED_SPECS = ['admin', 'recruitment'];
+
+const guestMatch = new RegExp(`(${GUEST_SPECS.join('|')})\\.spec\\.ts$`);
+const authorizedMatch = new RegExp(`(${AUTHORIZED_SPECS.join('|')})\\.spec\\.ts$`);
+
+const STORAGE_STATE = 'src/helpers/setupLogin/auth/admin-user.json';
+
 /**
  * Playwright config for TDD layer.
  * BDD (Cucumber) uses its own cucumber.mjs config.
@@ -38,74 +49,70 @@ export default defineConfig({
   globalSetup: require.resolve('./src/tdd/globalSetup.ts'),
 
   projects: [
-    // ─── Chromium (Chrome) ──────────────────────────────────────────────────
     {
-      name: 'chromium-login',
-      testMatch: /login\.spec\.ts/,
+      name: 'chromium',
+      testMatch: guestMatch,
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'chromium-auth',
-      testMatch: /\/(admin|recruitment)\.spec\.ts/,
+      name: 'chromium-authorized',
+      testMatch: authorizedMatch,
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'src/helpers/setupLogin/auth/admin-user.json',
+        storageState: STORAGE_STATE,
       },
     },
-    // ─── Firefox ─────────────────────────────────────────────────────────────
-    // {
-    //   name: 'firefox-login',
-    //   testMatch: /login\.spec\.ts/,
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-    // {
-    //   name: 'firefox-auth',
-    //   testMatch: /\/(admin|recruitment)\.spec\.ts/,
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //     storageState: 'src/helpers/setupLogin/auth/admin-user.json',
-    //   },
-    // },
-    // // ─── WebKit (Safari) ─────────────────────────────────────────────────────
-    // {
-    //   name: 'webkit-login',
-    //   testMatch: /login\.spec\.ts/,
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-    // {
-    //   name: 'webkit-auth',
-    //   testMatch: /\/(admin|recruitment)\.spec\.ts/,
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //     storageState: 'src/helpers/setupLogin/auth/admin-user.json',
-    //   },
-    // },
-    // ─── Mobile (Playwright default: one Android, one iOS) ────────────────────
-    // {
-    //   name: 'Mobile Chrome',
-    //   testMatch: /login\.spec\.ts/,
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Chrome (auth)',
-    //   testMatch: /\/(admin|recruitment)\.spec\.ts/,
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //     storageState: 'src/helpers/setupLogin/auth/admin-user.json',
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   testMatch: /login\.spec\.ts/,
-    //   use: { ...devices['iPhone 13'] },
-    // },
-    // {
-    //   name: 'Mobile Safari (auth)',
-    //   testMatch: /\/(admin|recruitment)\.spec\.ts/,
-    //   use: {
-    //     ...devices['iPhone 13'],
-    //     storageState: 'src/helpers/setupLogin/auth/admin-user.json',
-    //   },
-    // },
+    {
+      name: 'firefox',
+      testMatch: guestMatch,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'firefox-authorized',
+      testMatch: authorizedMatch,
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: STORAGE_STATE,
+      },
+    },
+    {
+      name: 'webkit',
+      testMatch: guestMatch,
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'webkit-authorized',
+      testMatch: authorizedMatch,
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: STORAGE_STATE,
+      },
+    },
+    {
+      name: 'mobile-chromium',
+      testMatch: guestMatch,
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'mobile-chromium-authorized',
+      testMatch: authorizedMatch,
+      use: {
+        ...devices['Pixel 5'],
+        storageState: STORAGE_STATE,
+      },
+    },
+    {
+      name: 'mobile-webkit',
+      testMatch: guestMatch,
+      use: { ...devices['iPhone 13'] },
+    },
+    {
+      name: 'mobile-webkit-authorized',
+      testMatch: authorizedMatch,
+      use: {
+        ...devices['iPhone 13'],
+        storageState: STORAGE_STATE,
+      },
+    },
   ],
 });

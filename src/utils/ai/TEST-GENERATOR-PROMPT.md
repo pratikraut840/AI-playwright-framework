@@ -34,7 +34,7 @@ Use this prompt when asking an AI or tool to generate tests. It ensures all arti
 
 - **Stack:** Playwright + Cucumber (BDD) + TypeScript + POM
 - **Flow:** Feature (Gherkin) → Step definitions → Page objects → Utils (API, assertions, locators)
-- **Environments:** `.env` / `.env.qa` / `.env.stage` via `getEnv()` in `src/helpers/env/`
+- **Environments:** `.env` via `getEnv()` in `src/helpers/env/`
 - **Reporting:** Cucumber JSON → HTML; JUnit XML via `convert-cucumber-to-junit.js`; Bitbucket Pipeline integration
 
 ---
