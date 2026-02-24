@@ -198,6 +198,11 @@ Bitbucket Pipeline Integration → Sync automation results to manual test cases
   TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
   Both: npm run test:all
 
+  If "npm run test:bdd" doesn't work in your terminal:
+  - Ensure you're in the project root (where package.json and cucumber.mjs live)
+  - Run: scripts\run-bdd.cmd (Windows CMD) or .\scripts\run-bdd.ps1 (PowerShell)
+  - Or try: npx cucumber-js --config cucumber.mjs
+
 <!-- Environment Configuration -->
 helpers/env/
    ├── .env

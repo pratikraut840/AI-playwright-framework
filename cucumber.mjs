@@ -13,14 +13,26 @@ const DEFAULT_PROFILE = {
   paths: ['src/tests/features/**/*.feature'],
   format: [
     'progress-bar',
-    `json:test-results/cucumber-json/cucumber-report.json`,
-    `html:test-results/cucumber-html-report/index.html`,
+    ['json', 'test-results/cucumber-json/cucumber-report.json'],
+    ['html', 'test-results/cucumber-html-report/index.html'],
     'allure-cucumberjs/reporter',
   ],
   formatOptions: {
     snippetInterface: 'async-await',
     resultsDir: 'allure-results-bdd',
+    printAttachments: false,
   },
 };
 
-export { DEFAULT_PROFILE as default };
+/** Use --profile progress if progress-bar doesn't show: npm run test:bdd -- --profile progress */
+export const progress = {
+  ...DEFAULT_PROFILE,
+  format: [
+    'progress',
+    ['json', 'test-results/cucumber-json/cucumber-report.json'],
+    ['html', 'test-results/cucumber-html-report/index.html'],
+    'allure-cucumberjs/reporter',
+  ],
+};
+
+export default DEFAULT_PROFILE;
