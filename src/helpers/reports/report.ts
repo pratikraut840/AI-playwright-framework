@@ -1,6 +1,10 @@
 import * as fs from 'fs';
 import { execSync } from 'child_process';
 import * as reporter from 'multiple-cucumber-html-reporter';
+import {
+  clearCucumberReportDir,
+  clearDirectory,
+} from './clearReportDirs';
 
 const ALLURE_RESULTS_BDD = 'allure-results-bdd';
 const ALLURE_RESULTS_TDD = 'allure-results-tdd';
@@ -13,6 +17,7 @@ function ensureAllureDirs(): void {
 
 function runAllureGenerate(): void {
   ensureAllureDirs();
+  clearDirectory(ALLURE_REPORT);
   execSync(
     `npx allure generate ${ALLURE_RESULTS_BDD} ${ALLURE_RESULTS_TDD} -o ${ALLURE_REPORT} --clean`,
     { stdio: 'inherit' }
@@ -27,6 +32,7 @@ function runAllureServe(): void {
 }
 
 function generateCucumberReport(): void {
+  clearCucumberReportDir();
   reporter.generate({
     jsonDir: 'test-results/cucumber-json',
     reportPath: 'test-results/cucumber-html-report',

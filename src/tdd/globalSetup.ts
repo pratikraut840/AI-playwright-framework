@@ -8,10 +8,12 @@ import * as dotenv from 'dotenv';
 import { chromium } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { ENV } from '../helpers/env/env';
+import { clearTddResultDirs } from '../helpers/reports/clearReportDirs';
 
 const AUTH_STATE_PATH = path.join('src', 'helpers', 'setupLogin', 'auth', 'admin-user.json');
 
 async function globalSetup(): Promise<void> {
+  clearTddResultDirs();
   const ENV_NAME = process.env.NODE_ENV ?? 'dev';
   dotenv.config({ path: path.join('src', 'helpers', 'env', `.env.${ENV_NAME}`) });
   dotenv.config({ path: path.join('src', 'helpers', 'env', '.env') });

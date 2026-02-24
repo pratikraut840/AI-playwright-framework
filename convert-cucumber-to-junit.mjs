@@ -104,6 +104,10 @@ function buildJUnit(features) {
 }
 
 const xml = buildJUnit(RESULTS);
-fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
+const junitDir = path.dirname(OUTPUT_PATH);
+if (fs.existsSync(junitDir)) {
+  fs.rmSync(junitDir, { recursive: true });
+}
+fs.mkdirSync(junitDir, { recursive: true });
 fs.writeFileSync(OUTPUT_PATH, xml, 'utf-8');
 console.log(`JUnit XML report written to: ${OUTPUT_PATH}`);

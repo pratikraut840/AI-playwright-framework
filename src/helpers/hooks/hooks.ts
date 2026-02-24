@@ -17,6 +17,7 @@ import { OrangeHRMWorld } from './orangeHRMWorld';
 import { launchBrowser } from '../browsers/browserSetup';
 import { LoginPage } from '../../pages/LoginPage';
 import { ENV } from '../env/env';
+import { clearBddResultDirs } from '../reports/clearReportDirs';
 
 // Load environment-specific .env file first, then fall back to base .env
 const ENV_NAME = process.env.NODE_ENV ?? 'dev';
@@ -43,6 +44,7 @@ setDefaultTimeout(120 * 1000);
 //    (cookies + localStorage) to disk so admin scenarios can reuse it.
 
 BeforeAll(async function (this: { parameters: Record<string, unknown> }) {
+  clearBddResultDirs();
   const headless = process.env.HEADLESS !== 'false';
   sharedBrowser = await launchBrowser({ headless });
 
