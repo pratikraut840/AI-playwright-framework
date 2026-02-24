@@ -18,10 +18,10 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const INPUT_PATH = path.join(__dirname, 'test-results-bdd', 'cucumber-json', 'cucumber-report-bdd.json');
-const OUTPUT_PATH = path.join(__dirname, 'test-results-bdd', 'junit-report', 'junit-report.xml');
+const OUTPUT_PATH = path.join(__dirname, 'test-results-bdd', 'junit-report', 'junit-report-bdd.xml');
 
 if (!fs.existsSync(INPUT_PATH)) {
-  console.error('Error: cucumber-report.json not found.');
+  console.error('Error: cucumber-report-bdd.json not found.');
   console.error('  Expected path:', INPUT_PATH);
   console.error('  Run BDD tests first: npm run test:bdd');
   process.exit(1);
@@ -29,7 +29,7 @@ if (!fs.existsSync(INPUT_PATH)) {
 
 const raw = fs.readFileSync(INPUT_PATH, 'utf-8').trim();
 if (!raw) {
-  console.error('Error: cucumber-report.json is empty. Run BDD tests first (npm run test:bdd).');
+  console.error('Error: cucumber-report-bdd.json is empty. Run BDD tests first (npm run test:bdd).');
   process.exit(1);
 }
 
@@ -37,7 +37,7 @@ let RESULTS;
 try {
   RESULTS = /** @type {CucumberReport} */ (JSON.parse(raw));
 } catch (e) {
-  console.error('Error: cucumber-report.json is invalid. Run BDD tests first (npm run test:bdd).');
+  console.error('Error: cucumber-report-bdd.json is invalid. Run BDD tests first (npm run test:bdd).');
   process.exit(1);
 }
 

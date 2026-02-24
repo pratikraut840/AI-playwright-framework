@@ -12,7 +12,8 @@ const ALLURE_RESULTS_TDD = 'allure-results-tdd';
 const ALLURE_REPORT = 'allure-report';
 const CUCUMBER_JSON_DIR = 'test-results-bdd/cucumber-json';
 const CUCUMBER_HTML_DIR = 'test-results-bdd/cucumber-html-report';
-const CUCUMBER_INDEX = path.join(CUCUMBER_HTML_DIR, 'index.html');
+const CUCUMBER_HTML_FILE = 'cucumber-html-report.html';
+const CUCUMBER_INDEX = path.join(CUCUMBER_HTML_DIR, CUCUMBER_HTML_FILE);
 
 function ensureAllureDirs(): void {
   fs.mkdirSync(ALLURE_RESULTS_BDD, { recursive: true });
@@ -40,7 +41,7 @@ function hasValidCucumberJson(): boolean {
   if (!fs.existsSync(jsonDir)) return false;
   const files = fs.readdirSync(jsonDir).filter((f) => f.endsWith('.json'));
   if (files.length === 0) return false;
-  const mainFile = path.join(jsonDir, 'cucumber-report.json');
+  const mainFile = path.join(jsonDir, 'cucumber-report-bdd.json');
   if (!fs.existsSync(mainFile)) return false;
   try {
     const raw = fs.readFileSync(mainFile, 'utf-8').trim();
@@ -71,7 +72,7 @@ function openInBrowser(filePath: string): void {
 function generateCucumberReport(): void {
   if (!hasValidCucumberJson()) {
     console.error('Error: No BDD test results found.');
-    console.error('  Expected: test-results-bdd/cucumber-json/cucumber-report.json');
+    console.error('  Expected: test-results-bdd/cucumber-json/cucumber-report-bdd.json');
     console.error('  Run BDD tests first: npm run test:bdd');
     process.exit(1);
   }
@@ -100,6 +101,12 @@ function generateCucumberReport(): void {
       ],
     },
   });
+  // Copy index.html to cucumber-html-report.html, remove index.html (reporter always creates index.html)
+  const indexPath = path.join(CUCUMBER_HTML_DIR, 'index.html');
+  if (fs.existsSync(path.resolve(indexPath))) {
+    fs.copyFileSync(path.resolve(indexPath), path.resolve(CUCUMBER_INDEX));
+    fs.unlinkSync(path.resolve(indexPath));
+  }
   openInBrowser(CUCUMBER_INDEX);
 }
 

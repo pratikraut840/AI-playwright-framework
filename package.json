@@ -24,7 +24,7 @@
 
     "report:bdd": "ts-node src/helpers/reports/report.ts",
     "convert:bdd:junit": "node ./convert-cucumber-to-junit.mjs",
-    "report:bdd:junit": "npm run convert:bdd:junit && node src/helpers/scripts/view-junit.mjs test-results-bdd/junit-report/junit-report.xml test-results-bdd/junit-report/junit-viewer.html \"OrangeHRM BDD JUnit\"",
+    "report:bdd:junit": "npm run convert:bdd:junit && node src/helpers/scripts/view-junit.mjs test-results-bdd/junit-report/junit-report-bdd.xml test-results-bdd/junit-report/junit-viewer-tdd.html \"OrangeHRM BDD JUnit\"",
     "report:bdd:all":"npm run report:bdd && npm run convert:bdd:junit && npm run report:bdd:junit",
 
     "test:tdd": "playwright test",
