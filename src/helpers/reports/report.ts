@@ -10,8 +10,8 @@ import {
 const ALLURE_RESULTS_BDD = 'allure-results-bdd';
 const ALLURE_RESULTS_TDD = 'allure-results-tdd';
 const ALLURE_REPORT = 'allure-report';
-const CUCUMBER_JSON_DIR = 'test-results/cucumber-json';
-const CUCUMBER_HTML_DIR = 'test-results/cucumber-html-report';
+const CUCUMBER_JSON_DIR = 'test-results-bdd/cucumber-json';
+const CUCUMBER_HTML_DIR = 'test-results-bdd/cucumber-html-report';
 const CUCUMBER_INDEX = path.join(CUCUMBER_HTML_DIR, 'index.html');
 
 function ensureAllureDirs(): void {
@@ -71,7 +71,7 @@ function openInBrowser(filePath: string): void {
 function generateCucumberReport(): void {
   if (!hasValidCucumberJson()) {
     console.error('Error: No BDD test results found.');
-    console.error('  Expected: test-results/cucumber-json/cucumber-report.json');
+    console.error('  Expected: test-results-bdd/cucumber-json/cucumber-report.json');
     console.error('  Run BDD tests first: npm run test:bdd');
     process.exit(1);
   }

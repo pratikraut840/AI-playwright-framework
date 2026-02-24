@@ -99,7 +99,7 @@ OrangeHRM-project/
 │   ├── cucumber-json/                  # Cucumber JSON output
 │   ├── cucumber-html-report/           # Customized HTML reports
 │   ├── junit-report/                   # JUnit XML & HTML
-│   ├── playwright-report/             # Playwright HTML report (when using npx playwright test)
+│   ├── playwright-tdd-report/          # Playwright HTML report (when using npx playwright test)
 │   ├── screenshots/                    # Failure screenshots
 │   └── videos/                         # Failure video captures
 │

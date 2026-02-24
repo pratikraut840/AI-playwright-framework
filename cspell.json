@@ -14,8 +14,9 @@
   "ignorePaths": [
     "node_modules",
     "dist",
-    "test-results",
-    "playwright-report",
+    "test-results-bdd",
+    "test-results-tdd",
+    "playwright-report-tdd",
     "package-lock.json"
   ]
 }

@@ -101,14 +101,14 @@ OrangeHRM-project/
 │           ├── failureLogger.ts        # writeFailureLog()
 │           └── logger.ts               # enableDebugFileLogging()
 │
-├── test-results/                       # BDD (Cucumber) outputs
+├── test-results/                      # BDD (Cucumber) outputs
 │   ├── cucumber-json/                  # Cucumber JSON output
 │   ├── cucumber-html-report/           # Customized HTML reports
 │   ├── junit-report/                   # JUnit XML & HTML
 │   ├── screenshots/                    # Failure screenshots
 │   └── videos/                         # Failure video captures
 │
-├── playwright-report/                 # TDD (Playwright) HTML report
+├── playwright-report-tdd/             # TDD (Playwright) HTML report
 │
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
 │

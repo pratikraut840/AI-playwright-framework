@@ -3,8 +3,10 @@ node_modules
 /node_modules
 
 # Test results & reports (do not commit)
-/test-results
-test-results/
+/test-results-bdd
+test-results-bdd/
+/test-results-tdd
+test-results-tdd/
 /allure-results
 /allure-results-bdd
 /allure-results-tdd
@@ -15,8 +17,8 @@ allure-report/
 test-output.txt
 
 # Playwright
-/playwright-report/
-playwright-report/
+/playwright-report-tdd/
+playwright-report-tdd/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/

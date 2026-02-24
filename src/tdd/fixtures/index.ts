@@ -7,7 +7,7 @@ import { AdminUserManagementPage } from '../../pages/AdminUserManagementPage';
 import { VacancyPage } from '../../pages/VacancyPage';
 
 /** Directory where Playwright (TDD) failure screenshots are saved */
-const PLAYWRIGHT_SCREENSHOT_DIR = path.join('playwright-report', 'playwright-screenshots');
+const PLAYWRIGHT_SCREENSHOT_DIR = path.join('playwright-report-tdd', 'playwright-screenshots');
 
 /**
  * TDD Fixtures – extend Playwright's base test with pre-instantiated Page Objects.
@@ -33,7 +33,7 @@ export const test = base.extend<{
   },
 });
 
-// Save a screenshot to playwright-report/playwright-screenshots when a test fails
+// Save a screenshot to playwright-report-tdd/playwright-screenshots when a test fails
 test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status !== testInfo.expectedStatus && page) {
     fs.mkdirSync(PLAYWRIGHT_SCREENSHOT_DIR, { recursive: true });

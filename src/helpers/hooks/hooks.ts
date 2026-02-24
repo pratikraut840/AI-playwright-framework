@@ -31,8 +31,8 @@ let sharedBrowser: Browser | null = null;
 
 /** File path where authenticated cookies/storage are saved after one login */
 const AUTH_STATE_FILE  = path.join('src', 'helpers', 'setupLogin', 'auth', 'admin-user.json');
-const SCREENSHOT_DIR   = path.join('test-results', 'cucumber-html-report', 'screenshots');
-const VIDEO_DIR        = path.join('test-results', 'cucumber-html-report', 'videos');
+const SCREENSHOT_DIR   = path.join('test-results-bdd', 'cucumber-html-report', 'screenshots');
+const VIDEO_DIR        = path.join('test-results-bdd', 'cucumber-html-report', 'videos');
 
 setWorldConstructor(OrangeHRMWorld);
 setDefaultTimeout(120 * 1000);

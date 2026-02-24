@@ -26,7 +26,7 @@ const STORAGE_STATE = 'src/helpers/setupLogin/auth/admin-user.json';
  */
 export default defineConfig({
   testDir: './src/tdd/specs',
-  outputDir: 'test-results',
+  outputDir: 'test-results-tdd',
   timeout: 240_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -34,9 +34,9 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   reporter: [
-    ['html', { outputFolder: 'playwright-report' }],
-    ['json', { outputFile: 'playwright-report/results.json' }],
-    ['junit', { outputFile: 'playwright-report/junit.xml' }],
+    ['html', { outputFolder: 'playwright-report-tdd' }],
+    ['json', { outputFile: 'playwright-report-tdd/results.json' }],
+    ['junit', { outputFile: 'playwright-report-tdd/junit-report-tdd/junit.xml' }],
     ['allure-playwright', { resultsDir: 'allure-results-tdd' }],
   ],
 
@@ -48,6 +48,7 @@ export default defineConfig({
   },
 
   globalSetup: require.resolve('./src/tdd/globalSetup.ts'),
+  globalTeardown: require.resolve('./src/tdd/globalTeardown.ts'),
 
   projects: [
     {
