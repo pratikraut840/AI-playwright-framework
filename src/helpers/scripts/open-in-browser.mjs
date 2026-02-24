@@ -1,17 +1,17 @@
 /**
  * Opens a file path or URL in the default browser (cross-platform).
- * Usage: node scripts/open-in-browser.mjs <path-or-url>
+ * Usage: node src/helpers/scripts/open-in-browser.mjs <path-or-url>
  */
 import { execSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(__dirname, '..', '..', '..');
 
 const target = process.argv[2];
 if (!target) {
-  console.error('Usage: node scripts/open-in-browser.mjs <path-or-url>');
+  console.error('Usage: node src/helpers/scripts/open-in-browser.mjs <path-or-url>');
   process.exit(1);
 }
 
