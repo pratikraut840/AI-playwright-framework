@@ -33,14 +33,16 @@
     "test:all": "npm run test:bdd && npm run test:tdd",
 
     "report": "ts-node src/helpers/reports/report.ts",
-    "report:tdd": "playwright show-report playwright-report",
+    "report:bdd": "ts-node src/helpers/reports/report.ts",
+    "report:tdd": "node scripts/show-tdd-report.mjs",
     "convert:bdd:junit": "node ./convert-cucumber-to-junit.mjs",
     "report:bdd:junit": "npm run convert:bdd:junit && node scripts/view-junit.mjs test-results/junit-report/junit-report.xml test-results/junit-report/junit-viewer.html \"OrangeHRM BDD JUnit\"",
     "report:tdd:junit": "node scripts/view-junit.mjs playwright-report/junit.xml playwright-report/junit-viewer.html \"OrangeHRM TDD JUnit\"",
+    "report:all": "node scripts/report-all.mjs",
 
     "allure:generate": "ts-node src/helpers/reports/report.ts allure:generate",
     "allure:serve": "ts-node src/helpers/reports/report.ts allure:serve",
-    "allure:open": "allure open allure-report",
+    "allure:open": "node scripts/allure-open.mjs",
 
     "tsc": "tsc --noEmit",
     "lint": "eslint .",

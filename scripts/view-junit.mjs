@@ -1,5 +1,5 @@
 /**
- * Wrapper for xunit-viewer that checks XML exists before running.
+ * Wrapper for xunit-viewer: generates JUnit HTML report and opens in browser.
  * Avoids xunit-viewer crash when file is missing.
  * Usage: node scripts/view-junit.mjs <xmlPath> <htmlPath> <title>
  */
@@ -29,5 +29,22 @@ if (!fs.existsSync(htmlDir)) {
   fs.mkdirSync(htmlDir, { recursive: true });
 }
 
-const cmd = `npx xunit-viewer -r "${xmlPath}" -o "${htmlPath}" -t "${title}" -s`;
+// Generate HTML (no -s server, so command completes)
+const cmd = `npx xunit-viewer -r "${xmlPath}" -o "${htmlPath}" -t "${title}"`;
 execSync(cmd, { stdio: 'inherit', cwd: ROOT });
+
+// Open in browser
+const resolvedHtml = path.resolve(ROOT, htmlPath);
+const url = 'file:///' + resolvedHtml.replace(/\\/g, '/').replace(/^([A-Za-z]):/, '$1:');
+try {
+  if (process.platform === 'win32') {
+    execSync(`start "" "${url}"`, { stdio: 'ignore' });
+  } else if (process.platform === 'darwin') {
+    execSync(`open "${url}"`, { stdio: 'ignore' });
+  } else {
+    execSync(`xdg-open "${url}"`, { stdio: 'ignore' });
+  }
+  console.log('Opened JUnit report in browser.');
+} catch (err) {
+  console.log('Report saved at:', resolvedHtml);
+}
