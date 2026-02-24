@@ -125,13 +125,15 @@ After(async function (this: OrangeHRMWorld, scenario: ITestCaseHookParameter) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
   // ── 1. Screenshot on failure (captured while page is still open) ───────────
-  if ((FAILED || PASSED) && this.page) {
-    const screenshotPath = path.join(SCREENSHOT_DIR, `${safeName}-${timestamp}.png`);
-    const screenshot = await this.page.screenshot({ path: screenshotPath, type: 'png' });
-    this.attach(screenshot, 'image/png');
-    // Attach to Allure report on failure so it appears in the Allure UI
-    if (FAILED) {
+  if (FAILED && this.page) {
+    try {
+      fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
+      const screenshotPath = path.join(SCREENSHOT_DIR, `${safeName}-${timestamp}.png`);
+      const screenshot = await this.page.screenshot({ path: screenshotPath, type: 'png' });
+      this.attach(screenshot, 'image/png');
       await allure.attachment('Screenshot on failure', screenshot, ContentType.PNG);
+    } catch (err) {
+      console.error('[After] Screenshot capture failed:', err);
     }
   }
 
@@ -139,24 +141,23 @@ After(async function (this: OrangeHRMWorld, scenario: ITestCaseHookParameter) {
   const video: Video | null = this.page?.video() ?? null;
 
   // ── 3. Close page then context — closing context finalises the video file ──
-  await this.page?.close();
-  await this.context?.close();
+  await this.page?.close().catch(() => {});
+  await this.context?.close().catch(() => {});
 
-  // ── 4. Handle the recorded video ───────────────────────────────────────────
-  if (video) {
-    if (FAILED) {
+  // ── 4. Handle the recorded video (saveAs waits for video to be ready) ────────
+  if (video && FAILED) {
+    try {
+      fs.mkdirSync(VIDEO_DIR, { recursive: true });
       const videoPath = path.join(VIDEO_DIR, `${safeName}-${timestamp}.mp4`);
-      // saveAs renames/copies the temp Playwright video to a readable filename
       await video.saveAs(videoPath);
-      // Attach video buffer to the Cucumber HTML report
       const videoBuffer = fs.readFileSync(videoPath);
       this.attach(videoBuffer, 'video/mp4');
-    } else {
-      // Passed — delete the video to keep disk usage low
-      await video.delete().catch(() => { /* ignore if already cleaned */ });
+    } catch (err) {
+      console.error('[After] Video save failed:', err);
     }
+  } else if (video && PASSED) {
+    await video.delete().catch(() => {});
   }
-  // Shared browser remains open; AfterAll closes it
 });
 
 // ─── AfterAll ─────────────────────────────────────────────────────────────────

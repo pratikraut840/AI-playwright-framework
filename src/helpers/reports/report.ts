@@ -30,6 +30,7 @@ function generateCucumberReport(): void {
   reporter.generate({
     jsonDir: 'test-results/cucumber-json',
     reportPath: 'test-results/cucumber-html-report',
+    displayDuration: true,
     metadata: {
       browser: {
         name: process.env.BROWSER ?? 'chromium',
