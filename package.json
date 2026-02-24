@@ -23,6 +23,7 @@
     
     "test:bdd": "cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:tdd": "playwright test",
+    "test:tdd:log": "playwright test 2>&1 | tee playwright-report/test-output.txt",
     "test:tdd:headed": "cross-env HEADLESS=false playwright test --headed",
     "test:tdd:ui": "playwright test --ui",
     "test:tdd:smoke": "playwright test -g \"successful login|username uniqueness|create vacancy with valid\" --project=chromium --project=chromium-authorized",

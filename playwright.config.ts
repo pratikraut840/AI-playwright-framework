@@ -26,6 +26,7 @@ const STORAGE_STATE = 'src/helpers/setupLogin/auth/admin-user.json';
  */
 export default defineConfig({
   testDir: './src/tdd/specs',
+  outputDir: 'playwright-report/test-results',
   timeout: 120_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
