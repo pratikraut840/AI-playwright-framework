@@ -125,7 +125,7 @@ parallel execution
 
 reporter config
 
-testDir pointing to src/tdd/specs
+testDir pointing to src/ui/tdd/specs
 
 ✅ Custom Fixtures
 

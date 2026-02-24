@@ -7,10 +7,10 @@ const timestamp = new Date()
 const DEFAULT_PROFILE = {
   requireModule: ['ts-node/register'],
   require: [
-    'src/helpers/hooks/hooks.ts',
-    'src/stepDefinitions/**/*.steps.ts',
+    'src/ui/helpers/hooks/hooks.ts',
+    'src/ui/stepDefinitions/**/*.steps.ts',
   ],
-  paths: ['src/tests/features/**/*.feature'],
+  paths: ['src/ui/tests/features/**/*.feature'],
   format: [
     'progress-bar',
     ['json', 'test-results-bdd/cucumber-json/cucumber-report-bdd.json'],

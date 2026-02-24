@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/ui/types"]
   },
   "include": ["src/**/*", "tests/**/*", "*.ts"],
   "exclude": ["node_modules", "dist"]

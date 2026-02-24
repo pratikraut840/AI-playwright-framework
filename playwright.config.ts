@@ -3,11 +3,11 @@ import * as dotenv from 'dotenv';
 
 /* Load env before ENV is used – same pattern as BDD hooks */
 const ENV_NAME = process.env.NODE_ENV ?? 'dev';
-dotenv.config({ path: path.resolve(__dirname, `src/helpers/env/.env.${ENV_NAME}`) });
-dotenv.config({ path: path.resolve(__dirname, 'src/helpers/env/.env') });
+dotenv.config({ path: path.resolve(__dirname, `src/ui/helpers/env/.env.${ENV_NAME}`) });
+dotenv.config({ path: path.resolve(__dirname, 'src/ui/helpers/env/.env') });
 
 import { defineConfig, devices } from '@playwright/test';
-import { ENV } from './src/helpers/env/env';
+import { ENV } from './src/ui/helpers/env/env';
 
 /** Spec names (without .spec.ts) that run without pre-login – add new ones here */
 const GUEST_SPECS = ['login'];
@@ -18,14 +18,14 @@ const AUTHORIZED_SPECS = ['admin', 'recruitment'];
 const guestMatch = new RegExp(`(${GUEST_SPECS.join('|')})\\.spec\\.ts$`);
 const authorizedMatch = new RegExp(`(${AUTHORIZED_SPECS.join('|')})\\.spec\\.ts$`);
 
-const STORAGE_STATE = 'src/helpers/setupLogin/auth/admin-user.json';
+const STORAGE_STATE = 'src/ui/helpers/setupLogin/auth/admin-user.json';
 
 /**
  * Playwright config for TDD layer.
  * BDD (Cucumber) uses its own cucumber.mjs config.
  */
 export default defineConfig({
-  testDir: './src/tdd/specs',
+  testDir: './src/ui/tdd/specs',
   outputDir: 'test-results-tdd',
   timeout: 240_000,
   fullyParallel: true,
@@ -47,8 +47,8 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
 
-  globalSetup: require.resolve('./src/tdd/globalSetup.ts'),
-  globalTeardown: require.resolve('./src/tdd/globalTeardown.ts'),
+  globalSetup: require.resolve('./src/ui/tdd/globalSetup.ts'),
+  globalTeardown: require.resolve('./src/ui/tdd/globalTeardown.ts'),
 
   projects: [
     {

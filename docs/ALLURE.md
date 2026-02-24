@@ -1,6 +1,6 @@
 # Allure Reporting
 
-Allure report generation is handled by `src/helpers/reports/report.ts`.
+Allure report generation is handled by `src/ui/helpers/reports/report.ts`.
 
 ## Prerequisites
 

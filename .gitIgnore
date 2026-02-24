@@ -19,6 +19,16 @@ test-output.txt
 # Playwright
 /playwright-report-tdd/
 playwright-report-tdd/
+/test-results-api
+test-results-api/
+/playwright-report-api/
+playwright-report-api/
+/junit-report-api/
+junit-report-api/
+/allure-results-api
+allure-results-api/
+/allure-report-api
+allure-report-api/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
@@ -44,9 +54,12 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Optional: local env overrides (uncomment if you don't commit real .env)
-# src/helpers/env/.env
-# src/helpers/env/.env.local
+# src/ui/helpers/env/.env
+# src/ui/helpers/env/.env.local
 # **/.env.local
+
+# API layer: do not commit .env (copy from .env.example)
+src/api/env/.env
 
 # Build / coverage (if added later)
 /dist

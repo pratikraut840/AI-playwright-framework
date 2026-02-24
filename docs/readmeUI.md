@@ -8,42 +8,98 @@ OrangeHRM-project/
 │
 ├── src/
 │   │
-│   ├── ui/                             # Dedicated UI Testing Layer (BDD + TDD)
-│   │   ├── constants/
-│   │   │   ├── selectors/              # Common & reusable selectors
-│   │   │   ├── global.ts               # UI labels/constants
-│   │   │   └── resources.ts            # API endpoint constants
-│   │   │
-│   │   ├── helpers/
-│   │   │   ├── browsers/browserSetup.ts
-│   │   │   ├── env/                    # .env, env.ts, getEnv.ts
-│   │   │   ├── reports/report.ts
-│   │   │   ├── setupLogin/auth/
-│   │   │   └── hooks/                  # hooks.ts, orangeHRMWorld.ts
-│   │   │
-│   │   ├── pages/                      # All POM pages
-│   │   ├── stepDefinitions/            # Step definitions (Gherkin bindings)
-│   │   ├── tdd/                        # TDD layer (Playwright UI specs)
-│   │   │   ├── fixtures/
-│   │   │   ├── specs/
-│   │   │   └── globalSetup.ts
-│   │   │
-│   │   ├── tests/
-│   │   │   ├── data/
-│   │   │   └── features/               # Cucumber feature files
-│   │   │
-│   │   ├── types/
-│   │   └── utils/                      # assertions, logger, locator, api, etc.
+│   ├── constants/
+│   │   ├── selectors/                  # Common & reusable selectors
+│   │   ├── global.ts                   # UI labels/constants
+│   │   └── resources.ts                # API endpoint constants
 │   │
-│   └── api/                            # Dedicated API Testing Layer (no UI mixing)
-│       ├── config/apiEnv.ts            # Base URL, credentials
-│       ├── constants/endpoints.ts      # Restful-Booker endpoints
-│       ├── client/restfulBookerClient.ts
-│       ├── fixtures/apiFixtures.ts
-│       ├── specs/                      # auth, booking, healthCheck
-│       ├── data/restfulBooker.data.ts
-│       ├── env/                       # .env, .env.example (auth creds)
-│       └── types/restfulBooker.types.ts
+│   ├── helpers/
+│   │   ├── browsers/
+│   │   │   └── browserSetup.ts         # Browser initialization logic
+│   │   │
+│   │   │
+│   │   ├── env/
+│   │   │   ├── .env
+│   │   │   ├── env.ts                  # Environment configs (URL, credentials, API endpoints)
+│   │   │   └── getEnv.ts               # getEnv() utility function
+│   │   │
+│   │   ├── reports/
+│   │   │   └── report.ts               # Generate multiple cucumber reports
+│   │   │
+│   │   ├── setupLogin/
+│   │   │   └── auth/
+│   │   │       └── user.json           # Stored authentication cookies/session
+│   │   │
+│   │   └── hooks/
+│   │       ├── hooks.ts                # before, beforeAll, after, afterAll
+│   │       └── orangeHRMWorld.ts       # Custom world (object creation setup)
+│   │
+│   ├── pages/                          # All POM pages
+│   │
+│   ├── stepDefinitions/                # Step definitions (Gherkin bindings)
+│   │
+│   ├── tdd/                            # TDD layer (Playwright Test Runner)
+│   │   ├── fixtures/                   # Custom fixtures (loginPage, dashboardPage, etc.)
+│   │   │   └── index.ts
+│   │   ├── specs/                      # TDD spec files (*.spec.ts)
+│   │   └── globalSetup.ts              # Auth storage for TDD specs that need pre-login
+│   │
+│   ├── tests/
+│   │   ├── data/
+│   │   │   ├── apiData/
+│   │   │   │   ├── login.ts
+│   │   │   │   ├── pim.ts              # API payload data
+│   │   │   │   └── admin.ts            # API payload data
+│   │   │   │
+│   │   │   ├── automationRules.ts
+│   │   │   ├── login.ts
+│   │   │   ├── homepage.ts
+│   │   │   ├── pim.ts
+│   │   │   └── admin.ts                # UI page test data
+│   │   │
+│   │   └── features/                   # Cucumber feature files
+│   │       ├── login.feature
+│   │       ├── pim.feature
+│   │       └── admin.feature
+│   │
+│   ├── types/                          # All TypeScript interfaces/types
+│   │   ├── automationRules.types.ts
+│   │   ├── login.types.ts
+│   │   ├── pim.types.ts
+│   │   ├── admin.types.ts
+│   │   └── common.types.ts
+│   │
+│   └── utils/
+│       │
+│       ├── api/
+│       │   └── apiMethods.ts           # Common API methods (GET, POST, PUT)
+│       │
+│       ├── assertions/
+│       │   ├── fieldAssertion.ts       # Custom assertions
+│       │   ├── loginAssertions.ts      # Custom assertions
+│       │   ├── pimAssertions.ts        # Custom assertions
+│       │   └── adminAssertions.ts      # Custom assertions
+│       │
+│       ├── auth/
+│       │   └── token.ts                # Get token from local storage
+│       │
+│       ├── common/
+│       │   ├── generateAndRun.ts      # utility func to create & run data in same format
+│       │   └── random.ts               # generateRandomNum(), generateRandomStr()
+│       │
+│       ├── date/
+│       │   └── format.ts               # Date utilities
+│       │                               # getCurrentFormattedDate()
+│       │                               # parseDateByRegion()
+│       │                               # verifyDates()
+│       │                               # generateDateByRegion()
+│       │
+│       ├── locator/
+│       │   └── wrapperLocator.ts       # Locator wrapper utility
+│       │
+│       └── logger/
+│           ├── failureLogger.ts        # writeFailureLog()
+│           └── logger.ts               # enableDebugFileLogging()
 │
 ├── test-results/                      # BDD (Cucumber) outputs
 │   ├── cucumber-json/                  # Cucumber JSON output
@@ -53,10 +109,7 @@ OrangeHRM-project/
 │   └── videos/                         # Failure video captures
 │
 ├── playwright-report-tdd/             # TDD (Playwright) HTML report
-├── playwright-report-api/             # API layer HTML report
-├── test-results-api/                  # API layer test results
 │
-├── playwright.api.config.ts           # Playwright config for API-only tests
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
 │
 ├── package.json                        # Project dependencies & scripts
@@ -126,11 +179,10 @@ This framework is built using:
     Custom Reporting (HTML + JSON + JUnit)
 
 <!-- Architecture Design -->
-**Hybrid Framework:** Supports BDD (Cucumber), TDD (Playwright UI), and a Dedicated API layer.
+**Hybrid Framework:** Supports both BDD (Cucumber) and TDD (Playwright Test Runner).
 - BDD Layer → Feature files (Gherkin) → Step definitions → POM
-- TDD Layer → Spec files (*.spec.ts) → Fixtures + POM (UI only)
-- API Layer → Spec files (*.spec.ts) → API client + fixtures (no browser, no UI mixing)
-- Shared → Page Objects, utilities, assertions, env config (for UI layers)
+- TDD Layer → Spec files (*.spec.ts) → Fixtures + POM
+- Shared → Page Objects, utilities, assertions, env config
 
 <!-- Layer Details -->
 BDD Layer → Feature files (Gherkin)
@@ -144,8 +196,7 @@ Bitbucket Pipeline Integration → Sync automation results to manual test cases
 <!-- Running Tests -->
   BDD:  npm run test:bdd    (or npm run test, test:smoke, test:regression, test:headed)
   TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
-  API:  npm run test:api    (or test:api:ui) – Dedicated API layer, Restful-Booker
-  All:  npm run test:all
+  Both: npm run test:all
 
   If "npm run test:bdd" doesn't work in your terminal:
   - Ensure you're in the project root (where package.json and cucumber.mjs live)
@@ -153,7 +204,7 @@ Bitbucket Pipeline Integration → Sync automation results to manual test cases
   - Or try: npx cucumber-js --config cucumber.mjs
 
 <!-- Environment Configuration -->
-src/ui/helpers/env/
+helpers/env/
    ├── .env
    ├── env.ts
    └── getEnv.ts
@@ -206,7 +257,7 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
 5️⃣ Environment Layer
     "Framework supports multi-environment execution using .env files with centralized getEnv() configuration management."
     Folder:
-        src/ui/helpers/env/
+        helpers/env/
         ├── .env
         ├── env.ts
         └── getEnv.ts
