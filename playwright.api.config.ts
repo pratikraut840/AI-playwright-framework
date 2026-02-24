@@ -28,7 +28,7 @@ export default defineConfig({
     ['html', {outputFolder: 'playwright-report-api'}],
     ['json', { outputFile: 'playwright-report-api/results.json' }],
     ['junit', { outputFile: 'junit-report-api/junit.xml' }],
-    ['allure-playwright', { resultsDir: 'allure-results-api' }],
+    ['allure-playwright', { resultsDir: 'allure-results-api-raw' }],
   ],
 
   use: {

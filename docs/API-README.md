@@ -137,7 +137,7 @@ if (!valid) throw new Error(errors?.join(', '));
 |------|------|
 | HTML | playwright-report-api/playwright-report-api.html |
 | JUnit XML | junit-report-api/junit.xml |
-| Allure | allure-results-api/ (unified: allure:generate; API-only: allure:api:*) |
+| Allure Raw | allure-results-api-raw/ (JSON/XML; input to allure generate) |
 
 ```bash
 npm run report:api           # Opens JUnit viewer (serves, blocks)

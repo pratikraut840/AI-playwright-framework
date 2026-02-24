@@ -11,7 +11,7 @@ const ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const ALLURE_REPORT = path.join(ROOT, 'allure-report');
 const ALLURE_RESULTS_BDD = path.join(ROOT, 'allure-results-bdd');
 const ALLURE_RESULTS_TDD = path.join(ROOT, 'allure-results-tdd');
-const ALLURE_RESULTS_API = path.join(ROOT, 'allure-results-api');
+const ALLURE_RESULTS_API = path.join(ROOT, 'allure-results-api-raw');
 
 const hasBddResults = fs.existsSync(ALLURE_RESULTS_BDD) && fs.readdirSync(ALLURE_RESULTS_BDD).length > 0;
 const hasTddResults = fs.existsSync(ALLURE_RESULTS_TDD) && fs.readdirSync(ALLURE_RESULTS_TDD).length > 0;

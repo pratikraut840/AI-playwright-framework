@@ -10,7 +10,7 @@ import { writeAllureMetadata } from './allureMetadata';
 
 const ALLURE_RESULTS_BDD = 'allure-results-bdd';
 const ALLURE_RESULTS_TDD = 'allure-results-tdd';
-const ALLURE_RESULTS_API = 'allure-results-api';
+const ALLURE_RESULTS_API = 'allure-results-api-raw';
 const ALLURE_REPORT = 'allure-report';
 const CUCUMBER_JSON_DIR = 'test-results-bdd/cucumber-json';
 const CUCUMBER_HTML_DIR = 'test-results-bdd/cucumber-html-report';
