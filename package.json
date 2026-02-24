@@ -20,7 +20,6 @@
     "tsc": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    
     "test:bdd": "cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:tdd": "playwright test",
     "test:tdd:log": "playwright test 2>&1 | tee playwright-report/test-output.txt",
@@ -31,7 +30,6 @@
     "test:tdd:firefox": "playwright test --project=firefox --project=firefox-authorized",
     "test:tdd:webkit": "playwright test --project=webkit --project=webkit-authorized",
     "test:all": "npm run test:bdd && npm run test:tdd",
-
     "report:tdd": "playwright show-report playwright-report",
     "test:tdd:junit": "cross-env CI=true playwright test",
     "report:tdd:junit": "xunit-viewer -r playwright-report/junit.xml -o playwright-report/junit-report.html -s",
@@ -42,7 +40,7 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.58.2",
     "@types/node": "^22.13.5",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
     "@typescript-eslint/parser": "^8.56.0",
