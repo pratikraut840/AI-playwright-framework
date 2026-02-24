@@ -35,8 +35,8 @@
     "report": "ts-node src/helpers/reports/report.ts",
     "report:tdd": "playwright show-report playwright-report",
     "convert:bdd:junit": "node convert-cucumber-to-junit.mjs",
-    "report:bdd:junit": "npm run convert:bdd:junit && xunit-viewer -r test-results/junit-report/junit-report.xml -t \"OrangeHRM BDD JUnit\" -s",
-    "report:tdd:junit": "xunit-viewer -r playwright-report/junit.xml -t \"OrangeHRM TDD JUnit\" -s",
+    "report:bdd:junit": "npm run convert:bdd:junit && node scripts/view-junit.mjs test-results/junit-report/junit-report.xml test-results/junit-report/junit-viewer.html \"OrangeHRM BDD JUnit\"",
+    "report:tdd:junit": "node scripts/view-junit.mjs playwright-report/junit.xml playwright-report/junit-viewer.html \"OrangeHRM TDD JUnit\"",
 
     "allure:generate": "ts-node src/helpers/reports/report.ts allure:generate",
     "allure:serve": "ts-node src/helpers/reports/report.ts allure:serve",
