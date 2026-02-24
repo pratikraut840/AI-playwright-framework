@@ -13,6 +13,7 @@
     "test:chrome": "cross-env BROWSER=chromium cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:firefox": "cross-env BROWSER=firefox cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:webkit": "cross-env BROWSER=webkit cucumber-js --config src/helpers/config/cucumber.mjs",
+    
     "report": "ts-node src/helpers/reports/report.ts",
     "convert:junit": "node convert-cucumber-to-junit.mjs",
     "report:junit": "xunit-viewer -r test-results/junit-report/junit-report.xml -o test-results/junit-report/junit-report.html",
@@ -20,6 +21,7 @@
     "tsc": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    
     "test:bdd": "cucumber-js --config src/helpers/config/cucumber.mjs",
     "test:tdd": "playwright test",
     "test:tdd:log": "playwright test 2>&1 | tee playwright-report/test-output.txt",
@@ -29,6 +31,7 @@
     "test:tdd:chromium": "playwright test --project=chromium --project=chromium-authorized",
     "test:tdd:firefox": "playwright test --project=firefox --project=firefox-authorized",
     "test:tdd:webkit": "playwright test --project=webkit --project=webkit-authorized",
+    
     "test:all": "npm run test:bdd && npm run test:tdd",
     "report:tdd": "playwright show-report playwright-report",
     "test:tdd:junit": "cross-env CI=true playwright test",
