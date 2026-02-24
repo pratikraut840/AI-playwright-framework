@@ -8,6 +8,8 @@ test-results/
 /allure-results
 /allure-results-bdd
 /allure-results-tdd
+allure-results-bdd
+allure-results-tdd
 /allure-report
 allure-report/
 test-output.txt
