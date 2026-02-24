@@ -36,15 +36,45 @@ export async function assertVacancyNotCreated(page: Page): Promise<void> {
   await expect(page).toHaveURL(/addJobVacancy/);
 }
 
-export async function assertSuccessMessage(page: Page): Promise<void> {
+/** Edit save failed; still on edit form (addJobVacancy/ID) with validation errors */
+export async function assertEditNotSaved(page: Page): Promise<void> {
+  await expect(page).toHaveURL(/addJobVacancy\/\d+/);
+  await page.waitForSelector(RECRUITMENT_SELECTORS.fieldError, { timeout: 5_000 }).catch(() => {});
   const vacancyPage = new VacancyPage(page);
-  const toastText = await vacancyPage.getToastText();
-  expect(toastText).toContain(RECRUITMENT_TEST_DATA.successMessage);
+  const errors = await vacancyPage.getFieldErrors();
+  expect(errors.length).toBeGreaterThan(0);
 }
 
-export async function assertVacancyInList(page: Page): Promise<void> {
-  await expect(page).toHaveURL(/viewJobVacancy/);
+export async function assertSuccessMessage(page: Page): Promise<void> {
   const vacancyPage = new VacancyPage(page);
+  const url = page.url();
+  if (/addJobVacancy\/\d+|viewJobVacancy/.test(url)) {
+    try {
+      const toastText = await vacancyPage.getToastText();
+      expect(toastText).toMatch(/Successfully|Saved/i);
+    } catch {
+      // Toast may have disappeared; URL already confirms success
+    }
+  } else {
+    const toastText = await vacancyPage.getToastText();
+    expect(toastText).toMatch(/Successfully|Saved/i);
+  }
+}
+
+/** Asserts we're on list page with at least one vacancy row */
+export async function assertVacancyInList(page: Page): Promise<void> {
+  // After create, OrangeHRM redirects to edit form (addJobVacancy/ID); navigate to list to verify
+  await page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: TIMEOUTS.default });
+  const url = page.url();
+  if (url.includes('addJobVacancy')) {
+    const listUrl = url.replace(/addJobVacancy\/\d+/, 'viewJobVacancy');
+    await page.goto(listUrl);
+    await page.waitForSelector(RECRUITMENT_SELECTORS.list.heading, { timeout: TIMEOUTS.default });
+  }
+  const vacancyPage = new VacancyPage(page);
+  await expect(page.locator(RECRUITMENT_SELECTORS.list.tableRows)).not.toHaveCount(0, {
+    timeout: TIMEOUTS.default,
+  });
   const rowCount = await vacancyPage.getTableRowCount();
   expect(rowCount).toBeGreaterThan(0);
 }

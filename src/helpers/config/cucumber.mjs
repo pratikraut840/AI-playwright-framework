@@ -15,9 +15,12 @@ const DEFAULT_PROFILE = {
     'progress-bar',
     `json:test-results/cucumber-json/cucumber-report.json`,
     `html:test-results/cucumber-html-report/index.html`,
+    'allure-cucumberjs/reporter',
   ],
-  publishQuiet: true,
-  formatOptions: { snippetInterface: 'async-await' },
+  formatOptions: {
+    snippetInterface: 'async-await',
+    resultsDir: 'allure-results-bdd',
+  },
 };
 
 export { DEFAULT_PROFILE as default };

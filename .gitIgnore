@@ -1,5 +1,7 @@
 /test-results
 /allure-results
+/allure-results-bdd
+/allure-results-tdd
 /allure-report
 /node_modules
 node_modules

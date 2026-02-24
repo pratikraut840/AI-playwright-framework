@@ -38,6 +38,12 @@ OrangeHRM-project/
 │   │
 │   ├── stepDefinitions/                # Step definitions (Gherkin bindings)
 │   │
+│   ├── tdd/                            # TDD layer (Playwright Test Runner)
+│   │   ├── fixtures/                   # Custom fixtures (loginPage, dashboardPage, etc.)
+│   │   │   └── index.ts
+│   │   ├── specs/                      # TDD spec files (*.spec.ts)
+│   │   └── globalSetup.ts              # Auth storage for TDD specs that need pre-login
+│   │
 │   ├── tests/
 │   │   ├── data/
 │   │   │   ├── apiData/
@@ -95,13 +101,14 @@ OrangeHRM-project/
 │           ├── failureLogger.ts        # writeFailureLog()
 │           └── logger.ts               # enableDebugFileLogging()
 │
-├── test-results/
+├── test-results/                       # BDD (Cucumber) outputs
 │   ├── cucumber-json/                  # Cucumber JSON output
 │   ├── cucumber-html-report/           # Customized HTML reports
 │   ├── junit-report/                   # JUnit XML & HTML
-│   ├── playwright-report/             # Playwright HTML report (when using npx playwright test)
 │   ├── screenshots/                    # Failure screenshots
 │   └── videos/                         # Failure video captures
+│
+├── playwright-report/                 # TDD (Playwright) HTML report
 │
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
 │
@@ -172,6 +179,12 @@ This framework is built using:
     Custom Reporting (HTML + JSON + JUnit)
 
 <!-- Architecture Design -->
+**Hybrid Framework:** Supports both BDD (Cucumber) and TDD (Playwright Test Runner).
+- BDD Layer → Feature files (Gherkin) → Step definitions → POM
+- TDD Layer → Spec files (*.spec.ts) → Fixtures + POM
+- Shared → Page Objects, utilities, assertions, env config
+
+<!-- Layer Details -->
 BDD Layer → Feature files (Gherkin)
 Step Definition Layer → Glue between feature & logic
 Page Object Layer → Encapsulated UI actions
@@ -179,6 +192,11 @@ Utility Layer → API, Assertions, Date, Logger, Random
 Environment Layer → Multi-environment support
 Reporting Layer → Custom report generation
 Bitbucket Pipeline Integration → Sync automation results to manual test cases
+
+<!-- Running Tests -->
+  BDD:  npm run test:bdd    (or npm run test, test:smoke, test:regression)
+  TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
+  Both: npm run test:all
 
 <!-- Environment Configuration -->
 helpers/env/

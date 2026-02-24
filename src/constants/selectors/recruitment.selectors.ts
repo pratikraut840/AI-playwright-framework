@@ -8,8 +8,9 @@ export const RECRUITMENT_SELECTORS = {
   list: {
     heading: 'h5:has-text("Vacancies")',
     addButton: 'button:has-text("Add")',
-    tableRows: '[role="row"]:has([role="cell"])',
-    statusCells: '[role="row"]:has([role="cell"]) [role="cell"]:nth-child(5)',
+    /** OrangeHRM uses div[role=table]; rows have [role="cell"] */
+    tableRows: '[role="table"] [role="row"]:has([role="cell"]), [role="row"]:has([role="cell"]), table tbody tr',
+    statusCells: '[role="row"]:has([role="cell"]) [role="cell"]:nth-child(5), table tbody tr td:nth-child(5)',
   },
 
   addForm: {

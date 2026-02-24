@@ -1,0 +1,592 @@
+
+Running 24 tests using 1 worker
+
+(node:19340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium-login] › src\tdd\specs\login.spec.ts:17:7 › Login - TDD › successful login and dashboard access (11.7s)
+  ok  2 [chromium-login] › src\tdd\specs\login.spec.ts:26:7 › Login - TDD › login denied with valid username and invalid password (18.4s)
+  ok  3 [chromium-login] › src\tdd\specs\login.spec.ts:35:7 › Login - TDD › login denied with invalid username and any password (10.5s)
+  ok  4 [chromium-login] › src\tdd\specs\login.spec.ts:44:7 › Login - TDD › login denied with both username and password incorrect (13.3s)
+  ok  5 [chromium-login] › src\tdd\specs\login.spec.ts:53:7 › Login - TDD › login denied when both username and password fields are empty (11.2s)
+  ok  6 [chromium-login] › src\tdd\specs\login.spec.ts:64:7 › Login - TDD › login succeeds with username entered in mixed casing (12.7s)
+  ok  7 [chromium-login] › src\tdd\specs\login.spec.ts:73:7 › Login - TDD › login denied when password contains leading and trailing spaces (11.9s)
+  ok  8 [chromium-login] › src\tdd\specs\login.spec.ts:85:7 › Login - TDD › login succeeds with a password containing special characters (14.8s)
+(node:29620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 [chromium-auth] › src\tdd\specs\admin.spec.ts:23:7 › Admin - User Management - TDD › username uniqueness is enforced when a duplicate is submitted (17.7s)
+  ok 10 [chromium-auth] › src\tdd\specs\admin.spec.ts:33:7 › Admin - User Management - TDD › password shorter than 7 characters is rejected (17.8s)
+  ok 11 [chromium-auth] › src\tdd\specs\admin.spec.ts:40:7 › Admin - User Management - TDD › password without a numeric character is rejected (18.4s)
+  ok 12 [chromium-auth] › src\tdd\specs\admin.spec.ts:47:7 › Admin - User Management - TDD › submitting the Add User form with no data shows required errors (19.7s)
+  ok 13 [chromium-auth] › src\tdd\specs\admin.spec.ts:56:7 › Admin - User Management - TDD › searching by an existing username returns matching results (23.2s)
+  x  14 [chromium-auth] › src\tdd\specs\admin.spec.ts:64:7 › Admin - User Management - TDD › filtering by Disabled status shows only deactivated users (23.4s)
+(node:9780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  15 [chromium-auth] › src\tdd\specs\admin.spec.ts:64:7 › Admin - User Management - TDD › filtering by Disabled status shows only deactivated users (retry #1) (21.7s)
+(node:2732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  16 [chromium-auth] › src\tdd\specs\admin.spec.ts:64:7 › Admin - User Management - TDD › filtering by Disabled status shows only deactivated users (retry #2) (19.7s)
+(node:17804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 17 [chromium-auth] › src\tdd\specs\admin.spec.ts:72:7 › Admin - User Management - TDD › username longer than 40 characters is rejected (20.4s)
+  x  18 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:23:7 › Recruitment - Vacancy - TDD › create vacancy with valid mandatory data (23.4s)
+(node:8448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  19 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:23:7 › Recruitment - Vacancy - TDD › create vacancy with valid mandatory data (retry #1) (27.5s)
+(node:24480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  20 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:23:7 › Recruitment - Vacancy - TDD › create vacancy with valid mandatory data (retry #2) (31.3s)
+(node:23140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  21 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:33:7 › Recruitment - Vacancy - TDD › system generates unique vacancy ID on save (31.4s)
+(node:20980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  22 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:33:7 › Recruitment - Vacancy - TDD › system generates unique vacancy ID on save (retry #1) (28.3s)
+(node:30788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  23 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:33:7 › Recruitment - Vacancy - TDD › system generates unique vacancy ID on save (retry #2) (22.6s)
+(node:15156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  24 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:40:7 › Recruitment - Vacancy - TDD › vacancy is linked to selected job title (18.6s)
+(node:21152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  25 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:40:7 › Recruitment - Vacancy - TDD › vacancy is linked to selected job title (retry #1) (29.0s)
+(node:20820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  26 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:40:7 › Recruitment - Vacancy - TDD › vacancy is linked to selected job title (retry #2) (20.9s)
+(node:28952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 27 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:52:7 › Recruitment - Vacancy - TDD › mandatory field validation prevents save when fields are blank (12.1s)
+  ok 28 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:62:7 › Recruitment - Vacancy - TDD › number of positions rejects zero (11.8s)
+  x  29 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:70:7 › Recruitment - Vacancy - TDD › number of positions rejects negative value (20.1s)
+(node:28712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  30 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:70:7 › Recruitment - Vacancy - TDD › number of positions rejects negative value (retry #1) (27.8s)
+(node:15848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  31 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:70:7 › Recruitment - Vacancy - TDD › number of positions rejects negative value (retry #2) (12.6s)
+(node:17708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 32 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:78:7 › Recruitment - Vacancy - TDD › number of positions rejects alphabetic value (18.2s)
+  ok 33 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:88:7 › Recruitment - Vacancy - TDD › Job Title dropdown loads active job titles (14.7s)
+  ok 34 [chromium-auth] › src\tdd\specs\recruitment.spec.ts:94:7 › Recruitment - Vacancy - TDD › Hiring Manager dropdown loads active employees (19.7s)
+
+
+  1) [chromium-auth] › src\tdd\specs\admin.spec.ts:64:7 › Admin - User Management - TDD › filtering by Disabled status shows only deactivated users 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).not.[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('[role="row"]:has([role="cell"])')
+    Expected: not [32m0[39m
+    Received: [31m0[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "not toHaveCount" with timeout 10000ms[22m
+    [2m  - waiting for locator('[role="row"]:has([role="cell"])')[22m
+    [2m    14 × locator resolved to 0 elements[22m
+    [2m       - unexpected value "0"[22m
+
+
+       at ..\..\utils\assertions\adminAssertions.ts:60
+
+      58 | export async function assertAllVisibleUsersAreDisabled(page: Page): Promise<void> {
+      59 |   /** Retry-able — waits for filtered results to render before reading status cells */
+    > 60 |   await expect(page.locator(ADMIN_SELECTORS.list.tableRows)).not.toHaveCount(0, {
+         |                                                                  ^
+      61 |     timeout: TIMEOUTS.default,
+      62 |   });
+      63 |   const adminPage = new AdminUserManagementPage(page);
+        at assertAllVisibleUsersAreDisabled (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\adminAssertions.ts:60:66)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\admin.spec.ts:69:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth\error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).not.[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('[role="row"]:has([role="cell"])')
+    Expected: not [32m0[39m
+    Received: [31m0[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "not toHaveCount" with timeout 10000ms[22m
+    [2m  - waiting for locator('[role="row"]:has([role="cell"])')[22m
+    [2m    13 × locator resolved to 0 elements[22m
+    [2m       - unexpected value "0"[22m
+
+
+       at ..\..\utils\assertions\adminAssertions.ts:60
+
+      58 | export async function assertAllVisibleUsersAreDisabled(page: Page): Promise<void> {
+      59 |   /** Retry-able — waits for filtered results to render before reading status cells */
+    > 60 |   await expect(page.locator(ADMIN_SELECTORS.list.tableRows)).not.toHaveCount(0, {
+         |                                                                  ^
+      61 |     timeout: TIMEOUTS.default,
+      62 |   });
+      63 |   const adminPage = new AdminUserManagementPage(page);
+        at assertAllVisibleUsersAreDisabled (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\adminAssertions.ts:60:66)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\admin.spec.ts:69:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry1\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).not.[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('[role="row"]:has([role="cell"])')
+    Expected: not [32m0[39m
+    Received: [31m0[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "not toHaveCount" with timeout 10000ms[22m
+    [2m  - waiting for locator('[role="row"]:has([role="cell"])')[22m
+    [2m    13 × locator resolved to 0 elements[22m
+    [2m       - unexpected value "0"[22m
+
+
+       at ..\..\utils\assertions\adminAssertions.ts:60
+
+      58 | export async function assertAllVisibleUsersAreDisabled(page: Page): Promise<void> {
+      59 |   /** Retry-able — waits for filtered results to render before reading status cells */
+    > 60 |   await expect(page.locator(ADMIN_SELECTORS.list.tableRows)).not.toHaveCount(0, {
+         |                                                                  ^
+      61 |     timeout: TIMEOUTS.default,
+      62 |   });
+      63 |   const adminPage = new AdminUserManagementPage(page);
+        at assertAllVisibleUsersAreDisabled (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\adminAssertions.ts:60:66)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\admin.spec.ts:69:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\admin-Admin---User-Managem-a5d67-hows-only-deactivated-users-chromium-auth-retry2\error-context.md
+
+  2) [chromium-auth] › src\tdd\specs\recruitment.spec.ts:23:7 › Recruitment - Vacancy - TDD › create vacancy with valid mandatory data 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    13 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:46
+
+      44 |       const toastText = await vacancyPage.getToastText();
+      45 |       expect(toastText).toMatch(/Successfully|Saved/i);
+    > 46 |     } catch {
+         |              ^
+      47 |       // Toast may have disappeared; URL already confirms success
+      48 |     }
+      49 |   } else {
+        at assertVacancyInList (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:46:22)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:27:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth\error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    13 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:46
+
+      44 |       const toastText = await vacancyPage.getToastText();
+      45 |       expect(toastText).toMatch(/Successfully|Saved/i);
+    > 46 |     } catch {
+         |              ^
+      47 |       // Toast may have disappeared; URL already confirms success
+      48 |     }
+      49 |   } else {
+        at assertVacancyInList (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:46:22)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:27:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry1\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    13 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:45
+
+      43 |     try {
+      44 |       const toastText = await vacancyPage.getToastText();
+    > 45 |       expect(toastText).toMatch(/Successfully|Saved/i);
+         |                                 ^
+      46 |     } catch {
+      47 |       // Toast may have disappeared; URL already confirms success
+      48 |     }
+        at assertVacancyInList (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:45:33)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:27:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----73023-y-with-valid-mandatory-data-chromium-auth-retry2\error-context.md
+
+  3) [chromium-auth] › src\tdd\specs\recruitment.spec.ts:33:7 › Recruitment - Vacancy - TDD › system generates unique vacancy ID on save 
+
+    TimeoutError: page.waitForURL: Timeout 10000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation until "load"
+    ============================================================
+
+      35 |     await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+      36 |     await vacancyPage.clickSave();
+    > 37 |     await page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+         |                ^
+      38 |   });
+      39 |
+      40 |   test('vacancy is linked to selected job title', async ({ vacancyPage, page }) => {
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:37:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth\error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    TimeoutError: page.waitForURL: Timeout 10000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation until "load"
+    ============================================================
+
+      35 |     await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+      36 |     await vacancyPage.clickSave();
+    > 37 |     await page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+         |                ^
+      38 |   });
+      39 |
+      40 |   test('vacancy is linked to selected job title', async ({ vacancyPage, page }) => {
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:37:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry1\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    TimeoutError: page.waitForURL: Timeout 10000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation until "load"
+    ============================================================
+
+      35 |     await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+      36 |     await vacancyPage.clickSave();
+    > 37 |     await page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+         |                ^
+      38 |   });
+      39 |
+      40 |   test('vacancy is linked to selected job title', async ({ vacancyPage, page }) => {
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:37:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----03d5f-s-unique-vacancy-ID-on-save-chromium-auth-retry2\error-context.md
+
+  4) [chromium-auth] › src\tdd\specs\recruitment.spec.ts:40:7 › Recruitment - Vacancy - TDD › vacancy is linked to selected job title 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+      45 |     });
+      46 |     await vacancyPage.clickSave();
+    > 47 |     await expect(page).toHaveURL(/viewJobVacancy/);
+         |                        ^
+      48 |     const count = await vacancyPage.getTableRowCount();
+      49 |     expect(count).toBeGreaterThan(0);
+      50 |   });
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:47:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth\error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+      45 |     });
+      46 |     await vacancyPage.clickSave();
+    > 47 |     await expect(page).toHaveURL(/viewJobVacancy/);
+         |                        ^
+      48 |     const count = await vacancyPage.getTableRowCount();
+      49 |     expect(count).toBeGreaterThan(0);
+      50 |   });
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:47:24
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, open 'I:\YT Classes and Practice\AI-framework-playwright\test-results\.playwright-artifacts-11\traces\abd2a1786aa93bd4c961-8ba9e33a3c8276741816-retry1.network'
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/viewJobVacancy/[39m
+    Received string:  [31m"https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addJobVacancy"[22m
+
+
+      45 |     });
+      46 |     await vacancyPage.clickSave();
+    > 47 |     await expect(page).toHaveURL(/viewJobVacancy/);
+         |                        ^
+      48 |     const count = await vacancyPage.getTableRowCount();
+      49 |     expect(count).toBeGreaterThan(0);
+      50 |   });
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:47:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----aa6b4-inked-to-selected-job-title-chromium-auth-retry2\error-context.md
+
+  5) [chromium-auth] › src\tdd\specs\recruitment.spec.ts:70:7 › Recruitment - Vacancy - TDD › number of positions rejects negative value 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:32
+
+      30 |       e.includes('1-99')
+      31 |   );
+    > 32 |   expect(hasError).toBe(true);
+         |                    ^
+      33 | }
+      34 |
+      35 | export async function assertVacancyNotCreated(page: Page): Promise<void> {
+        at assertPositionsValidationError (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:32:20)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:74:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth\error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:32
+
+      30 |       e.includes('1-99')
+      31 |   );
+    > 32 |   expect(hasError).toBe(true);
+         |                    ^
+      33 | }
+      34 |
+      35 | export async function assertVacancyNotCreated(page: Page): Promise<void> {
+        at assertPositionsValidationError (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:32:20)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:74:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry1\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry1\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+       at ..\..\utils\assertions\recruitmentAssertions.ts:32
+
+      30 |       e.includes('1-99')
+      31 |   );
+    > 32 |   expect(hasError).toBe(true);
+         |                    ^
+      33 | }
+      34 |
+      35 | export async function assertVacancyNotCreated(page: Page): Promise<void> {
+        at assertPositionsValidationError (I:\YT Classes and Practice\AI-framework-playwright\src\utils\assertions\recruitmentAssertions.ts:32:20)
+        at I:\YT Classes and Practice\AI-framework-playwright\src\tdd\specs\recruitment.spec.ts:74:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\recruitment-Recruitment----87df8-ions-rejects-negative-value-chromium-auth-retry2\error-context.md
+
+  5 failed
+    [chromium-auth] › src\tdd\specs\admin.spec.ts:64:7 › Admin - User Management - TDD › filtering by Disabled status shows only deactivated users 
+    [chromium-auth] › src\tdd\specs\recruitment.spec.ts:23:7 › Recruitment - Vacancy - TDD › create vacancy with valid mandatory data 
+    [chromium-auth] › src\tdd\specs\recruitment.spec.ts:33:7 › Recruitment - Vacancy - TDD › system generates unique vacancy ID on save 
+    [chromium-auth] › src\tdd\specs\recruitment.spec.ts:40:7 › Recruitment - Vacancy - TDD › vacancy is linked to selected job title 
+    [chromium-auth] › src\tdd\specs\recruitment.spec.ts:70:7 › Recruitment - Vacancy - TDD › number of positions rejects negative value 
+  19 passed (13.2m)

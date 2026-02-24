@@ -14,9 +14,8 @@ export class VacancyPage {
     await this.page.goto(`${baseUrl}${UI_PATHS.recruitmentVacancies}`, {
       timeout: TIMEOUTS.navigation,
     });
-    await this.page.waitForSelector(RECRUITMENT_SELECTORS.list.heading, {
-      timeout: TIMEOUTS.navigation,
-    });
+    await this.page.waitForURL(/viewJobVacancy/, { timeout: TIMEOUTS.navigation });
+    await this.page.getByRole('heading', { name: /Vacancies/i }).waitFor({ state: 'visible', timeout: TIMEOUTS.navigation });
   }
 
   async gotoAddVacancy(baseUrl: string): Promise<void> {
@@ -36,12 +35,27 @@ export class VacancyPage {
   }
 
   async fillVacancyName(name: string): Promise<void> {
-    await this.formCard.locator('input:not([type="checkbox"])').first().fill(name);
+    const input = this.formCard.locator(
+      'input:not([placeholder]):not([type="checkbox"])'
+    ).first();
+    await input.fill(name);
+  }
+
+  /** Clears the vacancy name field (for edit validation scenario) */
+  async clearVacancyName(): Promise<void> {
+    const input = this.formCard.locator(
+      'input:not([placeholder]):not([type="checkbox"])'
+    ).first();
+    await input.clear();
+    await input.blur();
+    await new Promise((r) => setTimeout(r, 200));
   }
 
   async selectJobTitle(title: string): Promise<void> {
     await this.formCard.locator('.oxd-select-wrapper').first().click();
-    await this.page.getByRole('option', { name: title }).click();
+    await this.page.getByRole('option', { name: title, exact: true }).click({ timeout: TIMEOUTS.default });
+    await this.page.keyboard.press('Escape'); // ensure dropdown closes
+    await new Promise((r) => setTimeout(r, 300));
   }
 
   async openJobTitleDropdown(): Promise<void> {
@@ -54,15 +68,26 @@ export class VacancyPage {
 
   async fillHiringManager(hint: string): Promise<void> {
     const input = this.formCard.getByPlaceholder('Type for hints...');
+    await input.clear();
     await input.fill(hint);
     await this.page.waitForSelector('[role="option"]', { timeout: TIMEOUTS.default });
-    await this.page.locator('[role="option"]').first().click();
+    await new Promise((r) => setTimeout(r, 500));
+    const options = this.page.locator('[role="option"]').filter({ hasNotText: 'Searching' }).filter({ hasNotText: 'No records found' });
+    await options.first().click();
+    await new Promise((r) => setTimeout(r, 400));
+  }
+
+  /** Fills hint and waits for options to appear (does not select) — for dropdown assertions */
+  async showHiringManagerOptions(hint: string): Promise<void> {
+    const input = this.formCard.getByPlaceholder('Type for hints...');
+    await input.fill(hint);
+    await this.page.waitForSelector('[role="option"]', { timeout: TIMEOUTS.default });
   }
 
   async fillNumberOfPositions(value: string | number): Promise<void> {
-    /** Form has: VacancyName(0), Description(1), HiringManager(2), NumberOfPositions(3) */
+    // OrangeHRM form card: inputs are VacancyName(0), HiringManager(1), NumberOfPositions(2)
     const inputs = this.formCard.locator('input:not([type="checkbox"])');
-    await inputs.nth(3).fill(String(value));
+    await inputs.nth(2).fill(String(value));
   }
 
   async enterMandatoryFields(data: {
@@ -83,6 +108,10 @@ export class VacancyPage {
 
   async clickSave(): Promise<void> {
     await this.page.getByRole('button', { name: 'Save' }).click();
+    await Promise.race([
+      this.page.waitForURL(/viewJobVacancy/, { timeout: 15_000 }),
+      this.page.waitForLoadState('networkidle'),
+    ]).catch(() => {});
   }
 
   async getFieldErrors(): Promise<string[]> {
@@ -102,7 +131,20 @@ export class VacancyPage {
     return this.page.locator(RECRUITMENT_SELECTORS.list.tableRows).count();
   }
 
-  /** Form card locator for add/edit vacancy form */
+  /** Filter vacancy list by job title */
+  async filterByJobTitle(jobTitle: string): Promise<void> {
+    const selectWrappers = this.page.locator('.oxd-select-wrapper');
+    const count = await selectWrappers.count();
+    if (count > 0) {
+      await selectWrappers.first().click();
+      await this.page.getByRole('option', { name: jobTitle, exact: true }).click({ timeout: TIMEOUTS.default });
+      await this.page.getByRole('button', { name: /Search/ }).first().click();
+      await this.page.waitForLoadState('networkidle').catch(() => {});
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  }
+
+  /** Form card for add/edit vacancy form */
   get formCard() {
     return this.page.locator('.orangehrm-card-container').last();
   }

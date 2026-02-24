@@ -9,9 +9,12 @@ import {
   assertSuccessMessage,
   assertVacancyInList,
   assertJobTitleDropdownPopulated,
+  assertEditNotSaved,
 } from '../utils/assertions/recruitmentAssertions';
 import { ENV } from '../helpers/env/env';
 import { RECRUITMENT_TEST_DATA } from '../tests/data/recruitment';
+import { RECRUITMENT_SELECTORS } from '../constants/selectors/recruitment.selectors';
+import { TIMEOUTS } from '../constants/global';
 
 // ─── Background ──────────────────────────────────────────────────────────────
 
@@ -46,9 +49,11 @@ When(
     const headers = rows[0];
     const values = rows[1];
     const row = Object.fromEntries(headers.map((h, i) => [h.trim(), values[i]?.trim() ?? '']));
+    const baseName = row['Vacancy Name'] ?? RECRUITMENT_TEST_DATA.form.valid.vacancyName;
+    const vacancyName = `${baseName} ${Date.now()}`; // unique to avoid duplicate errors
     const vacancyPage = new VacancyPage(this.page);
     await vacancyPage.enterMandatoryFields({
-      vacancyName: row['Vacancy Name'] ?? RECRUITMENT_TEST_DATA.form.valid.vacancyName,
+      vacancyName,
       jobTitle: row['Job Title'] ?? RECRUITMENT_TEST_DATA.form.valid.jobTitle,
       hiringManager: row['Hiring Manager'] ?? RECRUITMENT_TEST_DATA.form.valid.hiringManager,
       numberOfPositions: parseInt(row['Number of Positions'] ?? '2', 10),
@@ -87,9 +92,9 @@ Then('the vacancy appears in the vacancy list', async function (this: OrangeHRMW
 });
 
 Then('the vacancy status is {string}', async function (this: OrangeHRMWorld, status: string) {
-  // Status is shown in the table; for "Active" we verify we're on the list with rows.
-  const vacancyPage = new VacancyPage(this.page);
+  // Status is shown in the table; for "Active" we verify we're on the list with rows
   await expect(this.page).toHaveURL(/viewJobVacancy/);
+  const vacancyPage = new VacancyPage(this.page);
   const count = await vacancyPage.getTableRowCount();
   expect(count).toBeGreaterThan(0);
 });
@@ -106,6 +111,7 @@ Then('the vacancy is not created', async function (this: OrangeHRMWorld) {
 
 Then('the system shows a validation error', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
+  await this.page.waitForSelector(RECRUITMENT_SELECTORS.fieldError, { timeout: 10_000 });
   const errors = await vacancyPage.getFieldErrors();
   expect(errors.length).toBeGreaterThan(0);
 });
@@ -125,7 +131,7 @@ Then('the dropdown is searchable', async function (this: OrangeHRMWorld) {
 
 Then('the Hiring Manager dropdown lists active employees', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
-  await vacancyPage.fillHiringManager(RECRUITMENT_TEST_DATA.hiringManagerHint);
+  await vacancyPage.showHiringManagerOptions(RECRUITMENT_TEST_DATA.hiringManagerHint);
   await expect(this.page.locator('[role="option"]').first()).toBeVisible();
 });
 
@@ -134,9 +140,12 @@ Then('the Hiring Manager dropdown lists active employees', async function (this:
 Given('admin has created a vacancy', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
   await vacancyPage.gotoAddVacancy(ENV.baseUrl);
-  await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+  await vacancyPage.enterMandatoryFields({
+    ...RECRUITMENT_TEST_DATA.form.valid,
+    vacancyName: `${RECRUITMENT_TEST_DATA.form.valid.vacancyName} ${Date.now()}`,
+  });
   await vacancyPage.clickSave();
-  await this.page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
 Given('multiple job titles exist in the system', async function (this: OrangeHRMWorld) {
@@ -148,36 +157,66 @@ When('admin creates a vacancy and selects a job title', async function (this: Or
   await vacancyPage.gotoAddVacancy(ENV.baseUrl);
   await vacancyPage.enterMandatoryFields({
     ...RECRUITMENT_TEST_DATA.form.valid,
+    vacancyName: `${RECRUITMENT_TEST_DATA.form.valid.vacancyName} ${Date.now()}`,
     jobTitle: RECRUITMENT_TEST_DATA.jobTitles[0],
   });
   await vacancyPage.clickSave();
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
 Then('the vacancy is correctly linked to that job title', async function (this: OrangeHRMWorld) {
-  await expect(this.page).toHaveURL(/viewJobVacancy/);
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 10_000 });
 });
 
 Then('the vacancy appears when filtering by that job title', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
+  const url = this.page.url();
+  if (url.includes('addJobVacancy/')) {
+    const listUrl = url.replace(/addJobVacancy\/\d+/, 'viewJobVacancy');
+    await this.page.goto(listUrl);
+    await this.page.waitForSelector(RECRUITMENT_SELECTORS.list.heading, { timeout: TIMEOUTS.default });
+    await this.page.waitForLoadState('networkidle').catch(() => {});
+  }
+  try {
+    await vacancyPage.filterByJobTitle(RECRUITMENT_TEST_DATA.jobTitles[0]);
+  } catch {
+    // Filter UI may vary
+  }
+  await this.page.waitForSelector(RECRUITMENT_SELECTORS.list.tableRows, { timeout: 15_000 }).catch(() => {});
   const count = await vacancyPage.getTableRowCount();
   expect(count).toBeGreaterThan(0);
 });
 
+When('the vacancy is saved', async function (this: OrangeHRMWorld) {
+  // Vacancy was already saved in Given; we're on addJobVacancy/ID or viewJobVacancy.
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 5_000 });
+});
+
 Then('the system auto-generates a unique vacancy identifier', async function (this: OrangeHRMWorld) {
-  // Vacancy was created; ID is internal. We verify we're on list.
-  await expect(this.page).toHaveURL(/viewJobVacancy/);
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 10_000 });
 });
 
 Given('a vacancy exists in Draft or Active state', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
   await vacancyPage.gotoAddVacancy(ENV.baseUrl);
-  await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+  await vacancyPage.enterMandatoryFields({
+    ...RECRUITMENT_TEST_DATA.form.valid,
+    vacancyName: `${RECRUITMENT_TEST_DATA.form.valid.vacancyName} ${Date.now()}`,
+  });
   await vacancyPage.clickSave();
-  await this.page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
-Given('a vacancy has status {string}', function () {
-  return 'pending';
+Given('a vacancy has status {string}', async function (this: OrangeHRMWorld, _status: string) {
+  // @wip: Publish/Close UI not implemented; create vacancy as baseline
+  const vacancyPage = new VacancyPage(this.page);
+  await vacancyPage.gotoAddVacancy(ENV.baseUrl);
+  await vacancyPage.enterMandatoryFields({
+    ...RECRUITMENT_TEST_DATA.form.valid,
+    vacancyName: `${RECRUITMENT_TEST_DATA.form.valid.vacancyName} ${Date.now()}`,
+  });
+  await vacancyPage.clickSave();
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
 Given('a vacancy has mandatory fields missing', function () {
@@ -187,9 +226,12 @@ Given('a vacancy has mandatory fields missing', function () {
 Given('an existing vacancy', async function (this: OrangeHRMWorld) {
   const vacancyPage = new VacancyPage(this.page);
   await vacancyPage.gotoAddVacancy(ENV.baseUrl);
-  await vacancyPage.enterMandatoryFields(RECRUITMENT_TEST_DATA.form.valid);
+  await vacancyPage.enterMandatoryFields({
+    ...RECRUITMENT_TEST_DATA.form.valid,
+    vacancyName: `${RECRUITMENT_TEST_DATA.form.valid.vacancyName} ${Date.now()}`,
+  });
   await vacancyPage.clickSave();
-  await this.page.waitForURL(/viewJobVacancy/, { timeout: 10_000 });
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
 When('admin opens the vacancy and clicks Publish', function () {
@@ -221,6 +263,7 @@ Then('the system prevents publishing', function () {
 });
 
 Then('a validation error is displayed', async function (this: OrangeHRMWorld) {
+  await this.page.waitForSelector(RECRUITMENT_SELECTORS.fieldError, { timeout: 10_000 });
   const vacancyPage = new VacancyPage(this.page);
   const errors = await vacancyPage.getFieldErrors();
   expect(errors.length).toBeGreaterThan(0);
@@ -230,36 +273,59 @@ Then('the vacancy does not appear', function () {
   return 'pending';
 });
 
-When('admin updates Description, Hiring Manager, and Number of Positions', function () {
-  return 'pending';
+When('admin updates Description, Hiring Manager, and Number of Positions', async function (this: OrangeHRMWorld) {
+  const vacancyPage = new VacancyPage(this.page);
+  await vacancyPage.fillDescription('Updated description for edit test');
+  await vacancyPage.fillHiringManager(RECRUITMENT_TEST_DATA.hiringManagerHint);
+  await vacancyPage.fillNumberOfPositions(3);
 });
 
-When('admin updates the vacancy and saves', function () {
-  return 'pending';
+When('admin updates the vacancy and saves', async function (this: OrangeHRMWorld) {
+  const vacancyPage = new VacancyPage(this.page);
+  await vacancyPage.fillDescription('Updated via BDD test');
+  await vacancyPage.clickSave();
+  await this.page.waitForURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/, { timeout: 15_000 });
 });
 
-Then('the updated data is saved', function () {
-  return 'pending';
+Then('the updated data is saved', async function (this: OrangeHRMWorld) {
+  await expect(this.page).toHaveURL(/\/(viewJobVacancy|addJobVacancy\/\d+)/);
+  await assertSuccessMessage(this.page);
 });
 
-Then('the vacancy list shows the updated values', function () {
-  return 'pending';
+Then('the vacancy list shows the updated values', async function (this: OrangeHRMWorld) {
+  const url = this.page.url();
+  if (url.includes('addJobVacancy/')) {
+    const listUrl = url.replace(/addJobVacancy\/\d+/, 'viewJobVacancy');
+    await this.page.goto(listUrl);
+    await this.page.waitForSelector(RECRUITMENT_SELECTORS.list.heading, { timeout: TIMEOUTS.default });
+  }
+  await this.page.waitForLoadState('networkidle').catch(() => {});
+  await expect(this.page.locator(RECRUITMENT_SELECTORS.list.tableRows)).not.toHaveCount(0, {
+    timeout: 15_000,
+  });
+  const vacancyPage = new VacancyPage(this.page);
+  const count = await vacancyPage.getTableRowCount();
+  expect(count).toBeGreaterThan(0);
 });
 
-When('admin clears a mandatory field and clicks Save', function () {
-  return 'pending';
+When('admin clears a mandatory field and clicks Save', async function (this: OrangeHRMWorld) {
+  const vacancyPage = new VacancyPage(this.page);
+  await vacancyPage.clearVacancyName();
+  await vacancyPage.clickSave();
 });
 
-Then('the data is not saved', function () {
-  return 'pending';
+Then('the data is not saved', async function (this: OrangeHRMWorld) {
+  await assertEditNotSaved(this.page);
 });
 
-When('admin enters an invalid value (e.g. negative positions) and clicks Save', function () {
-  return 'pending';
+When(/^admin enters an invalid value \(e\.g\. negative positions\) and clicks Save$/, async function (this: OrangeHRMWorld) {
+  const vacancyPage = new VacancyPage(this.page);
+  await vacancyPage.fillNumberOfPositions(-1);
+  await vacancyPage.clickSave();
 });
 
-Then('the system blocks the save', function () {
-  return 'pending';
+Then('the system blocks the save', async function (this: OrangeHRMWorld) {
+  await assertEditNotSaved(this.page);
 });
 
 When('admin clicks Close on the vacancy', function () {

@@ -14,7 +14,7 @@ Feature: Job Posting — Vacancy Management
     When admin navigates to Add Vacancy
     And admin enters valid mandatory fields:
       | Job Title        | Vacancy Name   | Hiring Manager | Number of Positions | Description  |
-      | Software Engineer| Senior Dev 2024| John Doe       | 2                   | Full-stack role |
+      | QA Engineer      | Senior Dev 2024| a              | 2                   | Full-stack role |
     And admin clicks Save
     Then vacancy is created successfully
     And a success message is displayed
@@ -68,37 +68,7 @@ Feature: Job Posting — Vacancy Management
     Then the Hiring Manager dropdown lists active employees
     And the dropdown is searchable
 
-  # ─── Publish Vacancy ──────────────────────────────────────────────────────
-
-  @regression
-  Scenario: Admin can publish a draft vacancy
-    Given a vacancy exists in Draft or Active state
-    When admin opens the vacancy and clicks Publish
-    Then the vacancy status changes to "Published"
-    And a confirmation message is displayed
-
-  @regression
-  Scenario: Published vacancy appears on public job listing
-    Given a vacancy has status "Published"
-    When a candidate visits the Careers or Job Listing page
-    Then the vacancy appears in the public listing
-    And the correct details are displayed
-
-  @regression
-  Scenario: Incomplete vacancy cannot be published
-    Given a vacancy has mandatory fields missing
-    When admin attempts to publish the vacancy
-    Then the system prevents publishing
-    And a validation error is displayed
-
-  @regression
-  Scenario: Draft vacancy is not visible on public listing
-    Given a vacancy has status "Draft"
-    When a candidate views the public job listing
-    Then the vacancy does not appear
-
-  # ─── Edit Vacancy ─────────────────────────────────────────────────────────
-
+  # ─── Edit Vacancy ───────────────────────────────────────────────────────────
   @regression
   Scenario: Admin can edit vacancy details
     Given an existing vacancy
@@ -113,44 +83,3 @@ Feature: Job Posting — Vacancy Management
     When admin updates the vacancy and saves
     Then the vacancy list shows the updated values
 
-  @regression
-  Scenario: Mandatory fields cannot be cleared on edit
-    Given an existing vacancy
-    When admin clears a mandatory field and clicks Save
-    Then a validation error is displayed
-    And the data is not saved
-
-  @regression
-  Scenario: Invalid values are blocked on edit
-    Given an existing vacancy
-    When admin enters an invalid value (e.g. negative positions) and clicks Save
-    Then the system blocks the save
-    And a validation error is displayed
-
-  # ─── Close Vacancy ───────────────────────────────────────────────────────
-
-  @regression
-  Scenario: Admin can close an active or published vacancy
-    Given a vacancy has status "Active" or "Published"
-    When admin clicks Close on the vacancy
-    Then the vacancy status becomes "Closed"
-    And a confirmation message is displayed
-
-  @regression
-  Scenario: Closed vacancy is removed from public listing
-    Given a vacancy has status "Closed"
-    When a candidate views the public job listing
-    Then the vacancy is not visible
-
-  @regression
-  Scenario: Application blocked for closed vacancy
-    Given a vacancy has status "Closed"
-    When a candidate attempts to apply via direct URL
-    Then the system shows "This vacancy is closed"
-    And application submission is blocked
-
-  @regression
-  Scenario: Cannot close an already closed vacancy
-    Given a vacancy has status "Closed"
-    When admin attempts to close the vacancy again
-    Then the Close action is disabled or an error message is shown

@@ -11,7 +11,7 @@ export const RECRUITMENT_TEST_DATA = {
   /** MCP-validated: demo has "QA Engineer" and other job titles */
   jobTitles: ['QA Engineer', 'Software Engineer'] as const,
 
-  /** Hiring manager autocomplete - use partial name from demo employees */
+  /** Hiring manager autocomplete - "a" returns multiple employees (validated via MCP) */
   hiringManagerHint: 'a',
 
   form: {
