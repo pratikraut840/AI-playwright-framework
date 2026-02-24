@@ -21,7 +21,9 @@ const INPUT_PATH = path.join(__dirname, 'test-results', 'cucumber-json', 'cucumb
 const OUTPUT_PATH = path.join(__dirname, 'test-results', 'junit-report', 'junit-report.xml');
 
 if (!fs.existsSync(INPUT_PATH)) {
-  console.error('Error: cucumber-report.json not found at test-results/cucumber-json/. Run BDD tests first.');
+  console.error('Error: cucumber-report.json not found.');
+  console.error('  Expected path:', INPUT_PATH);
+  console.error('  Run BDD tests first: npm run test:bdd');
   process.exit(1);
 }
 

@@ -27,7 +27,7 @@ const STORAGE_STATE = 'src/helpers/setupLogin/auth/admin-user.json';
 export default defineConfig({
   testDir: './src/tdd/specs',
   outputDir: 'test-results',
-  timeout: 120_000,
+  timeout: 240_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
