@@ -10,9 +10,9 @@
     
     "test:bdd": "node src/ui/scripts/run-bdd-tests.mjs",
     "test:bdd:headed": "cross-env HEADLESS=false node src/ui/scripts/run-bdd-tests.mjs",
-    "test:bdd:smoke": "node src/ui/scripts/run-bdd-tests.mjs --tags @smoke",
+    "test:bdd:smoke": "node src/ui/scripts/run-bdd-tests.mjs --tags \"@smoke\"",
     "test:bdd:progress": "node src/ui/scripts/run-bdd-tests.mjs --profile progress",
-    "test:bdd:regression": "node src/ui/scripts/run-bdd-tests.mjs --tags @regression",
+    "test:bdd:regression": "node src/ui/scripts/run-bdd-tests.mjs --tags \"@regression\"",
     "test:bdd:chromium": "cross-env BROWSER=chromium node src/ui/scripts/run-bdd-tests.mjs",
     "test:bdd:firefox": "cross-env BROWSER=firefox node src/ui/scripts/run-bdd-tests.mjs",
     "test:bdd:webkit": "cross-env BROWSER=webkit node src/ui/scripts/run-bdd-tests.mjs",
