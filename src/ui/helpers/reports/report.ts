@@ -7,6 +7,7 @@ import {
   clearDirectory,
 } from './clearReportDirs';
 import { writeAllureMetadata } from './allureMetadata';
+import { getCucumberMetadata, getCucumberCustomData } from './cucumberReportMetadata';
 
 const ALLURE_BASE = 'allure-report';
 const ALLURE_RESULTS_BDD = `${ALLURE_BASE}/results/bdd`;
@@ -154,29 +155,19 @@ function generateCucumberReport(): void {
     }
   }
   clearCucumberReportDir();
+  const customStylePath = path.resolve(process.cwd(), 'src/ui/helpers/reports/cucumber-report-custom.css');
   reporter.generate({
     jsonDir: CUCUMBER_JSON_DIR,
     reportPath: CUCUMBER_HTML_DIR,
+    pageTitle: 'OrangeHRM BDD — Cucumber Test Report',
+    reportName: 'OrangeHRM Automation — BDD Test Run',
     displayDuration: true,
-    metadata: {
-      browser: {
-        name: process.env.BROWSER ?? 'chromium',
-        version: 'latest',
-      },
-      device: 'Local machine',
-      platform: {
-        name: process.platform,
-        version: '',
-      },
-    },
-    customData: {
-      title: 'OrangeHRM Automation — Test Run Info',
-      data: [
-        { label: 'Project', value: 'OrangeHRM Automation' },
-        { label: 'Environment', value: process.env.NODE_ENV ?? 'dev' },
-        { label: 'Executed', value: new Date().toLocaleString() },
-      ],
-    },
+    durationInMS: true,
+    displayReportTime: true,
+    metadata: getCucumberMetadata(),
+    customData: getCucumberCustomData(),
+    pageFooter: `<div style="text-align:center; color:#666; font-size:12px; padding:16px;">AI Framework Playwright • OrangeHRM BDD • Cucumber + Playwright • Generated ${new Date().toLocaleString()}</div>`,
+    customStyle: customStylePath,
   });
   // Copy index.html to cucumber-html-report.html, remove index.html (reporter always creates index.html)
   const indexPath = path.join(CUCUMBER_HTML_DIR, 'index.html');

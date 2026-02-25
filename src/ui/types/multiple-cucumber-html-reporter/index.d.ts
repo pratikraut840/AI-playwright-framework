@@ -37,6 +37,8 @@ declare module 'multiple-cucumber-html-reporter' {
     plainDescription?: boolean;
     /** Override the default stylesheet filename */
     overrideStyle?: string;
+    /** Path to custom CSS file to add additional styles */
+    customStyle?: string;
     pageTitle?: string;
     reportName?: string;
     pageFooter?: string;

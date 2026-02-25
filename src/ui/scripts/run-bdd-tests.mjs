@@ -37,9 +37,13 @@ const HTML_PATH = 'test-results/test-results-bdd/cucumber-html-report/cucumber-h
 const patchPath = path.resolve(ROOT, 'src/ui/scripts/green-progress-patch.cjs').replace(/\\/g, '/');
 const nodeOpts = [process.env.NODE_OPTIONS || '', `--require ${JSON.stringify(patchPath)}`].filter(Boolean).join(' ');
 const cmd = `npx cucumber-js --format progress-bar --format "json:${JSON_PATH}" --format "html:${HTML_PATH}" --require-module ts-node/register --require "src/ui/helpers/hooks/hooks.ts" --require "src/ui/stepDefinitions/**/*.steps.ts" ${process.argv.slice(2).join(' ')} "src/ui/tests/features/**/*.feature"`;
-execSync(cmd, {
-  stdio: 'inherit',
-  cwd: ROOT,
-  shell: true,
-  env: { ...process.env, FORCE_COLOR: '1', NODE_OPTIONS: nodeOpts },
-});
+try {
+  execSync(cmd, {
+    stdio: 'inherit',
+    cwd: ROOT,
+    shell: true,
+    env: { ...process.env, FORCE_COLOR: '1', NODE_OPTIONS: nodeOpts },
+  });
+} catch (err) {
+  process.exit(err?.status ?? err?.code ?? 1);
+}

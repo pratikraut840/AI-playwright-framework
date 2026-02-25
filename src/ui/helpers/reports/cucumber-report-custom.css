@@ -1,0 +1,11 @@
+/* Prevent long text (e.g. Description) from overflowing horizontally */
+table.quick-list {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+table.quick-list td.meta-data-data {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 0; /* Forces column to respect table width */
+}
