@@ -326,7 +326,7 @@ Variables: `BASE_URL`, `USERNAME`, `PASSWORD`, `BROWSER`, `HEADLESS`, etc.
 
 ## 🧠 Design & Rationale
 
-### Why This Framework Is Strong
+### Why This Framework Is Strong?
 
 | Principle | Implementation |
 |-----------|----------------|
