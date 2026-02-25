@@ -18,6 +18,7 @@ OrangeHRM-project/
 │   │   │   ├── browsers/browserSetup.ts
 │   │   │   ├── env/                    # .env, env.ts, getEnv.ts
 │   │   │   ├── reports/report.ts
+│   │   │   ├── scripts/                # view-junit, show-tdd-report, allure-open, etc.
 │   │   │   ├── setupLogin/auth/
 │   │   │   └── hooks/                  # hooks.ts, orangeHRMWorld.ts
 │   │   │
@@ -32,17 +33,21 @@ OrangeHRM-project/
 │   │   │   ├── data/
 │   │   │   └── features/               # Cucumber feature files
 │   │   │
+│   │   ├── scripts/                    # run-bdd-tests.mjs
 │   │   ├── types/
 │   │   └── utils/                      # assertions, logger, locator, api, etc.
 │   │
 │   └── api/                            # Dedicated API Testing Layer (no UI mixing)
 │       ├── config/apiEnv.ts            # Base URL, credentials
+│       ├── base/BaseAPI.ts             # Base request handling
+│       ├── client/                     # restfulBookerClient, restfulBookerClientWithReport
 │       ├── constants/endpoints.ts      # Restful-Booker endpoints
-│       ├── client/restfulBookerClient.ts
 │       ├── fixtures/apiFixtures.ts
+│       ├── helpers/                    # reportAttach, responseWithAttach
 │       ├── specs/                      # auth, booking, healthCheck
 │       ├── data/restfulBooker.data.ts
-│       ├── env/                       # .env, .env.example (auth creds)
+│       ├── env/                        # .env, .env.example (auth creds)
+│       ├── validators/                 # SchemaValidator, schemas
 │       └── types/restfulBooker.types.ts
 │
 ├── test-results/                      # All test outputs (BDD, TDD, API)
@@ -59,6 +64,9 @@ OrangeHRM-project/
 │   ├── playwright-report-tdd/          # TDD (Playwright) HTML report
 │   └── playwright-report-api/          # API layer HTML report
 │
+├── allure-report/                      # Allure reports (generate + serve)
+│
+├── playwright.config.ts               # Playwright config for TDD (UI) tests
 ├── playwright.api.config.ts           # Playwright config for API-only tests
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
 │
@@ -113,7 +121,7 @@ OrangeHRM-project/
                       ┌────────────────────────────────────────┐
                       │        Reporting Layer                 │
                       │  Cucumber JSON → HTML → JUnit XML      │
-                      │                                        │
+                      │  Allure (BDD + TDD + API)              │
                       └────────────────────────────────────────┘
 
 ===========================================================
@@ -125,6 +133,7 @@ This framework is built using:
     Cucumber (BDD implementation)
     TypeScript
     POM (Page Object Model)
+    Allure Reporting (BDD, TDD, API)
     Bitbucket Pipeline Integration
     Custom Reporting (HTML + JSON + JUnit)
 
@@ -141,7 +150,7 @@ Step Definition Layer → Glue between feature & logic
 Page Object Layer → Encapsulated UI actions
 Utility Layer → API, Assertions, Date, Logger, Random
 Environment Layer → Multi-environment support
-Reporting Layer → Custom report generation
+Reporting Layer → Custom report generation + Allure
 Bitbucket Pipeline Integration → Sync automation results to manual test cases
 
 <!-- Running Tests -->
@@ -149,11 +158,6 @@ Bitbucket Pipeline Integration → Sync automation results to manual test cases
   TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
   API:  npm run test:api    (or test:api:ui) – Dedicated API layer, Restful-Booker
   All:  npm run test:all
-
-  If "npm run test:bdd" doesn't work in your terminal:
-  - Ensure you're in the project root (where package.json and cucumber.mjs live)
-  - Run: scripts\run-bdd.cmd (Windows CMD) or .\scripts\run-bdd.ps1 (PowerShell)
-  - Or try: npx cucumber-js --config cucumber.mjs
 
 <!-- Environment Configuration -->
 src/ui/helpers/env/
@@ -172,7 +176,7 @@ I designed a scalable, maintainable and enterprise-ready automation framework us
     Step Definition layer for glue logic,
     and a Page Object Model layer for encapsulated UI interactions.
 2. I also implemented a utility layer that includes custom API wrappers, assertions, date handling, random data generation, and centralized logging.
-3. The framework supports multi-environment execution using .env configuration management and integrates with CICD by converting test results into HTML and JUnit reports.
+3. The framework supports multi-environment execution using .env configuration management and integrates with CI/CD by converting test results into HTML, JUnit, and Allure reports.
 4. Additionally, I implemented custom hooks and world constructors for context sharing and improved test lifecycle control.
 5. The result is a highly modular, maintainable, and enterprise-ready automation solution.
 
@@ -222,10 +226,11 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
     "Implemented custom hooks and world constructor to manage object injection and test context sharing across steps."
 
 7️⃣ Reporting Layer
-    "Cucumber JSON output is converted to HTML and JUnit XML, which integrates with CI pipelines."
+    "Cucumber JSON output is converted to HTML and JUnit XML. Allure reports (BDD, TDD, API) provide unified dashboards. All integrate with CI pipelines."
     Highlights:
     HTML for humans
     JUnit for CI
+    Allure for unified reporting
 
 8️⃣ CI Integration
     "Automation results are synchronized with Aqua to update manual test cases. This ensures traceability between automated and manual testing efforts."
@@ -239,10 +244,10 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
     Highly modular & maintainable
     Easy to scale for new modules
     Clear separation of concerns
-    API + UI combined support
+    API + UI combined support (BDD, TDD, API layers)
     Custom assertion system (not dependent only on Playwright expect)
     Environment-independent execution
-    Enterprise-level reporting
+    Enterprise-level reporting (HTML, JUnit, Allure)
 
 ===========================================================
 # How Is It Scalable?
