@@ -55,7 +55,7 @@
     "allure:api:generate": "ts-node src/ui/helpers/reports/report.ts allure:api:generate",
     "allure:api:serve": "ts-node src/ui/helpers/reports/report.ts allure:api:serve",
     "allure:api:all": "npm run allure:api:generate && npm run allure:api:serve",
-    
+     
     "tsc": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
