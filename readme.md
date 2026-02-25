@@ -1,4 +1,4 @@
-# Playwright Hybrid Automation Framework
+# AI Playwright Hybrid Automation Framework
 
 [![Node](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Playwright](https://img.shields.io/badge/Playwright-1.58+-blue.svg)](https://playwright.dev/)
@@ -39,7 +39,7 @@ npm run test:api    # Restful-Booker API
 ## Project Structure
 
 ```
-ai-playwright-framework/
+ai-playwright-hybrid-framework/
 │
 ├── cucumber.mjs                        # Cucumber BDD configuration
 │
@@ -94,9 +94,9 @@ ai-playwright-framework/
                                  │
         ┌───────────────────────┼───────────────────────┐
         ▼                       ▼                       ▼
-┌───────────────┐      ┌────────────────┐      ┌────────────────┐
+┌───────────────┐      ┌────────────────┐      ┌─────────────────┐
 │ API Utilities │      │ Custom Assert  │      │ Wrapper Locators│
-└───────┬───────┘      └────────┬───────┘      └────────┬───────┘
+└───────┬───────┘      └────────┬───────┘      └────────┬────────┘
         └───────────────────────┼───────────────────────┘
                                 ▼
                     ┌──────────────────────────┐
@@ -106,7 +106,7 @@ ai-playwright-framework/
                                  ▼
                     ┌──────────────────────────┐
                     │  Reporting Layer         │
-                    │  HTML · JUnit · Allure    │
+                    │  HTML · JUnit · Allure   │
                     └──────────────────────────┘
 ```
 
@@ -187,14 +187,6 @@ Create `.env` from `.env.example` and set `BASE_URL`, credentials, etc.
 
 ## Design & Rationale
 
-### Why this framework is strong?
-
-- **Modular** — Clear separation of concerns across layers
-- **Scalable** — New modules = new feature + page class only
-- **Hybrid** — BDD, TDD, and API layers in one framework
-- **Environment-independent** — `.env`-based config
-- **Enterprise reporting** — HTML, JUnit, Allure for CI pipelines
-
 ### Design decisions
 
 1. **Feature layer** — Business-readable Gherkin for product/QA collaboration
@@ -204,6 +196,14 @@ Create `.env` from `.env.example` and set `BASE_URL`, credentials, etc.
 5. **Env layer** — Centralized `getEnv()` for multi-environment support
 6. **Hooks & World** — Context sharing and test lifecycle control
 7. **Reporting** — Cucumber JSON → HTML/JUnit, plus Allure dashboards
+
+### Why this framework is strong?
+
+- **Modular** — Clear separation of concerns across layers
+- **Scalable** — New modules = new feature + page class only
+- **Hybrid** — BDD, TDD, and API layers in one framework
+- **Environment-independent** — `.env`-based config
+- **Enterprise reporting** — HTML, JUnit, Allure for CI pipelines
 
 ### How Is It Scalable?
 
@@ -218,3 +218,15 @@ Create `.env` from `.env.example` and set `BASE_URL`, credentials, etc.
 ## License
 
 ISC
+
+---
+
+## Owner
+
+Pratik Raut
+
+---
+
+## Contact
+
+pratikraut840@gmail.com
