@@ -1,263 +1,220 @@
-===========================================================
-# Playwright Hybrid Framework – Project Structure
-===========================================================
+# Playwright Hybrid Automation Framework
 
+[![Node](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![Playwright](https://img.shields.io/badge/Playwright-1.58+-blue.svg)](https://playwright.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-ISC-yellow.svg)](LICENSE)
+
+Enterprise-ready automation framework with **Playwright**, **Cucumber BDD**, and **TypeScript** — supporting UI (BDD + TDD) and API testing layers.
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Framework Architecture](#framework-architecture)
+- [Tech Stack](#tech-stack)
+- [Running Tests](#running-tests)
+- [Environment Configuration](#environment-configuration)
+- [Design & Rationale](#design--rationale)
+
+---
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run all tests (BDD + TDD + API)
+npm run test:all
+
+# Run individual layers
+npm run test:bdd    # Cucumber BDD
+npm run test:tdd    # Playwright UI specs
+npm run test:api    # Restful-Booker API
+```
+
+---
+
+## Project Structure
+
+```
 ai-playwright-framework/
 │
 ├── cucumber.mjs                        # Cucumber BDD configuration
 │
 ├── src/
-│   │
-│   ├── ui/                             # Dedicated UI Testing Layer (BDD + TDD)
-│   │   ├── constants/
-│   │   │   ├── selectors/              # Common & reusable selectors
-│   │   │   ├── global.ts               # UI labels/constants
-│   │   │   └── resources.ts            # API endpoint constants
-│   │   │
-│   │   ├── helpers/
-│   │   │   ├── browsers/browserSetup.ts
-│   │   │   ├── env/                    # .env, env.ts, getEnv.ts
-│   │   │   ├── reports/report.ts
-│   │   │   ├── scripts/                # view-junit, show-tdd-report, allure-open, etc.
-│   │   │   ├── setupLogin/auth/
-│   │   │   └── hooks/                  # hooks.ts, orangeHRMWorld.ts
-│   │   │
-│   │   ├── pages/                      # All POM pages
-│   │   ├── stepDefinitions/            # Step definitions (Gherkin bindings)
-│   │   ├── tdd/                        # TDD layer (Playwright UI specs)
-│   │   │   ├── fixtures/
-│   │   │   ├── specs/
-│   │   │   └── globalSetup.ts
-│   │   │
-│   │   ├── tests/
-│   │   │   ├── data/
-│   │   │   └── features/               # Cucumber feature files
-│   │   │
+│   ├── ui/                             # UI Testing Layer (BDD + TDD)
+│   │   ├── constants/                  # Selectors, global.ts, resources.ts
+│   │   ├── helpers/                    # Browser, env, reports, hooks, auth
+│   │   ├── pages/                      # Page Object Model (POM)
+│   │   ├── stepDefinitions/             # Gherkin step definitions
+│   │   ├── tdd/                        # Playwright UI specs, fixtures
+│   │   ├── tests/                      # Features, data
 │   │   ├── scripts/                    # run-bdd-tests.mjs
 │   │   ├── types/
-│   │   └── utils/                      # assertions, logger, locator, api, etc.
+│   │   └── utils/                      # Assertions, logger, locator, api
 │   │
-│   └── api/                            # Dedicated API Testing Layer (no UI mixing)
-│       ├── config/apiEnv.ts            # Base URL, credentials
-│       ├── base/BaseAPI.ts             # Base request handling
-│       ├── client/                     # restfulBookerClient, restfulBookerClientWithReport
-│       ├── constants/endpoints.ts      # Restful-Booker endpoints
-│       ├── fixtures/apiFixtures.ts
-│       ├── helpers/                    # reportAttach, responseWithAttach
+│   └── api/                            # API Testing Layer (no UI)
+│       ├── config/                     # apiEnv.ts
+│       ├── base/                       # BaseAPI.ts
+│       ├── client/                     # API clients
+│       ├── constants/                  # endpoints.ts
+│       ├── fixtures/                   # apiFixtures.ts
 │       ├── specs/                      # auth, booking, healthCheck
-│       ├── data/restfulBooker.data.ts
-│       ├── env/                        # .env, .env.example (auth creds)
-│       ├── validators/                 # SchemaValidator, schemas
-│       └── types/restfulBooker.types.ts
+│       ├── validators/                 # Schema validation
+│       └── types/
 │
-├── test-results/                      # All test outputs (BDD, TDD, API)
-│   ├── test-results-bdd/               # BDD (Cucumber) outputs
-│   │   ├── cucumber-json/              # Cucumber JSON output
-│   │   ├── cucumber-html-report/       # Customized HTML reports
-│   │   ├── junit-report/               # JUnit XML & HTML
-│   │   ├── screenshots/                # Failure screenshots
-│   │   └── videos/                     # Failure video captures
-│   ├── test-results-tdd/               # TDD (Playwright) raw outputs
-│   └── test-results-api/               # API layer raw + junit-report-api/
-│
+├── test-results/                       # BDD, TDD, API outputs
 ├── playwright-report/                  # Playwright HTML reports
-│   ├── playwright-report-tdd/          # TDD (Playwright) HTML report
-│   └── playwright-report-api/          # API layer HTML report
+├── allure-report/                      # Allure reports
 │
-├── allure-report/                      # Allure reports (generate + serve)
-│
-├── playwright.config.ts               # Playwright config for TDD (UI) tests
-├── playwright.api.config.ts           # Playwright config for API-only tests
-├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
-│
-├── package.json                        # Project dependencies & scripts
-├── package-lock.json                   # Auto-generated lock file
-├── tsconfig.json                       # TypeScript configuration
-└── README.md
+├── playwright.config.ts                # TDD (UI) config
+├── playwright.api.config.ts            # API-only config
+├── convert-cucumber-to-junit.mjs       # Cucumber JSON → JUnit XML
+└── package.json
+```
 
-===========================================================
-# Framework Architecture Overview
-===========================================================
+---
 
-                          ┌──────────────────────────┐
-                          │      Feature Files       │
-                          │     (Cucumber - BDD)     │
-                          └────────────┬─────────────┘
-                                       │
-                                       ▼
-                          ┌──────────────────────────┐
-                          │     Step Definitions     │
-                          │   (Glue Code Layer)      │
-                          └────────────┬─────────────┘
-                                       │
-                                       ▼
-                          ┌──────────────────────────┐
-                          │      Page Objects (POM)   │
-                          │  Encapsulated UI Actions │
-                          └────────────┬─────────────┘
-                                       │
-             ┌─────────────────────────┼─────────────────────────┐
-             ▼                         ▼                         ▼
-   ┌─────────────────┐     ┌──────────────────┐       ┌──────────────────┐
-   │  API Utilities  │     │  Custom Assertions│       │  Wrapper Locators │
-   │ (GET/POST/PUT)  │     │  Field/History   │       │  Reusable Layer   │
-   └─────────────────┘     └──────────────────┘       └──────────────────┘
-             │                         │                         │
-             └───────────────┬─────────┴───────────────┬─────────┘
-                             ▼                         ▼
-                   ┌──────────────────┐      ┌──────────────────┐
-                   │  Common Utilities │      │  Environment     │
-                   │  Date, Random,    │      │  Config (.env)   │
-                   │  Logger, Helpers  │      │  getEnv()        │
-                   └──────────┬───────┘      └──────────┬───────┘
-                              │                         │
-                              ▼                         ▼
-                      ┌────────────────────────────────────────┐
-                      │        Playwright Browser Layer        │
-                      │        Hooks & Custom World            │
-                      └────────────────────────────────────────┘
-                                      │
-                                      ▼
-                      ┌────────────────────────────────────────┐
-                      │        Reporting Layer                 │
-                      │  Cucumber JSON → HTML → JUnit XML      │
-                      │  Allure (BDD + TDD + API)              │
-                      └────────────────────────────────────────┘
+## Framework Architecture
 
-===========================================================
-# Framework Architecture Design
-===========================================================
+```
+                    ┌──────────────────────────┐
+                    │   Feature Files (BDD)    │
+                    └────────────┬─────────────┘
+                                 ▼
+                    ┌──────────────────────────┐
+                    │   Step Definitions       │
+                    └────────────┬─────────────┘
+                                 ▼
+                    ┌──────────────────────────┐
+                    │   Page Objects (POM)     │
+                    └────────────┬─────────────┘
+                                 │
+        ┌───────────────────────┼───────────────────────┐
+        ▼                       ▼                       ▼
+┌───────────────┐      ┌────────────────┐      ┌────────────────┐
+│ API Utilities │      │ Custom Assert  │      │ Wrapper Locators│
+└───────┬───────┘      └────────┬───────┘      └────────┬───────┘
+        └───────────────────────┼───────────────────────┘
+                                ▼
+                    ┌──────────────────────────┐
+                    │  Playwright Browser      │
+                    │  Hooks & Custom World    │
+                    └────────────┬─────────────┘
+                                 ▼
+                    ┌──────────────────────────┐
+                    │  Reporting Layer         │
+                    │  HTML · JUnit · Allure    │
+                    └──────────────────────────┘
+```
 
-This hybrid framework is built using:
+**Hybrid layers:**
 
-- **Playwright** — UI automation (OrangeHRM) and API automation (Restful-Booker)
-- **Cucumber** — BDD implementation with Gherkin feature files
-- **TypeScript** — Type-safe implementation
-- **POM (Page Object Model)** — Encapsulated UI interactions in page classes
-- **Allure Reporting** — Unified dashboards for BDD, TDD, and API layers
-- **Custom Reporting** — multiple-cucumber-html-reporter, Cucumber JSON, JUnit XML, xunit-viewer
-<!-- - **CI/CD Ready** — Bitbucket and GitHub Actions compatible (JUnit, Allure artifacts) -->
-- **Custom Hooks & World** — BeforeAll/AfterAll auth, storage state, per-scenario lifecycle
-- **Multi-browser** — Chromium, Firefox, WebKit
-- **Multi-environment** — `.env` per environment (dev, qa, stage)
+| Layer | Description |
+|-------|-------------|
+| **BDD** | Feature files (Gherkin) → Step definitions → POM |
+| **TDD** | Spec files (`*.spec.ts`) → Fixtures + POM (UI only) |
+| **API** | Spec files (`*.spec.ts`) → API client + fixtures (no browser) |
 
-<!-- Architecture Design -->
-**Hybrid Framework:** Supports BDD (Cucumber), TDD (Playwright UI), and a Dedicated API layer.
-- BDD Layer → Feature files (Gherkin) → Step definitions → POM
-- TDD Layer → Spec files (*.spec.ts) → Fixtures + POM (UI only)
-- API Layer → Spec files (*.spec.ts) → API client + fixtures (no browser, no UI mixing)
-- Shared → Page Objects, utilities, assertions, env config (for UI layers)
+---
 
-<!-- Layer Details -->
-BDD Layer → Feature files (Gherkin)
-Step Definition Layer → Glue between feature & logic
-Page Object Layer → Encapsulated UI actions
-Utility Layer → API, Assertions, Date, Logger, Random
-Environment Layer → Multi-environment support
-Reporting Layer → Custom report generation + Allure
-Bitbucket Pipeline Integration → Sync automation results to manual test cases
+## Tech Stack
 
-<!-- Running Tests -->
-  BDD:  npm run test:bdd    (or npm run test, test:smoke, test:regression, test:headed)
-  TDD:  npm run test:tdd    (or test:tdd:headed, test:tdd:ui, test:tdd:smoke)
-  API:  npm run test:api    (or test:api:ui) – Dedicated API layer, Restful-Booker
-  All:  npm run test:all
+| Technology | Purpose |
+|------------|---------|
+| **Playwright** | UI (OrangeHRM) & API (Restful-Booker) automation |
+| **Cucumber** | BDD with Gherkin feature files |
+| **TypeScript** | Type-safe implementation |
+| **POM** | Page Object Model for UI interactions |
+| **Allure** | Unified reporting for BDD, TDD, API |
+| **Custom Reporting** | Cucumber HTML, JUnit XML, xunit-viewer |
+| **Custom Hooks & World** | Auth, storage state, scenario lifecycle |
+| **Multi-browser** | Chromium, Firefox, WebKit |
+| **Multi-environment** | `.env` per dev / qa / stage |
 
-<!-- Environment Configuration -->
-src/ui/helpers/env/
-   ├── .env
-   ├── env.ts
-   └── getEnv.ts
+---
 
+## Running Tests
 
-===========================================================
-# Framework Explanation (Interview-Ready Version)
-===========================================================
-I designed a scalable, maintainable and enterprise-ready automation framework using Playwright with Cucumber BDD and TypeScript. The goal was to ensure maintainability, scalability, multi-environment support, and seamless Bitbucket Pipeline integration.
+### BDD (Cucumber)
+```bash
+npm run test:bdd              # Default run
+npm run test:bdd:headed       # Headed mode
+npm run test:bdd:smoke        # @smoke tag
+npm run test:bdd:regression   # @regression tag
+npm run test:bdd:chromium     # Chromium only
+```
 
-1. The framework follows a modular and layered architecture with clear separation of concerns —
-    Feature layer for business-readable scenarios,
-    Step Definition layer for glue logic,
-    and a Page Object Model layer for encapsulated UI interactions.
-2. I also implemented a utility layer that includes custom API wrappers, assertions, date handling, random data generation, and centralized logging.
-3. The framework supports multi-environment execution using .env configuration management and integrates with CI/CD by converting test results into HTML, JUnit, and Allure reports.
-4. Additionally, I implemented custom hooks and world constructors for context sharing and improved test lifecycle control.
-5. The result is a highly modular, maintainable, and enterprise-ready automation solution.
+### TDD (Playwright UI)
+```bash
+npm run test:tdd
+npm run test:tdd:headed
+npm run test:tdd:ui           # Interactive UI mode
+npm run test:tdd:smoke
+```
 
-===========================================================
-# How I Designed the Framework?
-===========================================================
-I designed a scalable Playwright automation framework using Cucumber with a clear separation of concerns.
+### API (Restful-Booker)
+```bash
+npm run test:api
+npm run test:api:ui
+```
 
-1️⃣ Feature Layer (BDD)
-    Business-readable Gherkin scenarios
-    Product owners can understand scenarios
-    Promotes collaboration between QA, Dev, and BA
+### Reports
+```bash
+npm run report:bdd:all        # BDD reports
+npm run report:tdd            # TDD HTML report
+npm run allure:all            # Allure (BDD + TDD)
+npm run allure:api:all        # Allure (API)
+```
 
-2️⃣ Step Definition Layer
-    Acts as glue between feature files and logic
-    Keeps feature files clean and reusable
-    Delegates logic to Page Object layer
+---
 
-3️⃣ Page Object Model (POM) Layer
-    All UI actions encapsulated in page classes
-    Locators kept private
-    Public business methods exposed
-    Follows encapsulation & abstraction principles
+## Environment Configuration
 
-4️⃣ Utility Layer
-    "Instead of relying only on Playwright's default utilities, I created a reusable utility layer."
-    Includes:
-    API wrapper (GET, POST, PUT)
-    Custom assertion library
-    Date utilities (region-specific handling)
-    Random data generator
-    Logger for centralized failure tracking
+Environment config in `src/ui/helpers/env/`:
 
-5️⃣ Environment Layer
-    "Framework supports multi-environment execution using .env files with centralized getEnv() configuration management."
-    Folder:
-        src/ui/helpers/env/
-        ├── .env
-        ├── env.ts
-        └── getEnv.ts
-    Benefits:
-        Dev / QA / UAT switch
-        No hardcoded values
-        CI-friendly
+```
+├── .env          # Local credentials (gitignored)
+├── env.ts        # Environment types
+└── getEnv.ts     # Centralized config loader
+```
 
-6️⃣ Custom Hooks & World (Cucumber Advanced)
-    "Implemented custom hooks and world constructor to manage object injection and test context sharing across steps."
+Create `.env` from `.env.example` and set `BASE_URL`, credentials, etc.
 
-7️⃣ Reporting Layer
-    "Cucumber JSON output is converted to HTML and JUnit XML. Allure reports (BDD, TDD, API) provide unified dashboards. All integrate with CI pipelines."
-    Highlights:
-    HTML for humans
-    JUnit for CI
-    Allure for unified reporting
+---
 
-8️⃣ CI Integration
-    "Automation results are synchronized with Aqua to update manual test cases. This ensures traceability between automated and manual testing efforts."
+## Design & Rationale
 
-9️⃣ Why This Framework Is Strong
-    "The framework is modular, scalable, environment-independent, and supports both UI and API automation. It follows clean architecture principles and supports enterprise-level reporting and CI/CD integration."
+### Why this framework is strong?
 
-===========================================================
-# Why This Framework Is Strong?
-===========================================================
-    Highly modular & maintainable
-    Easy to scale for new modules
-    Clear separation of concerns
-    API + UI combined support (BDD, TDD, API layers)
-    Custom assertion system (not dependent only on Playwright expect)
-    Environment-independent execution
-    Enterprise-level reporting (HTML, JUnit, Allure)
+- **Modular** — Clear separation of concerns across layers
+- **Scalable** — New modules = new feature + page class only
+- **Hybrid** — BDD, TDD, and API layers in one framework
+- **Environment-independent** — `.env`-based config
+- **Enterprise reporting** — HTML, JUnit, Allure for CI pipelines
 
-===========================================================
-# How Is It Scalable?
-===========================================================
-    New modules only need new feature + page class
-    No core changes
-    Reusable utilities
-    Environment independent
-    CI-ready
+### Design decisions
+
+1. **Feature layer** — Business-readable Gherkin for product/QA collaboration
+2. **Step definitions** — Glue between features and logic
+3. **Page objects** — Encapsulated UI, private locators, public methods
+4. **Utility layer** — Custom API wrappers, assertions, date utils, logger
+5. **Env layer** — Centralized `getEnv()` for multi-environment support
+6. **Hooks & World** — Context sharing and test lifecycle control
+7. **Reporting** — Cucumber JSON → HTML/JUnit, plus Allure dashboards
+
+### How Is It Scalable?
+
+- New modules only need new feature + page class
+- No core changes required
+- Reusable utilities across layers
+- Environment independent
+- CI-ready outputs (JUnit, Allure artifacts)
+
+---
+
+## License
+
+ISC
