@@ -25,6 +25,7 @@ export default defineConfig({
   workers,
 
   reporter: [
+    ['line'],
     ['html', {outputFolder: 'playwright-report/playwright-report-api'}],
     ['json', { outputFile: 'playwright-report/playwright-report-api/results.json' }],
     ['junit', { outputFile: 'test-results/test-results-api/junit-report-api/junit.xml' }],

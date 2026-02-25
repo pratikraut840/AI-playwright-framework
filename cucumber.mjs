@@ -1,9 +1,3 @@
-const timestamp = new Date()
-  .toISOString()
-  .replace(/T/, '_')
-  .replace(/:/g, '-')
-  .replace(/\..+/, '');
-
 const DEFAULT_PROFILE = {
   requireModule: ['ts-node/register'],
   require: [
@@ -12,15 +6,12 @@ const DEFAULT_PROFILE = {
   ],
   paths: ['src/ui/tests/features/**/*.feature'],
   format: [
-    'progress-bar',
+    'progress',
     ['json', 'test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
     ['html', 'test-results/test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
-    'allure-cucumberjs/reporter',
   ],
   formatOptions: {
     snippetInterface: 'async-await',
-    resultsDir: 'allure-report/results/bdd',
-    printAttachments: false,
   },
 };
 
@@ -31,7 +22,6 @@ export const progress = {
     'progress',
     ['json', 'test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
     ['html', 'test-results/test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
-    'allure-cucumberjs/reporter',
   ],
 };
 

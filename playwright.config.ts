@@ -34,6 +34,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   reporter: [
+    ['line'],
     ['html', { outputFolder: 'playwright-report/playwright-report-tdd' }],
     ['json', { outputFile: 'playwright-report/playwright-report-tdd/results.json' }],
     ['junit', { outputFile: 'playwright-report/playwright-report-tdd/junit-report-tdd/junit.xml' }],

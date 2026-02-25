@@ -15,6 +15,7 @@ try {
   execSync('playwright test --config=playwright.api.config.ts', {
     stdio: 'inherit',
     cwd: ROOT,
+    env: { ...process.env, FORCE_COLOR: '1' },
   });
 } catch (e) {
   exitCode = e.status ?? 1;

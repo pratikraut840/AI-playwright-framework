@@ -19,16 +19,27 @@ const CUCUMBER_HTML_DIR = 'test-results/test-results-bdd/cucumber-html-report';
 const CUCUMBER_HTML_FILE = 'cucumber-html-report.html';
 const CUCUMBER_INDEX = path.join(CUCUMBER_HTML_DIR, CUCUMBER_HTML_FILE);
 
+/** Returns dirs that contain at least one *-result.json (Allure test result file). */
+function getAvailableAllureResultDirs(): string[] {
+  const allDirs = [ALLURE_RESULTS_BDD, ALLURE_RESULTS_TDD, ALLURE_RESULTS_API];
+  return allDirs.filter((dir) => {
+    const resolved = path.resolve(dir);
+    if (!fs.existsSync(resolved)) return false;
+    const files = fs.readdirSync(resolved);
+    return files.some((f) => f.endsWith('-result.json'));
+  });
+}
+
 function ensureAllureDirs(): void {
   fs.mkdirSync(ALLURE_RESULTS_BDD, { recursive: true });
   fs.mkdirSync(ALLURE_RESULTS_TDD, { recursive: true });
   fs.mkdirSync(ALLURE_RESULTS_API, { recursive: true });
 }
 
-function preserveAllureHistory(): void {
+function preserveAllureHistory(dirs: string[]): void {
   const historySrc = path.join(ALLURE_REPORT, 'history');
   if (fs.existsSync(historySrc)) {
-    [ALLURE_RESULTS_BDD, ALLURE_RESULTS_TDD, ALLURE_RESULTS_API].forEach((dir) => {
+    dirs.forEach((dir) => {
       const historyDst = path.join(dir, 'history');
       fs.mkdirSync(dir, { recursive: true });
       try {
@@ -42,26 +53,37 @@ function preserveAllureHistory(): void {
 }
 
 function runAllureGenerate(): void {
+  const availableDirs = getAvailableAllureResultDirs();
+  if (availableDirs.length === 0) {
+    console.error('No Allure results found. Run test:bdd, test:tdd, and/or test:api first.');
+    console.error('  Expected result files in: allure-report/results/{bdd,tdd,api-raw}');
+    process.exit(1);
+  }
   ensureAllureDirs();
-  preserveAllureHistory();
-  writeAllureMetadata(ALLURE_RESULTS_BDD, 'bdd');
-  writeAllureMetadata(ALLURE_RESULTS_TDD, 'tdd');
-  writeAllureMetadata(ALLURE_RESULTS_API, 'api');
+  preserveAllureHistory(availableDirs);
+  availableDirs.forEach((dir) => {
+    const layer = dir.includes('/bdd') ? 'bdd' : dir.includes('/tdd') ? 'tdd' : 'api';
+    writeAllureMetadata(dir, layer);
+  });
   clearDirectory(ALLURE_REPORT);
-  execSync(
-    `npx allure generate ${ALLURE_RESULTS_BDD} ${ALLURE_RESULTS_TDD} ${ALLURE_RESULTS_API} -o ${ALLURE_REPORT} --clean`,
-    { stdio: 'inherit' }
-  );
+  const dirsArg = availableDirs.join(' ');
+  execSync(`npx allure generate ${dirsArg} -o ${ALLURE_REPORT} --clean`, { stdio: 'inherit' });
 }
 
 function runAllureServe(): void {
+  const availableDirs = getAvailableAllureResultDirs();
+  if (availableDirs.length === 0) {
+    console.error('No Allure results found. Run test:bdd, test:tdd, and/or test:api first.');
+    console.error('  Expected result files in: allure-report/results/{bdd,tdd,api-raw}');
+    process.exit(1);
+  }
   ensureAllureDirs();
-  writeAllureMetadata(ALLURE_RESULTS_BDD, 'bdd');
-  writeAllureMetadata(ALLURE_RESULTS_TDD, 'tdd');
-  writeAllureMetadata(ALLURE_RESULTS_API, 'api');
-  execSync(`npx allure serve ${ALLURE_RESULTS_BDD} ${ALLURE_RESULTS_TDD} ${ALLURE_RESULTS_API}`, {
-    stdio: 'inherit',
+  availableDirs.forEach((dir) => {
+    const layer = dir.includes('/bdd') ? 'bdd' : dir.includes('/tdd') ? 'tdd' : 'api';
+    writeAllureMetadata(dir, layer);
   });
+  const dirsArg = availableDirs.join(' ');
+  execSync(`npx allure serve ${dirsArg}`, { stdio: 'inherit' });
 }
 
 function hasValidCucumberJson(): boolean {
@@ -97,12 +119,39 @@ function openInBrowser(filePath: string): void {
   }
 }
 
+function hasCucumberHtmlReport(): boolean {
+  const htmlPath = path.resolve(CUCUMBER_INDEX);
+  if (!fs.existsSync(htmlPath)) {return false;}
+  return fs.statSync(htmlPath).size > 0;
+}
+
 function generateCucumberReport(): void {
   if (!hasValidCucumberJson()) {
-    console.error('Error: No BDD test results found.');
-    console.error('  Expected: test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json');
-    console.error('  Run BDD tests first: npm run test:bdd');
-    process.exit(1);
+    // Fallback: open Cucumber's built-in HTML report if JSON is empty
+    if (hasCucumberHtmlReport()) {
+      console.warn('Note: JSON report empty; opening Cucumber HTML report instead.');
+      openInBrowser(CUCUMBER_INDEX);
+      return;
+    }
+    // Run BDD tests first if no results (Cucumber formatters may not write on Node 24)
+    console.warn('No BDD results found. Running test:bdd first...');
+    try {
+      execSync('npm run test:bdd', { stdio: 'inherit', cwd: process.cwd() });
+    } catch {
+      console.error('test:bdd failed. Cannot generate report.');
+      process.exit(1);
+    }
+    if (!hasValidCucumberJson() && !hasCucumberHtmlReport()) {
+      console.error('Error: BDD tests ran but no report output was generated.');
+      console.error('  This can happen with Node 24. Try Node 20 or 22.');
+      console.error('  Expected: test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json');
+      console.error('  Or: test-results/test-results-bdd/cucumber-html-report/cucumber-html-report.html');
+      process.exit(1);
+    }
+    if (hasCucumberHtmlReport() && !hasValidCucumberJson()) {
+      openInBrowser(CUCUMBER_INDEX);
+      return;
+    }
   }
   clearCucumberReportDir();
   reporter.generate({

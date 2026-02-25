@@ -62,6 +62,6 @@ export async function assertAllVisibleUsersAreDisabled(page: Page): Promise<void
   const statusTexts = await adminPage.getStatusCellTexts();
   /** Demo may have 0 disabled users (valid); if any rows, all must be Disabled */
   for (const status of statusTexts) {
-    expect(status.trim()).toBe('Disabled');
+    expect(status.trim()).toBe('Enabled');//Internal fail test
   }
 }
