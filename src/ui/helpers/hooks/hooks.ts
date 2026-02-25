@@ -36,10 +36,8 @@ const VIDEO_DIR        = path.join('test-results', 'test-results-bdd', 'cucumber
 setWorldConstructor(OrangeHRMWorld);
 setDefaultTimeout(120 * 1000);
 
-// Add thread label so it shows in the Allure report (BDD runs single process; use 0 or env)
-Before(async function () {
-  await allure.label('thread', process.env.TEST_PARALLEL_INDEX ?? '0');
-});
+// Thread label omitted in BDD – allure-js-commons requires Playwright runtime for Runtime API;
+// use allure-cucumberjs reporter for BDD Allure output instead.
 
 // ─── BeforeAll ────────────────────────────────────────────────────────────────
 // Runs ONCE before the entire test run.
@@ -137,7 +135,11 @@ After(async function (this: OrangeHRMWorld, scenario: ITestCaseHookParameter) {
       const screenshotPath = path.join(SCREENSHOT_DIR, `${safeName}-${timestamp}.png`);
       const screenshot = await this.page.screenshot({ path: screenshotPath, type: 'png' });
       this.attach(screenshot, 'image/png');
-      await allure.attachment('Screenshot on failure', screenshot, ContentType.PNG);
+      try {
+        await allure.attachment('Screenshot on failure', screenshot, ContentType.PNG);
+      } catch {
+        // Allure Runtime API can fail in Cucumber context
+      }
     } catch (err) {
       console.error('[After] Screenshot capture failed:', err);
     }

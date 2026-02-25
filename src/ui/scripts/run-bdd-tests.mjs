@@ -24,8 +24,9 @@ for (const dir of BDD_DIRS) {
 }
 
 // Pass through extra args (e.g. --tags @smoke, --profile progress)
+// cucumber.mjs already configures json/html/allure formatters – avoid overriding with --format
 const extraArgs = process.argv.slice(2).join(' ');
-const cmd = `npx cucumber-js --config cucumber.mjs --format json:test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json ${extraArgs}`.trim();
+const cmd = `npx cucumber-js --config cucumber.mjs ${extraArgs}`.trim();
 execSync(cmd, {
   stdio: 'inherit',
   cwd: ROOT,
