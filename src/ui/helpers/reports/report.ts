@@ -8,12 +8,14 @@ import {
 } from './clearReportDirs';
 import { writeAllureMetadata } from './allureMetadata';
 
-const ALLURE_RESULTS_BDD = 'allure-results-bdd';
-const ALLURE_RESULTS_TDD = 'allure-results-tdd';
-const ALLURE_RESULTS_API = 'allure-results-api-raw';
-const ALLURE_REPORT = 'allure-report';
-const CUCUMBER_JSON_DIR = 'test-results-bdd/cucumber-json';
-const CUCUMBER_HTML_DIR = 'test-results-bdd/cucumber-html-report';
+const ALLURE_BASE = 'allure-report';
+const ALLURE_RESULTS_BDD = `${ALLURE_BASE}/results/bdd`;
+const ALLURE_RESULTS_TDD = `${ALLURE_BASE}/results/tdd`;
+const ALLURE_RESULTS_API = `${ALLURE_BASE}/results/api-raw`;
+const ALLURE_REPORT = `${ALLURE_BASE}/unified`;
+const ALLURE_REPORT_API = `${ALLURE_BASE}/api`;
+const CUCUMBER_JSON_DIR = 'test-results/test-results-bdd/cucumber-json';
+const CUCUMBER_HTML_DIR = 'test-results/test-results-bdd/cucumber-html-report';
 const CUCUMBER_HTML_FILE = 'cucumber-html-report.html';
 const CUCUMBER_INDEX = path.join(CUCUMBER_HTML_DIR, CUCUMBER_HTML_FILE);
 
@@ -98,7 +100,7 @@ function openInBrowser(filePath: string): void {
 function generateCucumberReport(): void {
   if (!hasValidCucumberJson()) {
     console.error('Error: No BDD test results found.');
-    console.error('  Expected: test-results-bdd/cucumber-json/cucumber-report-bdd.json');
+    console.error('  Expected: test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json');
     console.error('  Run BDD tests first: npm run test:bdd');
     process.exit(1);
   }
@@ -137,7 +139,6 @@ function generateCucumberReport(): void {
 }
 
 function preserveAllureApiHistory(): void {
-  const ALLURE_REPORT_API = 'allure-report-api';
   const historySrc = path.join(ALLURE_REPORT_API, 'history');
   if (fs.existsSync(historySrc)) {
     fs.mkdirSync(ALLURE_RESULTS_API, { recursive: true });
@@ -155,7 +156,6 @@ function runAllureApiGenerate(): void {
   ensureAllureDirs();
   preserveAllureApiHistory();
   writeAllureMetadata(ALLURE_RESULTS_API, 'api');
-  const ALLURE_REPORT_API = 'allure-report-api';
   execSync(
     `npx allure generate ${ALLURE_RESULTS_API} -o ${ALLURE_REPORT_API} --clean`,
     { stdio: 'inherit' }

@@ -13,13 +13,13 @@ const DEFAULT_PROFILE = {
   paths: ['src/ui/tests/features/**/*.feature'],
   format: [
     'progress-bar',
-    ['json', 'test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
-    ['html', 'test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
+    ['json', 'test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
+    ['html', 'test-results/test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
     'allure-cucumberjs/reporter',
   ],
   formatOptions: {
     snippetInterface: 'async-await',
-    resultsDir: 'allure-results-bdd',
+    resultsDir: 'allure-report/results/bdd',
     printAttachments: false,
   },
 };
@@ -29,8 +29,8 @@ export const progress = {
   ...DEFAULT_PROFILE,
   format: [
     'progress',
-    ['json', 'test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
-    ['html', 'test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
+    ['json', 'test-results/test-results-bdd/cucumber-json/cucumber-report-bdd.json'],
+    ['html', 'test-results/test-results-bdd/cucumber-html-report/cucumber-html-report.html'],
     'allure-cucumberjs/reporter',
   ],
 };

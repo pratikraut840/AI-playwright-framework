@@ -17,8 +17,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const INPUT_PATH = path.join(__dirname, 'test-results-bdd', 'cucumber-json', 'cucumber-report-bdd.json');
-const OUTPUT_PATH = path.join(__dirname, 'test-results-bdd', 'junit-report', 'junit-report-bdd.xml');
+const INPUT_PATH = path.join(__dirname, 'test-results', 'test-results-bdd', 'cucumber-json', 'cucumber-report-bdd.json');
+const OUTPUT_PATH = path.join(__dirname, 'test-results', 'test-results-bdd', 'junit-report', 'junit-report-bdd.xml');
 
 if (!fs.existsSync(INPUT_PATH)) {
   console.error('Error: cucumber-report-bdd.json not found.');

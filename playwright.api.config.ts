@@ -17,7 +17,7 @@ const workers = process.env.CI ? 1 : undefined;
 
 export default defineConfig({
   testDir: './src/api/specs',
-  outputDir: 'test-results-api',
+  outputDir: 'test-results/test-results-api',
   timeout: 30_000,
   fullyParallel: !process.env.CI,
   forbidOnly: !!process.env.CI,
@@ -25,10 +25,10 @@ export default defineConfig({
   workers,
 
   reporter: [
-    ['html', {outputFolder: 'playwright-report-api'}],
-    ['json', { outputFile: 'playwright-report-api/results.json' }],
-    ['junit', { outputFile: 'junit-report-api/junit.xml' }],
-    ['allure-playwright', { resultsDir: 'allure-results-api-raw' }],
+    ['html', {outputFolder: 'playwright-report/playwright-report-api'}],
+    ['json', { outputFile: 'playwright-report/playwright-report-api/results.json' }],
+    ['junit', { outputFile: 'test-results/test-results-api/junit-report-api/junit.xml' }],
+    ['allure-playwright', { resultsDir: 'allure-report/results/api-raw' }],
   ],
 
   use: {

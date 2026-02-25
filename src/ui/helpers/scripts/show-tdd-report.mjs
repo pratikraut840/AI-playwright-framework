@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const REPORT_DIR = path.join(ROOT, 'playwright-report-tdd');
+const REPORT_DIR = path.join(ROOT, 'playwright-report', 'playwright-report-tdd');
 const INDEX_HTML = path.join(REPORT_DIR, 'index.html');
 const TDD_REPORT_HTML = path.join(REPORT_DIR, 'playwright-report-tdd.html');
 
@@ -18,7 +18,7 @@ const hasTddReport = fs.existsSync(TDD_REPORT_HTML);
 
 if (!hasIndex && !hasTddReport) {
   console.error('Error: Playwright report not found.');
-  console.error('  Expected: playwright-report-tdd/playwright-report-tdd.html');
+  console.error('  Expected: playwright-report/playwright-report-tdd/playwright-report-tdd.html');
   console.error('  Run TDD tests first: npm run test:tdd');
   process.exit(1);
 }

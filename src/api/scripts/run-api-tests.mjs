@@ -21,7 +21,7 @@ try {
 }
 
 // Convert index.html → playwright-report-api.html (report exists even on failure)
-const REPORT_DIR = path.join(ROOT, 'playwright-report-api');
+const REPORT_DIR = path.join(ROOT, 'playwright-report', 'playwright-report-api');
 const INDEX_HTML = path.join(REPORT_DIR, 'index.html');
 const API_REPORT_HTML = path.join(REPORT_DIR, 'playwright-report-api.html');
 if (fs.existsSync(INDEX_HTML)) {

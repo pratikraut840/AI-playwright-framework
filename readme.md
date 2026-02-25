@@ -45,16 +45,19 @@ OrangeHRM-project/
 │       ├── env/                       # .env, .env.example (auth creds)
 │       └── types/restfulBooker.types.ts
 │
-├── test-results/                      # BDD (Cucumber) outputs
-│   ├── cucumber-json/                  # Cucumber JSON output
-│   ├── cucumber-html-report/           # Customized HTML reports
-│   ├── junit-report/                   # JUnit XML & HTML
-│   ├── screenshots/                    # Failure screenshots
-│   └── videos/                         # Failure video captures
+├── test-results/                      # All test outputs (BDD, TDD, API)
+│   ├── test-results-bdd/               # BDD (Cucumber) outputs
+│   │   ├── cucumber-json/              # Cucumber JSON output
+│   │   ├── cucumber-html-report/       # Customized HTML reports
+│   │   ├── junit-report/               # JUnit XML & HTML
+│   │   ├── screenshots/                # Failure screenshots
+│   │   └── videos/                     # Failure video captures
+│   ├── test-results-tdd/               # TDD (Playwright) raw outputs
+│   └── test-results-api/               # API layer raw + junit-report-api/
 │
-├── playwright-report-tdd/             # TDD (Playwright) HTML report
-├── playwright-report-api/             # API layer HTML report
-├── test-results-api/                  # API layer test results
+├── playwright-report/                  # Playwright HTML reports
+│   ├── playwright-report-tdd/          # TDD (Playwright) HTML report
+│   └── playwright-report-api/          # API layer HTML report
 │
 ├── playwright.api.config.ts           # Playwright config for API-only tests
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML

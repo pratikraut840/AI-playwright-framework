@@ -3,23 +3,15 @@ node_modules
 /node_modules
 
 # Test results & reports (do not commit)
-test-results-bdd/
-test-results-tdd/
-test-results-api/
+test-results/
+junit-report-api/
 test-output.txt
 
-# Allure
-allure-results/
-allure-results-bdd/
-allure-results-tdd/
-allure-results-api-raw/
+# Allure (all under allure-report/)
 allure-report/
-allure-report-api/
 
 # Playwright
-playwright-report-tdd/
-playwright-report-api/
-junit-report-api/
+playwright-report/
 playwright/.cache/
 playwright/.auth/
 blob-report/
@@ -51,6 +43,7 @@ yarn-error.log*
 
 # Environment (copy from .env.example; do not commit secrets)
 src/api/env/.env
+src/api/config/.env.api
 src/ui/helpers/env/.env
 
 # Build / coverage

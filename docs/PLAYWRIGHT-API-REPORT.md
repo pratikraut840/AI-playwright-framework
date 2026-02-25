@@ -1,6 +1,6 @@
 # Playwright API Report — Making It Impressive
 
-The `playwright-report-api` HTML report can show rich request/response details. Here’s how to configure and use it.
+The `playwright-report/playwright-report-api` HTML report can show rich request/response details. Here’s how to configure and use it.
 
 ---
 
@@ -15,7 +15,7 @@ Every API call through `restfulBookerClient` is **automatically attached** to th
 In `playwright.api.config.ts`, the HTML reporter uses:
 
 - **title**: `Restful-Booker API — Test Report`
-- **outputFolder**: `playwright-report-api`
+- **outputFolder**: `playwright-report/playwright-report-api`
 - **open**: `never` — does not auto-open after run
 
 ---

@@ -12,9 +12,8 @@ module.exports = [
     ignores: [
       'node_modules/**',
       'dist/**',
-      'playwright-report-tdd/**',
-      'test-results-bdd/**',
-      'test-results-tdd/**',
+      'playwright-report/**',
+      'test-results/**',
       'reports/**',
     ],
 

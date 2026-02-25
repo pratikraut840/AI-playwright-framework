@@ -29,10 +29,10 @@ export function clearDirectory(dirPath: string): void {
 }
 
 /** BDD (Cucumber) result dirs — clear before BDD test run for fresh results */
-export const BDD_RESULT_DIRS = ['test-results-bdd', 'allure-results-bdd'] as const;
+export const BDD_RESULT_DIRS = ['test-results/test-results-bdd', 'allure-report/results/bdd'] as const;
 
 /** TDD (Playwright) result dirs — clear before TDD test run (test-results-bdd excluded to preserve BDD data when running test:all) */
-export const TDD_RESULT_DIRS = ['playwright-report-tdd', 'test-results-tdd', 'allure-results-tdd'] as const;
+export const TDD_RESULT_DIRS = ['playwright-report/playwright-report-tdd', 'test-results/test-results-tdd', 'allure-report/results/tdd'] as const;
 
 /** Clears all BDD result directories (call before BDD test run) */
 export function clearBddResultDirs(): void {
@@ -50,15 +50,15 @@ export function clearTddResultDirs(): void {
 
 /** Clears Cucumber HTML report dir before generating new report (output only; json dir is input) */
 export function clearCucumberReportDir(): void {
-  clearDirectory('test-results-bdd/cucumber-html-report');
+  clearDirectory('test-results/test-results-bdd/cucumber-html-report');
 }
 
 /** Clears JUnit report dir before generating new BDD JUnit report */
 export function clearJunitReportDir(): void {
-  clearDirectory('test-results-bdd/junit-report');
+  clearDirectory('test-results/test-results-bdd/junit-report');
 }
 
 /** Clears root test-results-bdd folder (all subdirs: cucumber-json, cucumber-html-report, junit-report) */
 export function clearTestResultsDir(): void {
-  clearDirectory('test-results-bdd');
+  clearDirectory('test-results/test-results-bdd');
 }

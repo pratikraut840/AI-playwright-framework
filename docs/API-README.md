@@ -128,16 +128,16 @@ if (!valid) throw new Error(errors?.join(', '));
 ## CI Integration
 
 1. Run `npm run test:api:junit` in CI.
-2. JUnit XML: `junit-report-api/junit.xml`
-3. Artifacts: `playwright-report-api/` (HTML), `test-results-api/` (raw), `junit-report-api/` (JUnit)
+2. JUnit XML: `test-results/test-results-api/junit-report-api/junit.xml`
+3. Artifacts: `playwright-report/playwright-report-api/` (HTML), `test-results/test-results-api/` (raw + JUnit)
 
 ## Reporting
 
 | Type | Path |
 |------|------|
-| HTML | playwright-report-api/playwright-report-api.html |
-| JUnit XML | junit-report-api/junit.xml |
-| Allure Raw | allure-results-api-raw/ (JSON/XML; input to allure generate) |
+| HTML | playwright-report/playwright-report-api/playwright-report-api.html |
+| JUnit XML | test-results/test-results-api/junit-report-api/junit.xml |
+| Allure Raw | allure-report/results/api-raw/ (JSON/XML; input to allure generate) |
 
 ```bash
 npm run report:api           # Opens JUnit viewer (serves, blocks)

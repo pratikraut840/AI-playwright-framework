@@ -108,7 +108,8 @@ OrangeHRM-project/
 │   ├── screenshots/                    # Failure screenshots
 │   └── videos/                         # Failure video captures
 │
-├── playwright-report-tdd/             # TDD (Playwright) HTML report
+├── playwright-report/                  # Playwright HTML reports
+│   └── playwright-report-tdd/          # TDD (Playwright) HTML report
 │
 ├── convert-cucumber-to-junit.mjs       # Converts Cucumber JSON → JUnit XML
 │

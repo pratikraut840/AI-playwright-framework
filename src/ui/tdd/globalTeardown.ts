@@ -1,14 +1,14 @@
 /**
- * TDD Global Teardown – copies .last-run.json to test-results-bdd;
+ * TDD Global Teardown – copies .last-run.json to test-results/test-results-bdd;
  * converts index.html to playwright-report-tdd.html and removes index.html.
  */
 import * as fs from 'fs';
 import * as path from 'path';
 
-const OUTPUT_DIR = 'test-results-tdd';
-const TARGET_DIR = 'test-results-bdd';
+const OUTPUT_DIR = 'test-results/test-results-tdd';
+const TARGET_DIR = 'test-results/test-results-bdd';
 const LAST_RUN_FILE = '.last-run.json';
-const REPORT_DIR = 'playwright-report-tdd';
+const REPORT_DIR = 'playwright-report/playwright-report-tdd';
 const INDEX_HTML = path.join(REPORT_DIR, 'index.html');
 const TDD_REPORT_HTML = path.join(REPORT_DIR, 'playwright-report-tdd.html');
 
