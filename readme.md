@@ -125,17 +125,21 @@ OrangeHRM-project/
                       └────────────────────────────────────────┘
 
 ===========================================================
-# Playwright OrangeHRM Architecture Design
+# Playwright Framework Architecture Design
 ===========================================================
 
-This framework is built using:
-    Playwright (UI + API automation)
-    Cucumber (BDD implementation)
-    TypeScript
-    POM (Page Object Model)
-    Allure Reporting (BDD, TDD, API)
-    Bitbucket Pipeline Integration
-    Custom Reporting (HTML + JSON + JUnit)
+This hybrid framework is built using:
+
+- **Playwright** — UI automation (OrangeHRM) and API automation (Restful-Booker)
+- **Cucumber** — BDD implementation with Gherkin feature files
+- **TypeScript** — Type-safe implementation
+- **POM (Page Object Model)** — Encapsulated UI interactions in page classes
+- **Allure Reporting** — Unified dashboards for BDD, TDD, and API layers
+- **Custom Reporting** — multiple-cucumber-html-reporter, Cucumber JSON, JUnit XML, xunit-viewer
+<!-- - **CI/CD Ready** — Bitbucket and GitHub Actions compatible (JUnit, Allure artifacts) -->
+- **Custom Hooks & World** — BeforeAll/AfterAll auth, storage state, per-scenario lifecycle
+- **Multi-browser** — Chromium, Firefox, WebKit
+- **Multi-environment** — `.env` per environment (dev, qa, stage)
 
 <!-- Architecture Design -->
 **Hybrid Framework:** Supports BDD (Cucumber), TDD (Playwright UI), and a Dedicated API layer.
