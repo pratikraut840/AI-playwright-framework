@@ -1,8 +1,8 @@
 ===========================================================
-# Playwright OrangeHRM Framework – Project Structure
+# Playwright Hybrid Framework – Project Structure
 ===========================================================
 
-OrangeHRM-project/
+ai-playwright-framework/
 │
 ├── cucumber.mjs                        # Cucumber BDD configuration
 │
@@ -125,7 +125,7 @@ OrangeHRM-project/
                       └────────────────────────────────────────┘
 
 ===========================================================
-# Playwright Framework Architecture Design
+# Framework Architecture Design
 ===========================================================
 
 This hybrid framework is built using:
@@ -185,7 +185,7 @@ I designed a scalable, maintainable and enterprise-ready automation framework us
 5. The result is a highly modular, maintainable, and enterprise-ready automation solution.
 
 ===========================================================
-# How I Designed the Framework
+# How I Designed the Framework?
 ===========================================================
 I designed a scalable Playwright automation framework using Cucumber with a clear separation of concerns.
 
@@ -243,7 +243,7 @@ I designed a scalable Playwright automation framework using Cucumber with a clea
     "The framework is modular, scalable, environment-independent, and supports both UI and API automation. It follows clean architecture principles and supports enterprise-level reporting and CI/CD integration."
 
 ===========================================================
-# Why This Framework Is Strong
+# Why This Framework Is Strong?
 ===========================================================
     Highly modular & maintainable
     Easy to scale for new modules

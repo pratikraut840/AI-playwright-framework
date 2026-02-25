@@ -1,8 +1,10 @@
 {
-  "name": "ai-framework-playwright",
+  "name": "ai-playwright-hybrid-framework",
   "version": "1.0.0",
   "description": "Playwright Hybrid Automation Framework with Cucumber BDD, TDD and API automation (UI + API)",
   "author": "pratik-raut",
+  "email": "pratikraut840@gmail.com",
+  "github": "https://github.com/pratikraut840",
   "license": "ISC",
   "type": "commonjs",
   "scripts": {

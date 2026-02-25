@@ -7,44 +7,44 @@ import { TIMEOUTS } from '../constants/global';
  * Encapsulates UI actions only; no assertions.
  */
 export class LoginPage {
-  constructor(private readonly page: Page) {}
+  public constructor(private readonly page: Page) {}
 
-  async goto(baseUrl: string): Promise<void> {
+  public async goto(baseUrl: string): Promise<void> {
     await this.page.goto(`${baseUrl}/web/index.php/auth/login`, {
       timeout: 90_000,
       waitUntil: 'commit',
     });
   }
 
-  async fillUsername(username: string): Promise<void> {
+  public async fillUsername(username: string): Promise<void> {
     await this.page.locator(LOGIN_SELECTORS.usernameInput).fill(username);
   }
 
-  async fillPassword(password: string): Promise<void> {
+  public async fillPassword(password: string): Promise<void> {
     await this.page.locator(LOGIN_SELECTORS.passwordInput).fill(password);
   }
 
-  async clickLogin(): Promise<void> {
+  public async clickLogin(): Promise<void> {
     await this.page.locator(LOGIN_SELECTORS.loginButton).click({
       timeout: 90_000,
     });
   }
 
-  async login(username: string, password: string): Promise<void> {
+  public async login(username: string, password: string): Promise<void> {
     await this.fillUsername(username);
     await this.fillPassword(password);
     await this.clickLogin();
   }
 
-  async getAlertMessage(): Promise<string> {
+  public async getAlertMessage(): Promise<string> {
     return this.page.locator(LOGIN_SELECTORS.alertMessage).innerText();
   }
 
-  async getUsernameFieldError(): Promise<string> {
+  public async getUsernameFieldError(): Promise<string> {
     return this.page.locator(LOGIN_SELECTORS.fieldErrorMessage).nth(0).innerText();
   }
 
-  async getPasswordFieldError(): Promise<string> {
+  public async getPasswordFieldError(): Promise<string> {
     return this.page.locator(LOGIN_SELECTORS.fieldErrorMessage).nth(1).innerText();
   }
 }

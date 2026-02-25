@@ -6,13 +6,13 @@ import { DASHBOARD_SELECTORS } from '../constants/selectors/login.selectors';
  * Encapsulates UI actions and locators; assertions go in loginAssertions.
  */
 export class DashboardPage {
-  constructor(private readonly page: Page) {}
+  public constructor(private readonly page: Page) {}
 
-  async getHeaderLocator(): Promise<Locator> {
+  public async getHeaderLocator(): Promise<Locator> {
     return this.page.locator(DASHBOARD_SELECTORS.header).first();
   }
 
-  async getDashboardHeadingLocator(): Promise<Locator> {
+  public async getDashboardHeadingLocator(): Promise<Locator> {
     return this.page.locator(DASHBOARD_SELECTORS.dashboardHeading).first();
   }
 }

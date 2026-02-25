@@ -15,7 +15,7 @@ export abstract class BaseAPI {
   protected readonly request: APIRequestContext;
   protected readonly defaultHeaders: Record<string, string>;
 
-  constructor(request: APIRequestContext, config: BaseAPIConfig) {
+  public constructor(request: APIRequestContext, config: BaseAPIConfig) {
     this.request = request;
     this.baseUrl = config.baseUrl.replace(/\/$/, '');
     this.defaultHeaders = config.defaultHeaders ?? {

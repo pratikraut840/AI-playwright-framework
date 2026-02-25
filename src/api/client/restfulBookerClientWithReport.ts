@@ -10,14 +10,14 @@ import { withReportAttach } from '../helpers/responseWithAttach';
 import type { CreateBookingPayload } from '../types/restfulBooker.types';
 
 export class RestfulBookerClientWithReport extends RestfulBookerClient {
-  constructor(
+  public constructor(
     request: APIRequestContext,
     private readonly testInfo: TestInfo
   ) {
     super(request);
   }
 
-  override async createToken(username: string, password: string) {
+  public override async createToken(username: string, password: string) {
     const response = await super.createToken(username, password);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.auth}`,
@@ -27,7 +27,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async getBookingIds() {
+  public override async getBookingIds() {
     const response = await super.getBookingIds();
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.booking}`,
@@ -36,7 +36,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async getBookingById(id: number) {
+  public override async getBookingById(id: number) {
     const response = await super.getBookingById(id);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.bookingById(id)}`,
@@ -45,7 +45,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async createBooking(payload: CreateBookingPayload) {
+  public override async createBooking(payload: CreateBookingPayload) {
     const response = await super.createBooking(payload);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.booking}`,
@@ -55,7 +55,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async updateBooking(id: number, payload: Record<string, unknown>, token: string) {
+  public override async updateBooking(id: number, payload: Record<string, unknown>, token: string) {
     const response = await super.updateBooking(id, payload, token);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.bookingById(id)}`,
@@ -65,7 +65,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async partialUpdateBooking(id: number, payload: Record<string, unknown>, token: string) {
+  public override async partialUpdateBooking(id: number, payload: Record<string, unknown>, token: string) {
     const response = await super.partialUpdateBooking(id, payload, token);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.bookingById(id)}`,
@@ -75,7 +75,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async deleteBooking(id: number, token: string) {
+  public override async deleteBooking(id: number, token: string) {
     const response = await super.deleteBooking(id, token);
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.bookingById(id)}`,
@@ -84,7 +84,7 @@ export class RestfulBookerClientWithReport extends RestfulBookerClient {
     });
   }
 
-  override async ping() {
+  public override async ping() {
     const response = await super.ping();
     return withReportAttach(this.testInfo, response, {
       url: `${API_ENV.baseUrl}${ENDPOINTS.ping}`,

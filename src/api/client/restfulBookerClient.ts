@@ -14,7 +14,7 @@ import type { CreateBookingPayload } from '../types/restfulBooker.types';
 const RETRYABLE_ENDPOINTS = ['/auth', '/booking'];
 
 export class RestfulBookerClient extends BaseAPI {
-  constructor(request: APIRequestContext) {
+  public constructor(request: APIRequestContext) {
     super(request, {
       baseUrl: API_ENV.baseUrl,
       defaultHeaders: {
@@ -28,7 +28,7 @@ export class RestfulBookerClient extends BaseAPI {
     return RETRYABLE_ENDPOINTS.some((e) => path.startsWith(e)) && !API_ENV.useMock;
   }
 
-  async createToken(username: string, password: string) {
+  public async createToken(username: string, password: string) {
     const url = `${API_ENV.baseUrl}${ENDPOINTS.auth}`;
     return withLogging(
       { method: 'POST', url, requestBody: { username, password: '***' }, label: 'Create Token' },
@@ -45,7 +45,7 @@ export class RestfulBookerClient extends BaseAPI {
     );
   }
 
-  async getBookingIds() {
+  public async getBookingIds() {
     const url = `${API_ENV.baseUrl}${ENDPOINTS.booking}`;
     return withLogging(
       { method: 'GET', url, label: 'Get Booking IDs' },
@@ -58,7 +58,7 @@ export class RestfulBookerClient extends BaseAPI {
     );
   }
 
-  async getBookingById(id: number) {
+  public async getBookingById(id: number) {
     const path = ENDPOINTS.bookingById(id);
     const url = `${API_ENV.baseUrl}${path}`;
     return withLogging(
@@ -72,7 +72,7 @@ export class RestfulBookerClient extends BaseAPI {
     );
   }
 
-  async createBooking(payload: CreateBookingPayload) {
+  public async createBooking(payload: CreateBookingPayload) {
     const path = ENDPOINTS.booking;
     const url = `${API_ENV.baseUrl}${path}`;
     return withLogging(
@@ -90,7 +90,7 @@ export class RestfulBookerClient extends BaseAPI {
     );
   }
 
-  async updateBooking(id: number, payload: Record<string, unknown>, token: string) {
+  public async updateBooking(id: number, payload: Record<string, unknown>, token: string) {
     return this.req()
       .path(ENDPOINTS.bookingById(id))
       .method('PUT')
@@ -99,7 +99,7 @@ export class RestfulBookerClient extends BaseAPI {
       .send();
   }
 
-  async partialUpdateBooking(id: number, payload: Record<string, unknown>, token: string) {
+  public async partialUpdateBooking(id: number, payload: Record<string, unknown>, token: string) {
     return this.req()
       .path(ENDPOINTS.bookingById(id))
       .method('PATCH')
@@ -108,7 +108,7 @@ export class RestfulBookerClient extends BaseAPI {
       .send();
   }
 
-  async deleteBooking(id: number, token: string) {
+  public async deleteBooking(id: number, token: string) {
     return this.req()
       .path(ENDPOINTS.bookingById(id))
       .method('DELETE')
@@ -116,7 +116,7 @@ export class RestfulBookerClient extends BaseAPI {
       .send();
   }
 
-  async ping() {
+  public async ping() {
     const path = ENDPOINTS.ping;
     const url = `${API_ENV.baseUrl}${path}`;
     return withLogging(

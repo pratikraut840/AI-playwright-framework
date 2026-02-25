@@ -12,10 +12,10 @@ export interface ValidationResult {
 export class ResponseValidator {
   private errors: string[] = [];
 
-  constructor(private readonly response: APIResponse) {}
+  public constructor(private readonly response: APIResponse) {}
 
   /** Expect specific status code(s). */
-  expectStatus(...codes: number[]): this {
+  public expectStatus(...codes: number[]): this {
     const status = this.response.status();
     if (!codes.includes(status)) {
       this.errors.push(`Expected status ${codes.join(' or ')}, got ${status}`);
@@ -24,7 +24,7 @@ export class ResponseValidator {
   }
 
   /** Expect response to be OK (2xx). */
-  expectOk(): this {
+  public expectOk(): this {
     if (!this.response.ok()) {
       this.errors.push(`Expected ok response, got ${this.response.status()}`);
     }
@@ -32,7 +32,7 @@ export class ResponseValidator {
   }
 
   /** Expect header to contain value. */
-  expectHeader(name: string, expected: string | RegExp): this {
+  public expectHeader(name: string, expected: string | RegExp): this {
     const value = this.response.headers()[name.toLowerCase()] ?? '';
     if (typeof expected === 'string' && !value.includes(expected)) {
       this.errors.push(`Expected header ${name} to contain "${expected}", got "${value}"`);
@@ -43,7 +43,7 @@ export class ResponseValidator {
   }
 
   /** Expect body to have property. */
-  async expectBodyProperty(key: string, type?: 'string' | 'number' | 'object' | 'boolean'): Promise<this> {
+  public async expectBodyProperty(key: string, type?: 'string' | 'number' | 'object' | 'boolean'): Promise<this> {
     const body = (await this.response.json().catch(() => ({}))) as Record<string, unknown>;
     if (!(key in body)) {
       this.errors.push(`Expected body to have property "${key}"`);
@@ -59,7 +59,7 @@ export class ResponseValidator {
   }
 
   /** Validate and return result. */
-  validate(): ValidationResult {
+  public validate(): ValidationResult {
     return {
       valid: this.errors.length === 0,
       errors: [...this.errors],
@@ -67,7 +67,7 @@ export class ResponseValidator {
   }
 
   /** Throw if validation failed. */
-  assert(): void {
+  public assert(): void {
     const result = this.validate();
     if (!result.valid) {
       throw new Error(`Response validation failed:\n${result.errors.join('\n')}`);

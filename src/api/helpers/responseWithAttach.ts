@@ -40,64 +40,64 @@ export async function withReportAttach(
 }
 
 class ResponseWrapper implements APIResponse {
-  constructor(
+  public constructor(
     private readonly raw: APIResponse,
     private readonly cachedJson: unknown,
     private readonly cachedText: string
   ) {}
 
-  ok(): boolean {
+  public ok(): boolean {
     return this.raw.ok();
   }
 
-  status(): number {
+  public status(): number {
     return this.raw.status();
   }
 
-  statusText(): string {
+  public statusText(): string {
     return this.raw.statusText();
   }
 
-  url(): string {
+  public url(): string {
     return this.raw.url();
   }
 
-  headers(): Record<string, string> {
+  public headers(): Record<string, string> {
     return this.raw.headers();
   }
 
-  async body(): Promise<Buffer> {
+  public async body(): Promise<Buffer> {
     return Buffer.from(this.cachedText || (typeof this.cachedJson === 'string' ? this.cachedJson : JSON.stringify(this.cachedJson)));
   }
 
-  async text(): Promise<string> {
+  public async text(): Promise<string> {
     return this.cachedText || (this.cachedJson !== null ? JSON.stringify(this.cachedJson) : '');
   }
 
-  async json(): Promise<unknown> {
+  public async json(): Promise<unknown> {
     return this.cachedJson;
   }
 
-  headerValue(name: string): string | null {
+  public headerValue(name: string): string | null {
     return this.raw.headers()[name.toLowerCase()] ?? null;
   }
 
-  headerValues(name: string): string[] {
+  public headerValues(name: string): string[] {
     const v = this.headerValue(name);
     return v ? [v] : [];
   }
 
-  headersArray(): Array<{ name: string; value: string }> {
+  public headersArray(): Array<{ name: string; value: string }> {
     return Object.entries(this.raw.headers()).map(([name, value]) => ({ name, value }));
   }
 
-  async dispose(): Promise<void> {
+  public async dispose(): Promise<void> {
     if ('dispose' in this.raw && typeof this.raw.dispose === 'function') {
       await (this.raw as { dispose: () => Promise<void> }).dispose();
     }
   }
 
-  [Symbol.asyncDispose](): Promise<void> {
+  public [Symbol.asyncDispose](): Promise<void> {
     return this.dispose();
   }
 }

@@ -8,11 +8,11 @@ import type { Browser, BrowserContext, Page } from '@playwright/test';
  * Instantiated fresh for each scenario by the Cucumber runner.
  */
 export class OrangeHRMWorld extends World {
-  browser!: Browser;
-  context!: BrowserContext;
-  page!: Page;
+  public browser!: Browser;
+  public context!: BrowserContext;
+  public page!: Page;
 
-  constructor(options: IWorldOptions) {
+  public constructor(options: IWorldOptions) {
     super(options);
   }
 }

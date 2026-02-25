@@ -19,7 +19,7 @@ export class RequestBuilder {
   private baseUrl = '';
   private defaultHeaders: Record<string, string> = {};
 
-  constructor(
+  public constructor(
     private readonly request: APIRequestContext,
     baseUrl: string,
     defaultHeaders: Record<string, string>
@@ -28,32 +28,32 @@ export class RequestBuilder {
     this.defaultHeaders = defaultHeaders;
   }
 
-  path(p: string): this {
+  public path(p: string): this {
     this._path = p.startsWith('/') ? p : `/${p}`;
     return this;
   }
 
-  method(method: RequestOptions['method']): this {
+  public method(method: RequestOptions['method']): this {
     this.opts.method = method;
     return this;
   }
 
-  headers(headers: Record<string, string>): this {
+  public headers(headers: Record<string, string>): this {
     this.opts.headers = { ...this.opts.headers, ...headers };
     return this;
   }
 
-  body(data: unknown): this {
+  public body(data: unknown): this {
     this.opts.data = data;
     return this;
   }
 
-  timeout(ms: number): this {
+  public timeout(ms: number): this {
     this.opts.timeout = ms;
     return this;
   }
 
-  skipRetry(): this {
+  public skipRetry(): this {
     this.opts.skipRetry = true;
     return this;
   }
@@ -63,7 +63,7 @@ export class RequestBuilder {
   }
 
   /** Execute the built request. */
-  async send() {
+  public async send() {
     const url = `${this.baseUrl}${this._path}`;
     const headers = this.mergeHeaders();
     const method = this.opts.method ?? 'GET';
