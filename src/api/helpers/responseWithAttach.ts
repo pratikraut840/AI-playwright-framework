@@ -78,15 +78,26 @@ class ResponseWrapper implements APIResponse {
     return this.cachedJson;
   }
 
-  async headerValue(name: string): Promise<string | null> {
-    return this.raw.headerValue(name);
+  headerValue(name: string): string | null {
+    return this.raw.headers()[name.toLowerCase()] ?? null;
   }
 
-  async headerValues(name: string): Promise<string[]> {
-    return this.raw.headerValues(name);
+  headerValues(name: string): string[] {
+    const v = this.headerValue(name);
+    return v ? [v] : [];
   }
 
-  async headersArray(): Promise<Array<{ name: string; value: string }>> {
-    return this.raw.headersArray();
+  headersArray(): Array<{ name: string; value: string }> {
+    return Object.entries(this.raw.headers()).map(([name, value]) => ({ name, value }));
+  }
+
+  async dispose(): Promise<void> {
+    if ('dispose' in this.raw && typeof this.raw.dispose === 'function') {
+      await (this.raw as { dispose: () => Promise<void> }).dispose();
+    }
+  }
+
+  [Symbol.asyncDispose](): Promise<void> {
+    return this.dispose();
   }
 }

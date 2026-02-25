@@ -8,7 +8,7 @@ import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..', '..', '..');
+const ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const REPORT_DIR = path.join(ROOT, 'playwright-report-tdd');
 const INDEX_HTML = path.join(REPORT_DIR, 'index.html');
 const TDD_REPORT_HTML = path.join(REPORT_DIR, 'playwright-report-tdd.html');

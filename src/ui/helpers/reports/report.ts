@@ -30,7 +30,7 @@ function preserveAllureHistory(): void {
       const historyDst = path.join(dir, 'history');
       fs.mkdirSync(dir, { recursive: true });
       try {
-        if (fs.existsSync(historyDst)) fs.rmSync(historyDst, { recursive: true });
+        if (fs.existsSync(historyDst)) {fs.rmSync(historyDst, { recursive: true });}
         fs.cpSync(historySrc, historyDst, { recursive: true });
       } catch {
         // Ignore copy errors (e.g. dir in use)
@@ -64,11 +64,11 @@ function runAllureServe(): void {
 
 function hasValidCucumberJson(): boolean {
   const jsonDir = path.resolve(CUCUMBER_JSON_DIR);
-  if (!fs.existsSync(jsonDir)) return false;
+  if (!fs.existsSync(jsonDir)) {return false;}
   const files = fs.readdirSync(jsonDir).filter((f) => f.endsWith('.json'));
-  if (files.length === 0) return false;
+  if (files.length === 0) {return false;}
   const mainFile = path.join(jsonDir, 'cucumber-report-bdd.json');
-  if (!fs.existsSync(mainFile)) return false;
+  if (!fs.existsSync(mainFile)) {return false;}
   try {
     const raw = fs.readFileSync(mainFile, 'utf-8').trim();
     const data = JSON.parse(raw || '[]');
@@ -143,7 +143,7 @@ function preserveAllureApiHistory(): void {
     fs.mkdirSync(ALLURE_RESULTS_API, { recursive: true });
     const historyDst = path.join(ALLURE_RESULTS_API, 'history');
     try {
-      if (fs.existsSync(historyDst)) fs.rmSync(historyDst, { recursive: true });
+      if (fs.existsSync(historyDst)) {fs.rmSync(historyDst, { recursive: true });}
       fs.cpSync(historySrc, historyDst, { recursive: true });
     } catch {
       // Ignore

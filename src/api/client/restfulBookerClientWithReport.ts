@@ -2,7 +2,7 @@
  * RestfulBookerClient wrapper that auto-attaches request/response to Playwright HTML report.
  * All API calls are automatically recorded in the report for every spec.
  */
-import type { TestInfo } from '@playwright/test';
+import type { APIRequestContext, TestInfo } from '@playwright/test';
 import { RestfulBookerClient } from './restfulBookerClient';
 import { API_ENV } from '../config/apiEnv';
 import { ENDPOINTS } from '../constants/endpoints';
@@ -11,7 +11,7 @@ import type { CreateBookingPayload } from '../types/restfulBooker.types';
 
 export class RestfulBookerClientWithReport extends RestfulBookerClient {
   constructor(
-    request: Parameters<typeof RestfulBookerClient>[0],
+    request: APIRequestContext,
     private readonly testInfo: TestInfo
   ) {
     super(request);

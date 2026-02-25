@@ -3,39 +3,35 @@ node_modules
 /node_modules
 
 # Test results & reports (do not commit)
-/test-results-bdd
 test-results-bdd/
-/test-results-tdd
 test-results-tdd/
-/allure-results
-/allure-results-bdd
-/allure-results-tdd
-allure-results-bdd
-allure-results-tdd
-/allure-report
-allure-report/
+test-results-api/
 test-output.txt
 
-# Playwright
-/playwright-report-tdd/
-playwright-report-tdd/
-/test-results-api
-test-results-api/
-/playwright-report-api/
-playwright-report-api/
-/junit-report-api/
-junit-report-api/
-/allure-results-api-raw
+# Allure
+allure-results/
+allure-results-bdd/
+allure-results-tdd/
 allure-results-api-raw/
-/allure-report-api
+allure-report/
 allure-report-api/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+
+# Playwright
+playwright-report-tdd/
+playwright-report-api/
+junit-report-api/
+playwright/.cache/
+playwright/.auth/
+blob-report/
 *.trace
 
+# Auth & session state (contains cookies; regenerate via globalSetup)
+src/ui/helpers/setupLogin/auth/admin-user.json
+
+# Teardown artifact
+.last-run.json
+
 # IDE & OS
-/.vscode
 .vscode/
 .idea/
 *.suo
@@ -53,15 +49,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Optional: local env overrides (uncomment if you don't commit real .env)
-# src/ui/helpers/env/.env
-# src/ui/helpers/env/.env.local
-# **/.env.local
-
-# API layer: do not commit .env (copy from .env.example)
+# Environment (copy from .env.example; do not commit secrets)
 src/api/env/.env
+src/ui/helpers/env/.env
 
-# Build / coverage (if added later)
+# Build / coverage
 /dist
 /build
 /coverage
@@ -71,3 +63,9 @@ src/api/env/.env
 **/*.test.ts
 .env.local
 .env.*.local
+
+# Excel lock files (Windows)
+~$*
+
+# Cursor IDE (optional)
+.cursor/

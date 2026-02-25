@@ -44,6 +44,6 @@ export async function withLogging<T>(
 
 /** Log response body (call after response is consumed). */
 export function logResponse(context: LogContext, response: APIResponse, body: unknown): void {
-  if (!ENABLED) return;
+  if (!ENABLED) {return;}
   console.log(`[API] Response body for ${context.label ?? context.url}:`, body);
 }

@@ -110,9 +110,9 @@ function getEnvironmentProps(layer: AllureLayer): Record<string, string> {
     'Allure.Version': pkg.allure,
   };
 
-  if (git.branch) base['Git.Branch'] = git.branch;
-  if (git.commit) base['Git.Commit'] = git.commit;
-  if (git.repo) base['Git.Repository'] = git.repo;
+  if (git.branch) {base['Git.Branch'] = git.branch;}
+  if (git.commit) {base['Git.Commit'] = git.commit;}
+  if (git.repo) {base['Git.Repository'] = git.repo;}
 
   if (layer === 'api') {
     base['API.Base.URL'] = process.env.RESTFUL_BOOKER_BASE_URL ?? 'https://restful-booker.herokuapp.com';
@@ -177,13 +177,13 @@ function writeExecutor(resultsDir: string, layer: AllureLayer): void {
     jobName,
   };
 
-  if (process.env.BUILD_URL) executor.buildUrl = process.env.BUILD_URL;
+  if (process.env.BUILD_URL) {executor.buildUrl = process.env.BUILD_URL;}
   else if (process.env.GITHUB_REPOSITORY && process.env.GITHUB_RUN_ID) {
     executor.buildUrl = `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
   } else if (process.env.GITLAB_CI && process.env.CI_PIPELINE_URL) {
     executor.buildUrl = process.env.CI_PIPELINE_URL;
   }
-  if (process.env.REPORT_URL) executor.reportUrl = process.env.REPORT_URL;
+  if (process.env.REPORT_URL) {executor.reportUrl = process.env.REPORT_URL;}
 
   const cleaned = Object.fromEntries(
     Object.entries(executor).filter(([, v]) => v !== undefined && v !== '')
