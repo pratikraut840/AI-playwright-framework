@@ -17,7 +17,6 @@ import { OrangeHRMWorld } from './orangeHRMWorld';
 import { launchBrowser } from '../browsers/browserSetup';
 import { LoginPage } from '../../pages/LoginPage';
 import { ENV } from '../env/env';
-import { clearBddResultDirs } from '../reports/clearReportDirs';
 
 // Load environment-specific .env file first, then fall back to base .env
 const ENV_NAME = process.env.NODE_ENV ?? 'dev';
@@ -49,7 +48,7 @@ Before(async function () {
 //    (cookies + localStorage) to disk so admin scenarios can reuse it.
 
 BeforeAll(async function (this: { parameters: Record<string, unknown> }) {
-  clearBddResultDirs();
+  // BDD dirs are cleared by run-bdd-tests.mjs before cucumber starts (clearing here would delete formatter output)
   const headless = process.env.HEADLESS !== 'false';
   sharedBrowser = await launchBrowser({ headless });
 
